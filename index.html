@@ -422,14 +422,14 @@
     (function(){
         var CONFIG = {
             version:      'v6-beta',
-            vence:        '2026-10-31',                 // AAAA-MM-DD
-            urlFeedback:  'mailto:TU-MAIL@ejemplo.com?subject=Feedback%20herramienta%20fundacion%20excentrica%20v6-beta'
+            vence:        '2026-12-31',                 // AAAA-MM-DD
+            urlFeedback:  'mailto:dgomes@docentes.frgp.utn.edu.ar?subject=Feedback%20herramienta%20fundacion%20excentrica%20v6-beta'
         };
 
         var CODIGOS = {
-            '0f1a000e': 'Alumnos - Cimentaciones UTN FRGP',   // CIMIENTOS26
-            '19581575': 'Colegas y docentes',                 // COLEGAS26
-            '1d83f7ba': 'Autor'                               // LG-ADMIN
+            '2c48957d': 'Alumnos - Cimentaciones UTN FRGP',   // CIM3NT4CION3S_2026
+            'c01fe9ef': 'Colegas y docentes',                 // COLEGA$_2026
+            '703f6599': 'Autor'                               // LG-ADMIN_2026
         };
 
         function h(s){
@@ -447,27 +447,39 @@
             return Math.ceil((f-new Date())/86400000);
         }
 
+        function vencida(){
+            document.getElementById('gate').style.display='';
+            document.getElementById('app').style.display='none';
+            document.getElementById('fbBtn').style.display='none';
+            var m=document.getElementById('gMsg');
+            m.className='msg err';
+            m.innerHTML='Esta versión beta venció el '+CONFIG.vence+'.<br>Escribime para recibir la versión actualizada.';
+            document.getElementById('gCode').disabled=true;
+            document.getElementById('gAck').disabled=true;
+            var b=document.getElementById('gBtn');
+            b.disabled=true;b.textContent='Acceso vencido';
+        }
+
         function abrir(etiqueta){
             var d=diasRestantes();
+            if(d<=0){vencida();return;}
             document.getElementById('gate').style.display='none';
             document.getElementById('app').style.display='';
             var fb=document.getElementById('fbBtn');
             fb.style.display='';
             fb.onclick=function(){window.open(CONFIG.urlFeedback,'_blank');};
 
-            var estado = d>0
-                ? 'Beta vigente hasta el '+CONFIG.vence+' ('+d+' días)'
-                : 'Beta vencida el '+CONFIG.vence+'. Pedí la versión actualizada antes de seguir usándola.';
             document.getElementById('betaBar').innerHTML =
-                '<span><strong>'+CONFIG.version+'</strong> - '+estado+'</span>'+
+                '<span><strong>'+CONFIG.version+'</strong> - Beta vigente hasta el '+CONFIG.vence+' ('+d+' días)</span>'+
                 '<span class="who">Habilitado para: '+etiqueta+'</span>';
-            if(d<=0)document.getElementById('betaBar').style.background='#fee2e2',
-                    document.getElementById('betaBar').style.borderColor='#fca5a5';
+            if(d<=15)document.getElementById('betaBar').style.background='#fee2e2',
+                     document.getElementById('betaBar').style.borderColor='#fca5a5';
             if(typeof window.R==='function')window.R();
         }
 
         function intentar(){
             var msg=document.getElementById('gMsg');
+            if(diasRestantes()<=0){vencida();return;}
             if(!document.getElementById('gAck').checked){
                 msg.className='msg err';msg.textContent='Tenés que aceptar las condiciones de uso.';return;
             }
@@ -482,8 +494,12 @@
         document.getElementById('gBtn').addEventListener('click',intentar);
         document.getElementById('gCode').addEventListener('keydown',function(e){if(e.key==='Enter')intentar();});
 
-        var previo=store('ec7_acceso');
-        if(previo&&CODIGOS_tiene(previo)){abrir(previo);}
+        if(diasRestantes()<=0){
+            vencida();
+        }else{
+            var previo=store('ec7_acceso');
+            if(previo&&CODIGOS_tiene(previo)){abrir(previo);}
+        }
         function CODIGOS_tiene(v){for(var k in CODIGOS){if(CODIGOS[k]===v)return true;}return false;}
     })();
     </script>
