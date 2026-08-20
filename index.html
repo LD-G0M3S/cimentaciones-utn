@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <title>Diseño Interactivo de Fundación con Carga Excéntrica - UTN FRGP</title>
+    <meta name="author" content="Ing. Gomes Leandro Daniel">
+    <meta name="copyright" content="© 2025 Ing. Gomes Leandro Daniel - UTN FRGP">
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f3f4f6;padding:20px;line-height:1.5}.container{max-width:1400px;margin:0 auto}.header{background:linear-gradient(135deg,#1e40af,#1e3a8a);color:#fff;padding:24px;border-radius:12px 12px 0 0}.header h1{font-size:1.4em;margin-bottom:4px}.header .subtitle{color:#93c5fd;font-size:.95em;font-weight:500}.header .institution{color:#bfdbfe;font-size:.85em;margin-top:4px}.header .author{color:#fde047;font-size:.8em;margin-top:8px;font-style:italic}.datos-problema{background:#dbeafe;border-left:4px solid #3b82f6;padding:16px}.datos-problema h2{color:#1e40af;font-size:1em;margin-bottom:12px}.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}.input-group{display:flex;flex-direction:column}.input-group label{font-size:.85em;color:#374151;margin-bottom:4px}.input-group input{padding:10px 14px;border:2px solid #93c5fd;border-radius:6px;font-size:1.1em;font-weight:700;color:#1e3a8a;width:100%}.input-group input:focus{outline:0;border-color:#2563eb;background:#eff6ff}.input-group .unit{font-size:.8em;color:#6b7280;margin-top:2px}.content{background:#fff;padding:24px;border-radius:0 0 12px 12px;box-shadow:0 4px 6px rgba(0,0,0,.1)}.tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}.tab{padding:12px 20px;border:none;background:#e5e7eb;color:#374151;cursor:pointer;border-radius:8px 8px 0 0;font-size:.95em;font-weight:500;transition:all .2s}.tab:hover{background:#d1d5db}.tab.active{background:#2563eb;color:#fff}.tab-content{display:none}.tab-content.active{display:block}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}.grid-3-1{display:grid;grid-template-columns:2fr 1fr;gap:24px}@media (max-width:1000px){.grid-2,.grid-3-1{grid-template-columns:1fr}}.card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin-bottom:16px}.card h4{color:#374151;border-bottom:2px solid #e5e7eb;padding-bottom:8px;margin-bottom:12px;font-size:1.05em}.card-green{background:#ecfdf5;border-color:#a7f3d0}.card-green h4{color:#065f46;border-color:#a7f3d0}.card-blue{background:#eff6ff;border-color:#bfdbfe}.card-blue h4{color:#1e40af;border-color:#bfdbfe}.card-yellow{background:#fefce8;border-color:#fde047}.card-yellow h4{color:#a16207;border-color:#fde047}.card-purple{background:#faf5ff;border-color:#d8b4fe}.card-purple h4{color:#7c3aed;border-color:#d8b4fe}.result-ok{background:#dcfce7;border:2px solid #22c55e}.result-fail{background:#fee2e2;border:2px solid #ef4444}.formula{background:#fff;border:1px solid #d1d5db;padding:10px 14px;border-radius:6px;font-family:'Courier New',monospace;margin:10px 0;text-align:center;font-size:1.05em}.formula-big{font-size:1.3em;padding:14px 18px}.slider-group{margin-bottom:16px}.slider-group label{display:block;font-size:.9em;color:#4b5563;margin-bottom:6px;font-weight:500}.slider-group input[type=range]{width:100%;height:8px}.slider-value{font-weight:700;color:#2563eb;font-size:1.2em}table{width:100%;border-collapse:collapse;font-size:.95em}table td{padding:8px 10px;border-bottom:1px solid #e5e7eb}table td:last-child{font-weight:700;text-align:right}.text-green{color:#16a34a}.text-red{color:#dc2626}.text-blue{color:#2563eb}.text-purple{color:#7c3aed}.big-result{font-size:1.4em;text-align:center;padding:14px;margin-top:14px;border-radius:8px;font-weight:700}.svg-container{background:#fff;border:2px solid #e5e7eb;border-radius:10px;padding:15px;margin:12px 0;text-align:center;overflow:visible}.svg-container svg{max-width:100%;height:auto;display:block;margin:0 auto}.svg-title{font-weight:600;color:#374151;margin-bottom:12px;font-size:1.05em}.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:16px 0}.flow-box{background:#fff;border:1px solid #d1d5db;padding:10px 14px;border-radius:6px;text-align:center;font-size:.9em}.flow-arrow{font-size:1.5em;color:#9ca3af}.note{font-size:.9em;color:#6b7280;margin-top:10px}ul{padding-left:20px}li{margin-bottom:6px}.highlight-box{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border:2px solid #a855f7;border-radius:10px;padding:20px;margin:16px 0}.highlight-box h4{color:#7c3aed;margin-bottom:12px}.graficos-col{display:flex;flex-direction:column;gap:12px}.dim-panel{background:#f0f9ff;border:2px solid #0ea5e9;border-radius:10px;padding:16px}.dim-panel h4{color:#0369a1;margin-bottom:12px;font-size:1em}.footer{text-align:center;font-size:.85em;color:#6b7280;margin-top:16px;padding:16px;background:#f9fafb;border-radius:8px}.footer .author-main{color:#1e40af;font-weight:700;font-size:1em}
+/* ===== Acceso beta ===== */
+#gate{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1e3a8a,#0f172a);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+#gate .box{background:#fff;border-radius:14px;max-width:460px;width:100%;padding:32px 28px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+#gate .eyebrow{display:inline-block;background:#fde047;color:#713f12;font-size:.7em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:14px}
+#gate h2{color:#1e3a8a;font-size:1.35em;line-height:1.25;margin-bottom:6px}
+#gate .sub{color:#64748b;font-size:.9em;margin-bottom:20px}
+#gate label.f{display:block;font-size:.85em;color:#374151;font-weight:600;margin-bottom:6px}
+#gate input[type=text]{width:100%;padding:12px 14px;border:2px solid #cbd5e1;border-radius:8px;font-size:1.05em;font-weight:700;color:#1e3a8a;letter-spacing:.06em;text-transform:uppercase}
+#gate input[type=text]:focus{outline:0;border-color:#2563eb;background:#eff6ff}
+#gate .terms{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin:16px 0;font-size:.82em;color:#475569;line-height:1.45}
+#gate .terms ul{padding-left:18px;margin-top:6px}
+#gate .terms li{margin-bottom:4px}
+#gate .ack{display:flex;align-items:flex-start;gap:9px;font-size:.85em;color:#334155;margin-bottom:16px;cursor:pointer}
+#gate .ack input{margin-top:3px;width:16px;height:16px;flex-shrink:0}
+#gate button{width:100%;padding:13px;border:0;border-radius:8px;background:#2563eb;color:#fff;font-size:1em;font-weight:700;cursor:pointer;transition:background .15s}
+#gate button:hover{background:#1d4ed8}
+#gate button:disabled{background:#cbd5e1;cursor:not-allowed}
+#gate button:focus-visible,#gate input:focus-visible{outline:3px solid #fde047;outline-offset:2px}
+#gate .msg{min-height:20px;font-size:.85em;font-weight:600;margin-top:12px;text-align:center}
+#gate .msg.err{color:#dc2626}
+#gate .foot{margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:.82em;color:#64748b;line-height:1.5}
+#gate .foot a{color:#2563eb;font-weight:600}
+#gate .sig{margin-top:10px;font-size:.78em;color:#94a3b8}
+/* ===== Distintivos beta ===== */
+.beta-bar{background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:.85em;color:#78350f;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between}
+.beta-bar strong{color:#92400e}
+.beta-bar .who{font-weight:700}
+#fbBtn{position:fixed;right:18px;bottom:18px;z-index:500;background:#7c3aed;color:#fff;border:0;border-radius:24px;padding:11px 18px;font-size:.88em;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.22)}
+#fbBtn:hover{background:#6d28d9}
+@media print{#fbBtn{display:none}}
+
+    </style>
+</head>
+<body>
+    <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gTit">
+        <div class="box">
+            <span class="eyebrow">Versión beta - acceso restringido</span>
+            <h2 id="gTit">Fundación con carga excéntrica</h2>
+            <div class="sub">Herramienta interactiva de cálculo. Cátedra de Cimentaciones, UTN FRGP.</div>
+
+            <label class="f" for="gCode">Código de acceso</label>
+            <input type="text" id="gCode" autocomplete="off" spellcheck="false" placeholder="Ingresá tu código">
+
+            <div class="terms">
+                <strong>Condiciones de uso de la beta</strong>
+                <ul>
+                    <li>Uso académico. No reemplaza el criterio ni la responsabilidad profesional.</li>
+                    <li>Versión en revisión: los resultados deben verificarse antes de aplicarlos a un proyecto real.</li>
+                    <li>El acceso es personal. No redistribuir el archivo ni el código.</li>
+                </ul>
+            </div>
+
+            <label class="ack" for="gAck"><input type="checkbox" id="gAck"><span>Leí y acepto las condiciones de uso</span></label>
+
+            <button id="gBtn" type="button">Entrar</button>
+            <div class="msg" id="gMsg" role="status" aria-live="polite"></div>
+
+            <div class="foot">
+                Si todavía no tenés código, pedilo por LinkedIn a <strong>Ing. Leandro Daniel Gomes</strong> y te lo envío.
+                <div class="sig">&copy; 2025-2026 Ing. Gomes Leandro Daniel - UTN FRGP</div>
+            </div>
+        </div>
+    </div>
+
+    <button id="fbBtn" type="button" style="display:none">Reportar un error</button>
+
+    <div class="container" id="app" style="display:none">
+        <div class="beta-bar" id="betaBar"></div>
+        <div class="header">
+            <h1>Diseño Interactivo de Fundación con Carga Excéntrica</h1>
+            <div class="subtitle">Cimentaciones - Ingeniería Civil</div>
+            <div class="institution">UTN - FRGP (Universidad Tecnológica Nacional - Facultad Regional General Pacheco)</div>
+            <div class="author">Desarrollado por Ing. Gomes Leandro Daniel</div>
+        </div>
+        
+        <div class="datos-problema">
+            <h2>📊 Datos del Problema (editables)</h2>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>N<sub>d</sub> - Carga permanente</label>
+                    <input type="number" id="iNd" value="1300" step="50" oninput="R()">
+                    <span class="unit">kN</span>
+                </div>
+                <div class="input-group">
+                    <label>N<sub>l</sub> - Carga variable</label>
+                    <input type="number" id="iNl" value="550" step="50" oninput="R()">
+                    <span class="unit">kN</span>
+                </div>
+                <div class="input-group">
+                    <label>M - Momento</label>
+                    <input type="number" id="iM" value="1200" step="50" oninput="R()">
+                    <span class="unit">kN·m</span>
+                </div>
+                <div class="input-group">
+                    <label>σ<sub>adm</sub> - Tensión admisible</label>
+                    <input type="number" id="iSa" value="220" step="10" oninput="R()">
+                    <span class="unit">kPa</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="tabs">
+                <button class="tab active" onclick="T('concepto',this)">1. Concepto</button>
+                <button class="tab" onclick="T('sls',this)">2. Verif. Geotécnica (SLS)</button>
+                <button class="tab" onclick="T('uls',this)">3. Diseño Estructural (ULS)</button>
+                <button class="tab" onclick="T('resumen',this)">4. Resumen</button>
+            </div>
+            
+            <div id="concepto" class="tab-content active">
+                <h3 style="margin-bottom:16px;font-size:1.2em">La Discrepancia LRFD/ASD en Fundaciones</h3>
+                <div class="card card-yellow"><h4>⚠️ El Problema Central</h4><p>El hormigón armado se diseña con <strong>LRFD</strong> (cargas mayoradas según CIRSOC 101), pero el suelo se verifica con <strong>ASD</strong> (tensiones admisibles). ¿Cómo compatibilizar ambos en la misma zapata?</p></div>
+                <div class="grid-2">
+                    <div class="card card-green"><h4>Etapa 1: Verificación Geotécnica (SLS)</h4><ul><li>Cargas de <strong>servicio</strong> (sin mayorar)</li><li>Verificar: σ<sub>máx</sub> ≤ σ<sub>adm</sub></li><li>Factor de seguridad global ≈ 3 (implícito en σ<sub>adm</sub>)</li><li><em>Método tradicional ASD</em></li></ul></div>
+                    <div class="card card-blue"><h4>Etapa 2: Diseño Estructural (ULS)</h4><ul><li>Cargas <strong>mayoradas</strong> según CIRSOC 101-2005</li><li>γ<sub>D</sub> = 1.2 (permanentes) &nbsp; γ<sub>L</sub> = 1.6 (variables)</li><li>Presión de suelo "ficticia" mayorada q<sub>Ed</sub></li><li>Diseño de armadura según CIRSOC 201</li></ul></div>
+                </div>
+                <div class="card"><h4>🔑 Concepto Clave: Área Efectiva (Meyerhof)</h4><p>Cuando hay excentricidad, se reduce el área de la zapata a un <strong>área efectiva A'</strong> centrada en el punto de aplicación de la carga. La zona del lado <strong>opuesto</strong> a la excentricidad se ignora:</p><div class="formula formula-big">B' = B - 2·e &nbsp;&nbsp;&nbsp;&nbsp; A' = B' × L</div><p class="note">La zona rayada (ignorada) tiene ancho <strong>2e</strong> y está del lado opuesto a donde actúa V. El área efectiva queda centrada en la resultante V.</p></div>
+                <div class="svg-container"><div class="svg-title">Concepto de Área Efectiva (Meyerhof) - Vista en Planta</div><div id="svgC"></div></div>
+            </div>
+            
+            <div id="sls" class="tab-content">
+                <h3 style="margin-bottom:16px;font-size:1.2em">Verificación Geotécnica (Estado Límite de Servicio)</h3>
+                <div class="grid-3-1">
+                    <div class="graficos-col">
+                        <div class="svg-container"><div class="svg-title">Vista en Planta - Posición de la Carga</div><div id="svgP"></div></div>
+                        <div class="svg-container"><div class="svg-title">Distribución de Presiones - Vista Lateral (Corte)</div><div id="svgS"></div></div>
+                    </div>
+                    <div>
+                        <div class="dim-panel"><h4>📐 Dimensiones de la Zapata</h4>
+                            <div class="slider-group"><label>B (ancho) [m]</label><input type="range" id="sB" min="1" max="12" step="0.1" value="3.5" oninput="R()"><span class="slider-value" id="vB">3.50 m</span></div>
+                            <div class="slider-group"><label>L (largo) [m]</label><input type="range" id="sL" min="1" max="12" step="0.1" value="3.5" oninput="R()"><span class="slider-value" id="vL">3.50 m</span></div>
+                            <div class="slider-group"><label>h (altura) [m]</label><input type="range" id="sH" min="0.3" max="5" step="0.05" value="0.8" oninput="R()"><span class="slider-value" id="vH">0.80 m</span></div>
+                        </div>
+                        <div id="cP"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="uls" class="tab-content">
+                <h3 style="margin-bottom:16px;font-size:1.2em">Diseño Estructural (Estado Límite Último) - CIRSOC 101/201</h3>
+                <div class="card card-yellow"><h4>⚠️ Concepto Fundamental</h4><p>La "presión mayorada" q<sub>Ed</sub> es una <strong>ficción matemática</strong> necesaria para el diseño del hormigón armado. El suelo nunca experimentará esta presión - es solo un artificio para compatibilizar el método LRFD del hormigón con el ASD del suelo.</p></div>
+                <div class="grid-3-1">
+                    <div class="graficos-col">
+                        <div class="svg-container"><div class="svg-title">Área Efectiva (ULS) - Vista en Planta</div><div id="svgA"></div></div>
+                        <div class="svg-container"><div class="svg-title">Esquema de Corte - Presión q<sub>Ed</sub> sobre la Base</div><div id="svgQ"></div></div>
+                    </div>
+                    <div>
+                        <div id="cU"></div>
+                        <div class="highlight-box"><h4>📐 Presión de Diseño q<sub>Ed</sub></h4><div id="dQ"></div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="resumen" class="tab-content">
+                <h3 style="margin-bottom:16px;font-size:1.2em">Resumen de Verificaciones</h3>
+                <div class="grid-2" id="rC"></div>
+                <div class="card"><h4>Flujo de Verificación - Metodología Híbrida</h4><div class="flow"><div class="flow-box">Cargas características<br><small>N<sub>d</sub>, N<sub>l</sub>, M</small></div><span class="flow-arrow">→</span><div class="flow-box" style="background:#dcfce7;border-color:#22c55e"><strong>SLS</strong><br>σ<sub>máx</sub> ≤ σ<sub>adm</sub></div><span class="flow-arrow">→</span><div class="flow-box" style="background:#dbeafe;border-color:#3b82f6">Mayorar CIRSOC 101<br><small>γ<sub>D</sub>=1.2, γ<sub>L</sub>=1.6</small></div><span class="flow-arrow">→</span><div class="flow-box" style="background:#f3e8ff;border-color:#a855f7"><strong>ULS</strong><br>q<sub>Ed</sub> ficticia</div><span class="flow-arrow">→</span><div class="flow-box" style="background:#ffedd5;border-color:#f97316">Diseño H°A°<br><small>CIRSOC 201</small></div></div></div>
+                <div class="card card-yellow" id="nF"></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="author-main">Ing. Gomes Leandro Daniel</div>
+            <div>Cátedra de Cimentaciones - UTN FRGP</div>
+            <div style="margin-top:8px;font-size:.8em">Metodología basada en CIRSOC 101-2005, CIRSOC 201-2005 y conceptos de EN 1997-1 (Eurocode 7) Anexo D</div>
+            <div style="margin-top:4px;font-size:.75em;color:#9ca3af">© 2025 - Uso educativo</div>
+        </div>
+    </div>
+    
+    <script>
+    (function(){
+        const _c={gC:25,gD:1.2,gL:1.6};
+        function _g(i){return parseFloat(document.getElementById(i).value)||0;}
+        function _e(i){return document.getElementById(i);}
+        
+        window.T=function(t,el){
+            document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+            _e(t).classList.add('active');
+            var _b=el||(window.event&&window.event.target);
+            if(_b&&_b.classList)_b.classList.add('active');
+            R();
+        };
+        
+        window.R=function(){
+            const Nd=_g('iNd'),Nl=_g('iNl'),M=_g('iM'),sa=_g('iSa'),B=_g('sB'),L=_g('sL'),h=_g('sH');
+            _e('vB').textContent=B.toFixed(2)+' m';
+            _e('vL').textContent=L.toFixed(2)+' m';
+            _e('vH').textContent=h.toFixed(2)+' m';
+            
+            // SLS
+            const Wk=B*L*h*_c.gC,Vk=Nd+Nl+Wk,ek=Vk>0?M/Vk:0,t6=B/6,eT=ek<=t6;
+            let sM,sm,aC;
+            if(Vk<=0){sM=0;sm=0;aC=B;}
+            else if(eT){sM=(Vk/(B*L))*(1+6*ek/B);sm=(Vk/(B*L))*(1-6*ek/B);aC=B;}
+            else{aC=3*(B/2-ek);if(aC>0){sM=(2*Vk)/(aC*L);sm=0;}else{sM=Infinity;sm=0;aC=0;}}
+            const vG=sM<=sa&&sM!==Infinity,rG=sM!==Infinity?(sM/sa*100).toFixed(0):'∞';
+            
+            // ULS
+            const Vd=_c.gD*(Nd+Wk)+_c.gL*Nl,Md=_c.gD*M,ed=Vd>0?Md/Vd:0,Bf=Math.max(0,B-2*ed),Af=Bf*L;
+            const t6D=B/6,eTD=ed<=t6D;
+            let qM,qm,aCD;
+            if(Vd<=0){qM=0;qm=0;aCD=B;}
+            else if(eTD){qM=(Vd/(B*L))*(1+6*ed/B);qm=(Vd/(B*L))*(1-6*ed/B);aCD=B;}
+            else{aCD=3*(B/2-ed);if(aCD>0){qM=(2*Vd)/(aCD*L);qm=0;}else{qM=Infinity;qm=0;aCD=0;}}
+            
+            // Escala adaptativa
+            const maxDim=Math.max(B,L);
+            const baseScale=Math.max(30,Math.min(70,300/maxDim));
+            
+            // SVG Concepto
+            const cE=0.5,cB=4,sW=580,sH=260,scC=90,zCW=cB*scC,zCH=140,sCX=(sW-zCW)/2,sCY=55,iW=2*cE*scC;
+            _e('svgC').innerHTML=`<svg width="${sW}" height="${sH}" viewBox="0 0 ${sW} ${sH}"><defs><pattern id="hC" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M-2,2 l4,-4 M0,10 l10,-10 M8,12 l4,-4" stroke="#64748b" stroke-width="1.5"/></pattern></defs><rect x="${sCX}" y="${sCY}" width="${iW}" height="${zCH}" fill="url(#hC)" stroke="#475569" stroke-width="2"/><rect x="${sCX+iW}" y="${sCY}" width="${zCW-iW}" height="${zCH}" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="3"/><rect x="${sCX}" y="${sCY}" width="${zCW}" height="${zCH}" fill="none" stroke="#334155" stroke-width="2"/><circle cx="${sCX+zCW/2}" cy="${sCY+zCH/2}" r="7" fill="#374151"/><text x="${sCX+zCW/2}" y="${sCY+zCH/2-15}" text-anchor="middle" font-size="14" fill="#374151" font-weight="bold">CG</text><circle cx="${sCX+zCW/2+cE*scC}" cy="${sCY+zCH/2}" r="9" fill="#dc2626"/><text x="${sCX+zCW/2+cE*scC}" y="${sCY+zCH/2+28}" text-anchor="middle" font-size="14" fill="#dc2626" font-weight="bold">V</text><line x1="${sCX+zCW/2}" y1="${sCY+zCH/2}" x2="${sCX+zCW/2+cE*scC}" y2="${sCY+zCH/2}" stroke="#059669" stroke-width="3"/><text x="${sCX+zCW/2+cE*scC/2}" y="${sCY+zCH/2-10}" text-anchor="middle" font-size="14" fill="#059669" font-weight="bold">e</text><line x1="${sCX}" y1="${sCY+zCH+25}" x2="${sCX+zCW}" y2="${sCY+zCH+25}" stroke="#333" stroke-width="2"/><text x="${sCX+zCW/2}" y="${sCY+zCH+45}" text-anchor="middle" font-size="14" font-weight="bold">B</text><line x1="${sCX+iW}" y1="${sCY-15}" x2="${sCX+zCW}" y2="${sCY-15}" stroke="#1d4ed8" stroke-width="3"/><text x="${sCX+iW+(zCW-iW)/2}" y="${sCY-25}" text-anchor="middle" font-size="14" fill="#1d4ed8" font-weight="bold">B' = B - 2e</text><line x1="${sCX}" y1="${sCY-15}" x2="${sCX+iW}" y2="${sCY-15}" stroke="#64748b" stroke-width="2"/><text x="${sCX+iW/2}" y="${sCY-25}" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">2e</text><rect x="${sW-135}" y="8" width="16" height="16" fill="url(#hC)" stroke="#475569"/><text x="${sW-115}" y="20" font-size="11">Zona ignorada</text><rect x="${sW-135}" y="28" width="16" height="16" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="2"/><text x="${sW-115}" y="40" font-size="11">Área efectiva A'</text></svg>`;
+            
+            // Calculos SLS
+            _e('cP').innerHTML=`<div class="card"><h4>Cálculo (SLS)</h4><table><tr><td>W<sub>k</sub></td><td>${Wk.toFixed(1)} kN</td></tr><tr><td>V<sub>k</sub></td><td><strong>${Vk.toFixed(1)} kN</strong></td></tr><tr><td>e = M/V<sub>k</sub></td><td><strong>${ek.toFixed(3)} m</strong></td></tr><tr><td>B/6</td><td>${t6.toFixed(3)} m</td></tr><tr><td>¿e ≤ B/6?</td><td class="${eT?'text-green':'text-red'}">${eT?'✓ Sí':'✗ No'}</td></tr><tr><td>σ<sub>máx</sub></td><td class="${vG?'text-green':'text-red'}"><strong>${sM===Infinity?'∞':sM.toFixed(1)} kPa</strong></td></tr><tr><td>σ<sub>mín</sub></td><td>${sm.toFixed(1)} kPa</td></tr></table><div class="big-result ${vG?'result-ok':'result-fail'}">${vG?'✓ VERIFICA':'✗ NO VERIFICA'} (${rG}%)</div></div>`;
+            
+            // SVG Planta SLS - CORREGIDO
+            const sPW=500,sPH=320;
+            const scP=Math.min((sPW-100)/B,(sPH-100)/L,70);
+            const zPW=B*scP,zPH=L*scP;
+            const sXP=(sPW-zPW)/2,sYP=50;
+            const xCG=sXP+zPW/2;
+            const ekPx=Math.min(ek*scP,zPW/2-15);
+            const xV=xCG+ekPx;
+            
+            _e('svgP').innerHTML=`<svg width="${sPW}" height="${sPH}" viewBox="0 0 ${sPW} ${sPH}">
+                <rect x="${sXP}" y="${sYP}" width="${zPW}" height="${zPH}" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                <circle cx="${xCG}" cy="${sYP+zPH/2}" r="7" fill="#374151"/>
+                <text x="${xCG}" y="${sYP+zPH/2-14}" text-anchor="middle" font-size="13" fill="#374151" font-weight="bold">CG</text>
+                <circle cx="${xV}" cy="${sYP+zPH/2}" r="9" fill="#dc2626"/>
+                <text x="${xV}" y="${sYP+zPH/2+28}" text-anchor="middle" font-size="13" fill="#dc2626" font-weight="bold">Vk</text>
+                <line x1="${xCG}" y1="${sYP+zPH/2}" x2="${xV}" y2="${sYP+zPH/2}" stroke="#059669" stroke-width="3"/>
+                <text x="${(xCG+xV)/2}" y="${sYP+zPH/2-10}" text-anchor="middle" font-size="13" fill="#059669" font-weight="bold">e = ${ek.toFixed(3)} m</text>
+                <line x1="${sXP}" y1="${sYP+zPH+25}" x2="${sXP+zPW}" y2="${sYP+zPH+25}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXP}" y1="${sYP+zPH+18}" x2="${sXP}" y2="${sYP+zPH+32}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXP+zPW}" y1="${sYP+zPH+18}" x2="${sXP+zPW}" y2="${sYP+zPH+32}" stroke="#333" stroke-width="1.5"/>
+                <text x="${sXP+zPW/2}" y="${sYP+zPH+48}" text-anchor="middle" font-size="14" font-weight="bold">B = ${B.toFixed(2)} m</text>
+                <line x1="${sXP-25}" y1="${sYP}" x2="${sXP-25}" y2="${sYP+zPH}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXP-32}" y1="${sYP}" x2="${sXP-18}" y2="${sYP}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXP-32}" y1="${sYP+zPH}" x2="${sXP-18}" y2="${sYP+zPH}" stroke="#333" stroke-width="1.5"/>
+                <text x="${sXP-40}" y="${sYP+zPH/2+5}" text-anchor="middle" font-size="14" font-weight="bold" transform="rotate(-90 ${sXP-40} ${sYP+zPH/2})">L = ${L.toFixed(2)} m</text>
+            </svg>`;
+            
+            // SVG Presiones SLS
+            const sSW=500,sSH=400;
+            const mS={t:55,r:75,b:55,l:60};
+            const pSW=sSW-mS.l-mS.r,pSH=sSH-mS.t-mS.b;
+            const mxP=Math.max(sM===Infinity?sa*1.5:sM*1.2,sa*1.2,100);
+            const scY=pSH/mxP,scX=pSW/B;
+            const zY=mS.t,zH=22,bY=zY+zH;
+            
+            let pP;
+            if(eT&&Vk>0){
+                pP=`${mS.l},${bY} ${mS.l},${bY+sm*scY} ${mS.l+pSW},${bY+sM*scY} ${mS.l+pSW},${bY}`;
+            }else if(!eT&&aC>0){
+                const xS=mS.l+pSW-aC*scX;
+                pP=`${Math.max(mS.l,xS)},${bY} ${mS.l+pSW},${bY+Math.min(sM,mxP)*scY} ${mS.l+pSW},${bY}`;
+            }else{
+                pP=`${mS.l},${bY} ${mS.l+pSW},${bY}`;
+            }
+            
+            const xCGp=mS.l+pSW/2;
+            const xVp=Math.min(mS.l+(B/2+ek)*scX,mS.l+pSW-5);
+            const yAd=bY+sa*scY;
+            const yTicks=[0,50,100,150,200,250,300,400,500,600,800,1000,1200,1500].filter(v=>v<=mxP&&v>0).map(v=>`<line x1="${mS.l}" y1="${bY+v*scY}" x2="${mS.l+pSW}" y2="${bY+v*scY}" stroke="#e5e7eb"/><text x="${mS.l-8}" y="${bY+v*scY+4}" font-size="10" fill="#6b7280" text-anchor="end">${v}</text>`).join('');
+            
+            _e('svgS').innerHTML=`<svg width="${sSW}" height="${sSH}" viewBox="0 0 ${sSW} ${sSH}">
+                <defs><linearGradient id="pgD" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0.6"/></linearGradient></defs>
+                <line x1="${mS.l}" y1="${bY}" x2="${mS.l}" y2="${bY+pSH}" stroke="#333" stroke-width="1.5"/>
+                <text x="${mS.l-8}" y="${mS.t-12}" font-size="12" fill="#333" font-weight="500">σ (kPa)</text>
+                <polygon points="${mS.l-4},${bY+pSH} ${mS.l+4},${bY+pSH} ${mS.l},${bY+pSH+10}" fill="#333"/>
+                ${yTicks}
+                <line x1="${mS.l}" y1="${yAd}" x2="${mS.l+pSW}" y2="${yAd}" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="8,4"/>
+                <text x="${mS.l+pSW+8}" y="${yAd+5}" font-size="11" fill="#dc2626" font-weight="bold">σadm=${sa}</text>
+                <rect x="${mS.l}" y="${zY}" width="${pSW}" height="${zH}" fill="#64748b" stroke="#334155" stroke-width="2"/>
+                <text x="${mS.l+pSW/2}" y="${zY+16}" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">ZAPATA</text>
+                <polygon points="${pP}" fill="url(#pgD)" stroke="#2563eb" stroke-width="2.5"/>
+                <line x1="${xCGp}" y1="${zY+zH}" x2="${xCGp}" y2="${zY+zH+25}" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <circle cx="${xCGp}" cy="${zY+zH+30}" r="5" fill="#374151"/>
+                <text x="${xCGp}" y="${zY+zH+45}" font-size="10" fill="#374151" text-anchor="middle" font-weight="bold">CG</text>
+                <line x1="${xVp}" y1="${zY-25}" x2="${xVp}" y2="${zY}" stroke="#dc2626" stroke-width="3"/>
+                <polygon points="${xVp-6},${zY} ${xVp+6},${zY} ${xVp},${zY+8}" fill="#dc2626"/>
+                <text x="${xVp}" y="${zY-30}" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="bold">V</text>
+                <line x1="${xCGp}" y1="${zY-15}" x2="${xVp}" y2="${zY-15}" stroke="#059669" stroke-width="2"/>
+                <text x="${(xCGp+xVp)/2}" y="${zY-20}" font-size="11" fill="#059669" text-anchor="middle" font-weight="bold">e</text>
+                <text x="${mS.l+8}" y="${bY+Math.max(sm*scY,15)+16}" font-size="11" fill="#2563eb" font-weight="bold">σmin=${sm.toFixed(0)}</text>
+                <text x="${mS.l+pSW-8}" y="${bY+Math.min((sM===Infinity?mxP:sM)*scY,pSH-10)+16}" text-anchor="end" font-size="11" fill="#2563eb" font-weight="bold">σmax=${sM===Infinity?'∞':sM.toFixed(0)}</text>
+                <line x1="${mS.l}" y1="${sSH-22}" x2="${mS.l+pSW}" y2="${sSH-22}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${mS.l}" y1="${sSH-29}" x2="${mS.l}" y2="${sSH-15}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${mS.l+pSW}" y1="${sSH-29}" x2="${mS.l+pSW}" y2="${sSH-15}" stroke="#333" stroke-width="1.5"/>
+                <text x="${mS.l+pSW/2}" y="${sSH-5}" text-anchor="middle" font-size="14" font-weight="bold">B = ${B.toFixed(2)} m</text>
+            </svg>`;
+            
+            // ULS Calculos
+            _e('cU').innerHTML=`<div class="card card-blue"><h4>Cargas de Diseño (CIRSOC 101-2005)</h4><table><tr><td>Factores:</td><td>γ<sub>D</sub>=1.2, γ<sub>L</sub>=1.6</td></tr><tr><td>V<sub>d</sub></td><td><strong>${Vd.toFixed(1)} kN</strong></td></tr><tr><td>M<sub>d</sub></td><td><strong>${Md.toFixed(1)} kN·m</strong></td></tr><tr><td>e<sub>d</sub></td><td><strong>${ed.toFixed(3)} m</strong></td></tr></table></div><div class="card"><h4>Área Efectiva (Meyerhof)</h4><div class="formula">B' = ${B.toFixed(2)} - 2×${ed.toFixed(3)} = <strong>${Bf.toFixed(3)} m</strong></div><div class="formula">A' = ${Bf.toFixed(3)} × ${L.toFixed(2)} = <strong>${Af.toFixed(2)} m²</strong></div></div>`;
+            
+            const dT=eTD?'TRAPEZOIDAL':(aCD>0?'TRIANGULAR':'VUELCO');
+            _e('dQ').innerHTML=`<p><strong>q<sub>Ed</sub></strong> se obtiene con cargas mayoradas:</p><div class="formula">q<sub>Ed</sub> = (V<sub>d</sub>/A) × (1 ± 6·e<sub>d</sub>/B)</div><table><tr><td>Distribución:</td><td class="text-purple"><strong>${dT}</strong></td></tr><tr><td>q<sub>Ed,máx</sub>:</td><td class="text-purple" style="font-size:1.3em"><strong>${qM===Infinity?'∞':qM.toFixed(1)} kPa</strong></td></tr><tr><td>q<sub>Ed,mín</sub>:</td><td>${qm.toFixed(1)} kPa</td></tr></table><p class="note" style="text-align:center"><strong>Usar para diseño CIRSOC 201</strong></p>`;
+            
+            // SVG Área Efectiva ULS - CORREGIDO
+            const sUW=500,sUH=320;
+            const scU=Math.min((sUW-100)/B,(sUH-100)/L,70);
+            const zUW=B*scU,zUH=L*scU;
+            const sXU=(sUW-zUW)/2,sYU=55;
+            const iUW=Math.min(2*ed*scU,zUW*0.9);
+            const eUW=zUW-iUW;
+            const edPx=Math.min(ed*scU,zUW/2-15);
+            const xVdU=sXU+zUW/2+edPx;
+            
+            _e('svgA').innerHTML=`<svg width="${sUW}" height="${sUH}" viewBox="0 0 ${sUW} ${sUH}">
+                <defs><pattern id="hU" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M-2,2 l4,-4 M0,10 l10,-10 M8,12 l4,-4" stroke="#64748b" stroke-width="1.5"/></pattern></defs>
+                <rect x="${sXU}" y="${sYU}" width="${iUW}" height="${zUH}" fill="url(#hU)" stroke="#475569" stroke-width="2"/>
+                <rect x="${sXU+iUW}" y="${sYU}" width="${eUW}" height="${zUH}" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="3"/>
+                <rect x="${sXU}" y="${sYU}" width="${zUW}" height="${zUH}" fill="none" stroke="#334155" stroke-width="2"/>
+                <circle cx="${sXU+zUW/2}" cy="${sYU+zUH/2}" r="6" fill="#374151"/>
+                <text x="${sXU+zUW/2}" y="${sYU+zUH/2-12}" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">CG</text>
+                <circle cx="${xVdU}" cy="${sYU+zUH/2}" r="8" fill="#dc2626"/>
+                <text x="${xVdU}" y="${sYU+zUH/2+25}" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="bold">Vd</text>
+                <line x1="${sXU+zUW/2}" y1="${sYU+zUH/2}" x2="${xVdU}" y2="${sYU+zUH/2}" stroke="#059669" stroke-width="3"/>
+                <text x="${(sXU+zUW/2+xVdU)/2}" y="${sYU+zUH/2-10}" text-anchor="middle" font-size="12" fill="#059669" font-weight="bold">ed=${ed.toFixed(3)}m</text>
+                <line x1="${sXU}" y1="${sYU+zUH+22}" x2="${sXU+zUW}" y2="${sYU+zUH+22}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXU}" y1="${sYU+zUH+15}" x2="${sXU}" y2="${sYU+zUH+29}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXU+zUW}" y1="${sYU+zUH+15}" x2="${sXU+zUW}" y2="${sYU+zUH+29}" stroke="#333" stroke-width="1.5"/>
+                <text x="${sXU+zUW/2}" y="${sYU+zUH+45}" text-anchor="middle" font-size="14" font-weight="bold">B = ${B.toFixed(2)} m</text>
+                <line x1="${sXU+iUW}" y1="${sYU-15}" x2="${sXU+zUW}" y2="${sYU-15}" stroke="#1d4ed8" stroke-width="2.5"/>
+                <line x1="${sXU+iUW}" y1="${sYU-22}" x2="${sXU+iUW}" y2="${sYU-8}" stroke="#1d4ed8" stroke-width="2"/>
+                <line x1="${sXU+zUW}" y1="${sYU-22}" x2="${sXU+zUW}" y2="${sYU-8}" stroke="#1d4ed8" stroke-width="2"/>
+                <text x="${sXU+iUW+eUW/2}" y="${sYU-25}" text-anchor="middle" font-size="13" fill="#1d4ed8" font-weight="bold">B' = ${Bf.toFixed(2)} m</text>
+                <line x1="${sXU-25}" y1="${sYU}" x2="${sXU-25}" y2="${sYU+zUH}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXU-32}" y1="${sYU}" x2="${sXU-18}" y2="${sYU}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXU-32}" y1="${sYU+zUH}" x2="${sXU-18}" y2="${sYU+zUH}" stroke="#333" stroke-width="1.5"/>
+                <text x="${sXU-40}" y="${sYU+zUH/2+5}" text-anchor="middle" font-size="13" font-weight="bold" transform="rotate(-90 ${sXU-40} ${sYU+zUH/2})">L = ${L.toFixed(2)} m</text>
+                <rect x="${sUW-120}" y="8" width="14" height="14" fill="url(#hU)" stroke="#475569"/>
+                <text x="${sUW-102}" y="19" font-size="10">Zona ignorada</text>
+                <rect x="${sUW-120}" y="26" width="14" height="14" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="2"/>
+                <text x="${sUW-102}" y="37" font-size="10">Área efectiva</text>
+            </svg>`;
+            
+            // SVG Corte qEd - CORREGIDO
+            const sQW=500,mxQ=Math.max(qM===Infinity?400:qM*1.2,200);
+            const pQH=Math.min(200,Math.max(100,mxQ*0.2));
+            const scQY=pQH/mxQ;
+            const sQH=pQH+130;
+            const zQY=50,zQH=25,bQY=zQY+zQH;
+            const scQX=Math.min((sQW-100)/B,70);
+            const zQW=B*scQX;
+            const sXQ=(sQW-zQW)/2;
+            
+            let qP;
+            if(eTD&&Vd>0){
+                qP=`${sXQ},${bQY} ${sXQ},${bQY+qm*scQY} ${sXQ+zQW},${bQY+qM*scQY} ${sXQ+zQW},${bQY}`;
+            }else if(!eTD&&aCD>0){
+                const xSQ=sXQ+zQW-aCD*scQX;
+                qP=`${Math.max(sXQ,xSQ)},${bQY} ${sXQ+zQW},${bQY+Math.min(qM,mxQ)*scQY} ${sXQ+zQW},${bQY}`;
+            }else{
+                qP=`${sXQ},${bQY} ${sXQ+zQW},${bQY}`;
+            }
+            
+            const arrows=Array.from({length:9},(_,i)=>{
+                const xR=i/8,x=sXQ+zQW*xR;
+                let qX;
+                if(eTD){qX=qm+(qM-qm)*xR;}
+                else if(aCD>0){const xSR=1-aCD/B;qX=xR>=xSR?qM*(xR-xSR)/(1-xSR):0;}
+                else{qX=0;}
+                const aL=Math.max(8,qX*scQY*0.5);
+                return qX>5?`<line x1="${x}" y1="${bQY+aL+8}" x2="${x}" y2="${bQY+4}" stroke="#7c3aed" stroke-width="2" marker-end="url(#aQ)"/>`:'';
+            }).join('');
+            
+            _e('svgQ').innerHTML=`<svg width="${sQW}" height="${sQH}" viewBox="0 0 ${sQW} ${sQH}">
+                <defs>
+                    <linearGradient id="qgD" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#a855f7" stop-opacity="0.25"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0.65"/></linearGradient>
+                    <marker id="aQ" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#7c3aed"/></marker>
+                </defs>
+                <text x="${sQW/2}" y="18" text-anchor="middle" font-size="12" fill="#374151">Sección de Corte - Presión qEd</text>
+                <rect x="${sQW-155}" y="28" width="145" height="18" fill="#f3e8ff" stroke="#a855f7" rx="4"/>
+                <text x="${sQW-82}" y="41" text-anchor="middle" font-size="10" fill="#7c3aed" font-weight="bold">Distribución: ${dT}</text>
+                <rect x="${sXQ}" y="${zQY}" width="${zQW}" height="${zQH}" fill="#64748b" stroke="#334155" stroke-width="2"/>
+                <text x="${sXQ+zQW/2}" y="${zQY+17}" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">ZAPATA (h=${h.toFixed(2)}m)</text>
+                <polygon points="${qP}" fill="url(#qgD)" stroke="#7c3aed" stroke-width="2.5"/>
+                ${arrows}
+                <text x="${sXQ+8}" y="${bQY+Math.max(qm*scQY,10)+18}" font-size="10" fill="#7c3aed" font-weight="bold">qmin=${qm.toFixed(0)}</text>
+                <text x="${sXQ+zQW-8}" y="${bQY+Math.min((qM===Infinity?mxQ:qM)*scQY,pQH-5)+18}" text-anchor="end" font-size="10" fill="#7c3aed" font-weight="bold">qmax=${qM===Infinity?'∞':qM.toFixed(0)}</text>
+                <line x1="${sXQ}" y1="${sQH-22}" x2="${sXQ+zQW}" y2="${sQH-22}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXQ}" y1="${sQH-29}" x2="${sXQ}" y2="${sQH-15}" stroke="#333" stroke-width="1.5"/>
+                <line x1="${sXQ+zQW}" y1="${sQH-29}" x2="${sXQ+zQW}" y2="${sQH-15}" stroke="#333" stroke-width="1.5"/>
+                <text x="${sXQ+zQW/2}" y="${sQH-5}" text-anchor="middle" font-size="14" font-weight="bold">B = ${B.toFixed(2)} m</text>
+            </svg>`;
+            
+            // Resumen
+            _e('rC').innerHTML=`<div class="card ${vG?'result-ok':'result-fail'}"><h4>Verificación Geotécnica (SLS)</h4><table><tr><td>Cargas:</td><td>Nd=${Nd}, Nl=${Nl}, M=${M}</td></tr><tr><td>Dimensiones:</td><td>${B.toFixed(2)}×${L.toFixed(2)}×${h.toFixed(2)} m</td></tr><tr><td>Vk:</td><td>${Vk.toFixed(1)} kN</td></tr><tr><td>e:</td><td>${ek.toFixed(3)} m</td></tr><tr><td>σmax:</td><td>${sM===Infinity?'∞':sM.toFixed(1)} kPa</td></tr><tr><td>σadm:</td><td>${sa} kPa</td></tr><tr><td>Utilización:</td><td class="${vG?'text-green':'text-red'}" style="font-size:1.3em">${rG}%</td></tr></table><div class="big-result" style="background:transparent">${vG?'✓ VERIFICA':'✗ NO VERIFICA'}</div></div><div class="card card-blue"><h4>Diseño Estructural (ULS)</h4><table><tr><td>Vd:</td><td>${Vd.toFixed(1)} kN</td></tr><tr><td>Md:</td><td>${Md.toFixed(1)} kN·m</td></tr><tr><td>ed:</td><td>${ed.toFixed(3)} m</td></tr><tr><td>B':</td><td>${Bf.toFixed(3)} m</td></tr><tr><td>A':</td><td>${Af.toFixed(2)} m²</td></tr><tr><td>qEd:</td><td class="text-purple" style="font-size:1.3em">${qM===Infinity?'∞':qM.toFixed(1)} kPa</td></tr></table></div>`;
+            
+            _e('nF').innerHTML=`<h4>📌 Recordatorio Final</h4><p>La presión <strong>qEd=${qM===Infinity?'∞':qM.toFixed(1)} kPa</strong> es <strong>ficticia</strong>. El suelo <strong>nunca</strong> la experimentará - la verificación SLS (σmax=${sM===Infinity?'∞':sM.toFixed(1)} kPa ${vG?'≤':'>'} σadm=${sa} kPa) cubre la seguridad geotécnica.</p><p style="margin-top:10px"><strong>Factores CIRSOC 101-2005:</strong> γD=1.2, γL=1.6</p>`;
+        };
+        R();
+    })();
+    </script>
+
+    <script>
+    /* =======================================================================
+       CONTROL DE ACCESO BETA
+       -----------------------------------------------------------------------
+       Esto es una barrera de fricción, no un mecanismo de seguridad: quien
+       abra el código fuente puede saltearla. Sirve para ordenar la
+       distribución y dejar constancia de las condiciones de uso.
+
+       PARA CAMBIAR O AGREGAR CÓDIGOS:
+       abrí la consola del navegador (F12) y ejecutá  hashCodigo('MINUEVOCODIGO')
+       Copiá el valor devuelto y agregalo abajo en CODIGOS.
+       ===================================================================== */
+    (function(){
+        var CONFIG = {
+            version:      'v6-beta',
+            vence:        '2026-10-31',                 // AAAA-MM-DD
+            urlFeedback:  'mailto:TU-MAIL@ejemplo.com?subject=Feedback%20herramienta%20fundacion%20excentrica%20v6-beta'
+        };
+
+        var CODIGOS = {
+            '0f1a000e': 'Alumnos - Cimentaciones UTN FRGP',   // CIMIENTOS26
+            '19581575': 'Colegas y docentes',                 // COLEGAS26
+            '1d83f7ba': 'Autor'                               // LG-ADMIN
+        };
+
+        function h(s){
+            s=(s||'').toUpperCase().replace(/\s+/g,'');
+            var x=0x811c9dc5;
+            for(var i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,0x01000193)>>>0;}
+            return ('0000000'+x.toString(16)).slice(-8);
+        }
+        window.hashCodigo=h;
+
+        function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+
+        function diasRestantes(){
+            var f=new Date(CONFIG.vence+'T23:59:59');
+            return Math.ceil((f-new Date())/86400000);
+        }
+
+        function abrir(etiqueta){
+            var d=diasRestantes();
+            document.getElementById('gate').style.display='none';
+            document.getElementById('app').style.display='';
+            var fb=document.getElementById('fbBtn');
+            fb.style.display='';
+            fb.onclick=function(){window.open(CONFIG.urlFeedback,'_blank');};
+
+            var estado = d>0
+                ? 'Beta vigente hasta el '+CONFIG.vence+' ('+d+' días)'
+                : 'Beta vencida el '+CONFIG.vence+'. Pedí la versión actualizada antes de seguir usándola.';
+            document.getElementById('betaBar').innerHTML =
+                '<span><strong>'+CONFIG.version+'</strong> - '+estado+'</span>'+
+                '<span class="who">Habilitado para: '+etiqueta+'</span>';
+            if(d<=0)document.getElementById('betaBar').style.background='#fee2e2',
+                    document.getElementById('betaBar').style.borderColor='#fca5a5';
+            if(typeof window.R==='function')window.R();
+        }
+
+        function intentar(){
+            var msg=document.getElementById('gMsg');
+            if(!document.getElementById('gAck').checked){
+                msg.className='msg err';msg.textContent='Tenés que aceptar las condiciones de uso.';return;
+            }
+            var etiqueta=CODIGOS[h(document.getElementById('gCode').value)];
+            if(!etiqueta){
+                msg.className='msg err';msg.textContent='Código inválido. Revisalo o pedilo de nuevo por LinkedIn.';return;
+            }
+            store('ec7_acceso',etiqueta);
+            abrir(etiqueta);
+        }
+
+        document.getElementById('gBtn').addEventListener('click',intentar);
+        document.getElementById('gCode').addEventListener('keydown',function(e){if(e.key==='Enter')intentar();});
+
+        var previo=store('ec7_acceso');
+        if(previo&&CODIGOS_tiene(previo)){abrir(previo);}
+        function CODIGOS_tiene(v){for(var k in CODIGOS){if(CODIGOS[k]===v)return true;}return false;}
+    })();
+    </script>
+</body>
+</html>
