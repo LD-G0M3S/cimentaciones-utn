@@ -2,7 +2,6 @@
 
 Herramientas interactivas de cálculo para la cátedra de Cimentaciones - UTN FRGP
 (Universidad Tecnológica Nacional, Facultad Regional General Pacheco).
-
 Aplicaciones web pensadas para hacer visible conceptos que en el pizarrón quedan en una
 fórmula: se modifican los datos y las verificaciones se recalculan en tiempo real, con los
 diagramas asociados.
@@ -10,43 +9,45 @@ diagramas asociados.
 ## Estado del proyecto
 
 Versión beta - acceso restringido.
-Las herramientas están en revisión y su uso requiere un código de acceso.
+La v8 está en desarrollo activo y se publica por etapas: los módulos de envolvente,
+dimensionamiento y resumen están implementados de forma parcial. Su uso requiere un código
+de acceso.
 
 ## Herramientas disponibles
 
-### Fundación con carga excéntrica
+### Fundación con carga excéntrica (`index.html`)
 
-Zapata sometida a carga normal y momento, resuelta en paralelo por las tres verificaciones
-que conviven sobre la misma pieza:
+Zapata aislada bajo carga normal, momento y fuerza horizontal, resuelta en los **dos planos
+normativos** que conviven sobre la misma pieza:
 
-* **Suelo en servicio (ASD, práctica argentina):** cargas sin mayorar, presión bruta,
-  excentricidad y control de despegue, tensión máxima contra tensión admisible.
-* **Suelo en estados últimos (formato AASHTO LRFD):** cargas mayoradas, demanda uniforme
-  sobre el área efectiva de Meyerhof, resistencia afectada por un factor φ_b.
-* **Hormigón en estados últimos (CIRSOC 201-2005):** cargas mayoradas, presión neta de
-  diseño para dimensionar armadura, corte y punzonado.
+* **Plano de asiento, en servicio (art. 15.2.2):** cargas sin mayorar, presión bruta
+  incluyendo peso propio y tapada, excentricidad, control de despegue y tensión máxima
+  contra σadm.
+* **Plano estructural, en estados últimos (art. 9.2.1 y 15.2.1):** combinaciones (9-1) a
+  (9-6), presión neta de diseño y envolvente de solicitaciones para dimensionar.
 
-Una pestaña de comparación contrasta las dos primeras sobre la misma zapata: utilizaciones,
-B mínimo requerido por cada rama y el factor de seguridad global implícito. Ahí se ve si
-las dos filosofías conducen o no a la misma fundación, y bajo qué condiciones se cruzan.
+Las acciones se ingresan por tipo (D, L, W) en el plano elegido y se trasladan al plano de
+asiento con una regla única, M_base = M + H·z. Incluye predimensionado de B y L con criterio
+de forma y restricción de excentricidad, vista en planta con núcleo central, diagrama de
+presiones brutas de servicio y superposición de las presiones últimas.
 
-El objetivo didáctico es doble: que la presión mayorada del hormigón es un artificio de
-cálculo y no una presión que el suelo llegue a experimentar; y que la diferencia entre
-criterios no es de equilibrio sino de formato de seguridad, coeficiente global en un caso,
-factores parciales en el otro.
+El objetivo didáctico es mostrar que cada plano usa cargas distintas y presiones distintas,
+y que mezclarlos es el error más frecuente: la presión mayorada del hormigón es un artificio
+de cálculo y no una presión que el suelo llegue a experimentar.
 
-Base normativa: CIRSOC 101-2005, CIRSOC 201-2005, EN 1997-1 (Eurocódigo 7) y AASHTO LRFD
-Bridge Design Specifications.
+Alcance: no se implementan las combinaciones sísmicas (9-5) y (9-7), la fracción de momento 
+transferida por corte excéntrico γ_v, ni el reemplazo de 1,6·W por 1,3·W del art. 9.2.1 a).
+
+Base normativa: CIRSOC 101-2005 y CIRSOC 201-2005.
+En estudio para versiones futuras: la comparación con formatos de factores parciales
+(EN 1997-1, AASHTO LRFD).
 
 ## Cómo obtener acceso
 
 El acceso está abierto a estudiantes de Ingeniería Civil, docentes y profesionales que
 quieran probar las herramientas y aportar correcciones.
 
-1. Completá el formulario de solicitud: https://forms.cloud.microsoft/r/btB8pZr6sC?origin=lprLink
-2. Al enviarlo recibís el enlace y el código de acceso.
-
-También podés escribirme por LinkedIn: www.linkedin.com/in/leandro-daniel-gomes-58989272
+Escribirme por LinkedIn: [www.linkedin.com/in/leandro-daniel-gomes-58989272](https://www.linkedin.com/in/leandro-daniel-gomes-58989272)
 
 ## Reporte de errores
 
