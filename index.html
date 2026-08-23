@@ -39,6 +39,24 @@
 #fbBtn{position:fixed;right:18px;bottom:18px;z-index:500;background:#7c3aed;color:#fff;border:0;border-radius:24px;padding:11px 18px;font-size:.88em;font-weight:700;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.22)}
 #fbBtn:hover{background:#6d28d9}
 @media print{#fbBtn{display:none}}
+/* ===== Agregados v8, sobre la paleta existente ===== */
+.acc-grid{display:grid;grid-template-columns:70px repeat(3,1fr);gap:8px 12px;align-items:end}
+.acc-grid .hd{font-size:.8em;color:#1e40af;font-weight:700;text-align:center;padding-bottom:2px}
+.acc-grid .rw{font-size:.9em;color:#374151;font-weight:700;padding-bottom:10px}
+.acc-grid input{padding:8px 10px;border:2px solid #93c5fd;border-radius:6px;font-size:1em;font-weight:700;color:#1e3a8a;width:100%}
+.acc-grid input:focus{outline:0;border-color:#2563eb;background:#eff6ff}
+.opt-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:14px;font-size:.88em;color:#374151}
+.opt-row select,.opt-row input[type=number]{padding:7px 10px;border:2px solid #93c5fd;border-radius:6px;font-weight:700;color:#1e3a8a;background:#fff}
+.opt-row label{font-weight:600}
+.leg{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-size:.84em;margin-top:8px}
+.leg span{display:inline-flex;align-items:center;gap:5px}
+.leg i{width:16px;height:4px;border-radius:2px;display:inline-block}
+.chk-row{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.85em;margin-bottom:8px}
+.chk-row label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.dom{opacity:.62}
+.dom td:first-child::after{content:' (dominada)';font-size:.85em;color:#6b7280;font-weight:400}
+.ref{font-size:.8em;color:#6b7280;font-style:italic}
+.pend{background:#fff7ed;border:2px dashed #fb923c;border-radius:10px;padding:20px;text-align:center;color:#9a3412}
     </style>
 </head>
 <body>
@@ -73,7 +91,6 @@
     </div>
 
     <button id="fbBtn" type="button" style="display:none">Reportar un error</button>
-
     <div class="container" id="app" style="display:none">
         <div class="beta-bar" id="betaBar"></div>
         <div class="header">
@@ -84,744 +101,1066 @@
         </div>
 
         <div class="datos-problema">
-            <h2>📊 Datos del Problema (editables)</h2>
-            <div class="input-grid">
-                <div class="input-group">
-                    <label>N<sub>D</sub> - Carga permanente (columna)</label>
-                    <input type="number" id="iNd" value="1300" step="50" oninput="R()">
-                    <span class="unit">kN</span>
-                </div>
-                <div class="input-group">
-                    <label>N<sub>L</sub> - Sobrecarga (columna)</label>
-                    <input type="number" id="iNl" value="550" step="50" oninput="R()">
-                    <span class="unit">kN</span>
-                </div>
-                <div class="input-group">
-                    <label>M<sub>W</sub> - Momento de viento (servicio)</label>
-                    <input type="number" id="iMw" value="1200" step="50" oninput="R()">
-                    <span class="unit">kN·m</span>
-                </div>
-                <div class="input-group">
-                    <label>σ<sub>adm</sub> - Tensión admisible bruta</label>
-                    <input type="number" id="iSa" value="220" step="10" oninput="R()">
-                    <span class="unit">kPa</span>
-                </div>
-                <div class="input-group">
-                    <label>α - Peso zapata + tapada</label>
-                    <input type="number" id="iAl" value="20" step="5" min="0" max="50" oninput="R()">
-                    <span class="unit">% de (N<sub>D</sub> + N<sub>L</sub>)</span>
-                </div>
-                <div class="input-group">
-                    <label>FS - Factor de seguridad del estudio</label>
-                    <input type="number" id="iFS" value="3.0" step="0.5" min="2" max="4" oninput="R()">
-                    <span class="unit">usado para retro-calcular q<sub>ult</sub> = FS · σ<sub>adm</sub></span>
-                </div>
-                <div class="input-group">
-                    <label>φ<sub>b</sub> - Factor de resistencia (AASHTO)</label>
-                    <input type="number" id="iPhi" value="0.45" step="0.05" min="0.40" max="0.60" oninput="R()">
-                    <span class="unit">depende del método y del suelo: ver tabla en pestaña 4</span>
-                </div>
+            <h2>Acciones de la columna, por tipo (editables)</h2>
+            <div class="acc-grid">
+                <div></div>
+                <div class="hd">N - Normal [kN]</div>
+                <div class="hd">M - Momento [kN·m]</div>
+                <div class="hd">H - Horizontal [kN]</div>
+
+                <div class="rw">D<br><span style="font-weight:400;font-size:.85em">permanente</span></div>
+                <div><input type="number" id="iNd" value="1300" step="50" oninput="R()"></div>
+                <div><input type="number" id="iMd" value="0" step="50" oninput="R()"></div>
+                <div><input type="number" id="iHd" value="0" step="10" oninput="R()"></div>
+
+                <div class="rw">L<br><span style="font-weight:400;font-size:.85em">sobrecarga</span></div>
+                <div><input type="number" id="iNl" value="550" step="50" oninput="R()"></div>
+                <div><input type="number" id="iMl" value="0" step="50" oninput="R()"></div>
+                <div><input type="number" id="iHl" value="0" step="10" oninput="R()"></div>
+
+                <div class="rw">W<br><span style="font-weight:400;font-size:.85em">viento</span></div>
+                <div><input type="number" id="iNw" value="0" step="50" oninput="R()"></div>
+                <div><input type="number" id="iMw" value="1200" step="50" oninput="R()"></div>
+                <div><input type="number" id="iHw" value="0" step="10" oninput="R()"></div>
+            </div>
+
+            <div class="opt-row">
+                <span><label for="iSa">σ<sub>adm</sub> [kPa]</label>
+                    <input type="number" id="iSa" value="220" step="10" min="50" max="500" style="width:90px" oninput="R()"></span>
+                <span><label for="iPlano">Plano de las acciones</label>
+                    <select id="iPlano" onchange="R()">
+                        <option value="cero" selected>Nivel ±0,00 (z = D_f)</option>
+                        <option value="cara">Cara superior de zapata (z = h)</option>
+                    </select></span>
+                <span><label for="iF1">f<sub>1</sub></label>
+                    <select id="iF1" onchange="R()">
+                        <option value="1.0" selected>1,0 - público con L &gt; 5 kN/m², garages</option>
+                        <option value="0.5">0,5 - resto de las sobrecargas</option>
+                    </select></span>
+                <span><label class="ack" style="display:inline-flex;gap:6px;align-items:center">
+                    <input type="checkbox" id="iRev" checked onchange="R()"> Viento reversible</label></span>
+            </div>
+            <div class="note" style="margin-top:10px">
+                Las acciones se ingresan en el plano elegido y se trasladan al plano de asiento con la
+                regla única M<sub>base</sub> = M + H·z, igual para las tres. Una carga vertical centrada no
+                produce momento por sí misma: si M<sub>D</sub> o M<sub>L</sub> no son nulos es por
+                continuidad de pórtico, luces desiguales, voladizo o excentricidad del eje de la columna.
             </div>
         </div>
 
         <div class="content">
             <div class="tabs">
                 <button class="tab active" onclick="T('concepto',this)">1. Concepto</button>
-                <button class="tab" onclick="T('serv',this)">2. Plano de Asiento (Servicio)</button>
-                <button class="tab" onclick="T('uls',this)">3. Diseño Estructural (ULS)</button>
-                <button class="tab" onclick="T('geo',this)">4. Capacidad Portante ULS (AASHTO)</button>
-                <button class="tab" onclick="T('mey',this)">5. Área Efectiva (Meyerhof)</button>
-                <button class="tab" onclick="T('comp',this)">6. Comparación de Ramas</button>
-                <button class="tab" onclick="T('resumen',this)">7. Resumen</button>
+                <button class="tab" onclick="T('acc',this)">2. Acciones y Combinaciones</button>
+                <button class="tab" onclick="T('serv',this)">3. Plano de Asiento (Servicio)</button>
+                <button class="tab" onclick="T('env',this)">4. Envolvente y Secciones Críticas</button>
+                <button class="tab" onclick="T('dim',this)">5. Dimensionamiento</button>
+                <button class="tab" onclick="T('resumen',this)">6. Resumen</button>
             </div>
 
-            <!-- TAB 1: CONCEPTO -->
+            <!-- ================= TAB 1: CONCEPTO ================= -->
             <div id="concepto" class="tab-content active">
-                <h3 style="margin-bottom:16px;font-size:1.2em">La Discrepancia LRFD/ASD en Fundaciones</h3>
-                <div class="card card-yellow"><h4>⚠️ El Problema Central</h4><p>El hormigón armado se diseña por <strong>estados límites</strong> con cargas mayoradas (CIRSOC 201-2005, art. 9.2), pero el suelo se verifica, en la práctica argentina, por <strong>tensiones admisibles</strong> (σ<sub>adm</sub> = q<sub>ult</sub>/FS, dada por el estudio de suelos). Esta herramienta agrega una segunda verificación del suelo, en estados últimos con formato AASHTO, para comparar ambas filosofías sobre la misma zapata. Seis precisiones para leer todo lo que sigue:</p>
-                <ul style="margin-top:10px">
-                    <li><strong>El problema no es de equilibrio.</strong> Cada verificación es un estado de equilibrio internamente consistente: la integral del diagrama de reacción devuelve exactamente su V y su M en todos los casos. Lo que difiere es el <strong>formato de seguridad</strong>: coeficiente global embebido en σ<sub>adm</sub> para el suelo, factores parciales sobre cargas y resistencia para el hormigón.</li>
-                    <li><strong>La presión última q<sub>u</sub> no es una presión del suelo.</strong> Es la reacción que se necesita para que la zapata, tomada como cuerpo libre bajo las cargas mayoradas de la columna, esté en equilibrio: una <strong>acción de diseño sobre la placa de hormigón</strong>, no una predicción del estado del suelo. Es de la misma naturaleza que la carga axial mayorada con la que se dimensiona una columna, que tampoco ocurre nunca.</li>
-                    <li><strong>Con excentricidad la objeción se agudiza.</strong> En una columna la carga mayorada es un escalar y escalarla es trivialmente consistente. En una zapata las acciones son un par (V, M) que recibe factores distintos: la excentricidad mayorada no coincide con la de servicio (e<sub>u</sub> ≠ e<sub>k</sub>) y el diagrama mayorado no es una versión escalada del de servicio: cambia de geometría y hasta puede cambiar de tipo. Con los valores por defecto ocurre efectivamente: en servicio rige S1 con e = 0.541 m &lt; B/6 (trapecial); en estados últimos rige U4 con e = 1.641 m &gt; B/6 (triangular con despegue parcial).</li>
-                    <li><strong>La seguridad no proviene de que un diagrama sea "el correcto"</strong>, sino de evaluar la envolvente de varias combinaciones, cada una con su propia geometría, y dimensionar cada sección para la peor de todas.</li>
-                    <li><strong>La hipótesis lineal ya es una idealización en servicio.</strong> La presión de contacto real no es lineal: en suelos granulares tiende a ser máxima en el centro y nula en los bordes por falta de confinamiento; en suelos cohesivos saturados tiende a concentrarse en los bordes. La distribución lineal proviene de suponer la zapata infinitamente rígida y el suelo tipo Winkler. Se acepta porque satisface equilibrio, porque la fluencia local del suelo redistribuye las concentraciones, y por un siglo de validación empírica. El modelo riguroso sería de interacción suelo-estructura, y se reserva para plateas y fundaciones flexibles.</li>
-                    <li><strong>Ventaja conceptual de Meyerhof:</strong> la presión uniforme sobre B' se declara explícitamente como modelo de capacidad, sin pretender describir la presión real. El trapecio, en cambio, se confunde a menudo con la realidad física.</li>
-                </ul></div>
-                <div class="grid-2">
-                    <div class="card card-green"><h4>Verificación del plano de asiento (Servicio)</h4><ul>
-                        <li>Cargas de <strong>servicio</strong>, sin mayorar: D + L + W</li>
-                        <li>Presión <strong>BRUTA</strong>: incluye el peso de la zapata y la tapada de suelo (estimado como α·N)</li>
-                        <li>Distribución lineal: σ<sub>máx</sub> ≤ σ<sub>adm</sub> (bruta)</li>
-                        <li>Se evalúan las combinaciones D+L+W y D+W (esta última maximiza la excentricidad)</li>
-                    </ul></div>
-                    <div class="card card-blue"><h4>Diseño estructural de la zapata (ULS)</h4><ul>
-                        <li>Cargas <strong>mayoradas</strong>: envolvente de combinaciones CIRSOC 201-2005 art. 9.2</li>
-                        <li>Presión <strong>NETA</strong> última: solo las cargas que baja la columna</li>
-                        <li>El peso propio y la tapada <strong>no se incluyen</strong>: se equilibran directamente con la reacción que ellos mismos generan y no producen flexión ni corte (CIRSOC 201-2005, Cap. 15)</li>
-                        <li>Con q<sub>u</sub> se dimensiona armadura, corte y punzonado</li>
-                    </ul></div>
-                </div>
-                <div class="card">
-                    <h4>Combinaciones de estados últimos con viento (CIRSOC 201-2005, art. 9.2)</h4>
+                <h3 style="margin-bottom:16px;font-size:1.2em">Dos planos normativos que no se mezclan</h3>
+                <div class="card card-yellow"><h4>El problema central</h4>
+                    <p>El hormigón armado se dimensiona por <strong>estados límites</strong> con cargas
+                    mayoradas (CIRSOC 201-2005, art. 9.2 y art. 15.2.1), pero el suelo se verifica por
+                    <strong>tensiones admisibles</strong> con cargas de servicio (art. 15.2.2). Cada
+                    verificación usa cargas distintas y presiones distintas: mezclar los dos planos es el
+                    error más frecuente.</p></div>
+                <div class="card card-blue"><h4>Presión bruta contra presión neta</h4>
                     <table class="tbl-num">
-                        <tr><th>Combinación</th><th>Vertical V<sub>u</sub></th><th>Momento M<sub>u</sub></th><th>Suele regir</th></tr>
-                        <tr><td>U1</td><td>1.4·N<sub>D</sub></td><td>0</td><td>presión media con L chica</td></tr>
-                        <tr><td>U2</td><td>1.2·N<sub>D</sub> + 1.6·N<sub>L</sub></td><td>0</td><td>presión media sin viento</td></tr>
-                        <tr><td>U3</td><td>1.2·N<sub>D</sub> + 1.0·N<sub>L</sub></td><td>1.6·M<sub>W</sub></td><td>q<sub>máx</sub> con carga plena</td></tr>
-                        <tr><td>U4</td><td>0.9·N<sub>D</sub></td><td>1.6·M<sub>W</sub></td><td>excentricidad máxima</td></tr>
+                        <tr><th></th><th>Rama de servicio</th><th>Rama estructural</th></tr>
+                        <tr><td>Cargas</td><td>No mayoradas</td><td>Mayoradas, art. 9.2</td></tr>
+                        <tr><td>Presión</td><td><strong>Bruta</strong>, incluye P<sub>z</sub></td><td><strong>Neta</strong>, solo columna</td></tr>
+                        <tr><td>Artículo</td><td>15.2.2</td><td>15.2.1 y Cap. 15</td></tr>
                     </table>
-                    <p class="note">El momento se asume íntegramente de origen viento, por eso se mayora con 1.6 y se combina con 0.9·D (vertical mínima). En U3 se adopta 1.0·L; el reglamento permite reducirlo a 0.5·L salvo en tres casos que son independientes entre sí: cocheras y playas de estacionamiento; lugares de concentración de público; y cualquier área con sobrecarga mayor que 5.0 kN/m². El factor 1.6 sobre W corresponde a viento en nivel de servicio según CIRSOC 102, y puede reemplazarse por 1.3 solo si W no fue reducida por factor de direccionalidad. La rama geotécnica última (pestaña 4) usa estas mismas cuatro combinaciones, incorporando además W (peso de zapata + tapada) afectado por el mismo factor que las cargas permanentes.</p>
-                </div>
-                <div class="card"><h4>🔑 Área efectiva (Meyerhof / EC7 Anexo D)</h4><p>Cuando la carga es excéntrica, la capacidad portante se evalúa sobre un <strong>área efectiva A' = B'·L</strong> con <strong>B' = B - 2e</strong>, centrada en la resultante. Es un concepto de <strong>verificación geotécnica</strong>, no de diseño estructural: se desarrolla en la pestaña 4.</p></div>
-                <div class="svg-container"><div class="svg-title">Concepto de Área Efectiva (Meyerhof) - Vista en Planta</div><div id="svgC"></div></div>
+                    <p class="note">El peso propio y la tapada se equilibran con la reacción uniforme que
+                    ellos mismos generan y no producen flexión ni corte en la placa. Por eso no entran en
+                    la presión neta. Con el peso propio modelado geométricamente esto deja de ser una
+                    afirmación y pasa a ser demostrable: P<sub>z</sub> es literalmente una carga de área
+                    uniforme.</p></div>
+                <div class="pend">Los cinco textos conceptuales completos se desarrollan en la etapa 5.</div>
             </div>
 
-            <!-- TAB 2: SERVICIO -->
+            <!-- ================= TAB 2: ACCIONES Y COMBINACIONES ================= -->
+            <div id="acc" class="tab-content">
+                <div class="grid-3-1">
+                    <div>
+                        <div class="card card-blue"><h4>Traslado al plano de asiento</h4>
+                            <div id="tTras"></div></div>
+                        <div class="card"><h4>Combinaciones últimas - art. 9.2.1</h4>
+                            <div id="tCombU"></div>
+                            <div class="note" id="nCombU"></div></div>
+                        <div class="card card-green"><h4>Combinaciones de servicio - art. 15.2.2</h4>
+                            <div id="tCombS"></div>
+                            <div class="note">CIRSOC 201-2005 no prescribe combinaciones de servicio: el
+                            art. 15.2.2 solo exige fuerzas y momentos no mayorados. La elección de S0, S1
+                            y S2 es criterio de cátedra y se declara como tal. Tampoco se aplica el
+                            habitual incremento del 33 % de σ<sub>adm</sub> en las combinaciones con
+                            viento: es una decisión conservadora, no una prescripción reglamentaria.</div></div>
+                        <div class="card card-purple"><h4>Fuera del alcance de la v8</h4>
+                            <p>Las combinaciones sísmicas <strong>(9-5)</strong> U = 1,2·D + 1,0·E +
+                            f<sub>1</sub>·(L + L<sub>r</sub>) + f<sub>2</sub>·S y <strong>(9-7)</strong>
+                            U = 0,9·D + 1,0·E + 1,6·H no están implementadas. No se omiten en silencio:
+                            se declaran.</p>
+                            <p class="note">El art. 9.2.1 a) permite reemplazar 1,6·W por 1,3·W en (9-4) y
+                            (9-6) cuando W no fue reducida por factor de direccionalidad (CIRSOC
+                            102-2005). No se implementa; se usa 1,6·W, del lado seguro.</p></div>
+                    </div>
+                    <div>
+                        <div class="dim-panel"><h4>Peso propio P<sub>z</sub></h4>
+                            <div id="pPz"></div></div>
+                        <div class="card card-yellow"><h4>Sobre la ecuación (9-3)</h4>
+                            <div id="pC3"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= TAB 3: PLANO DE ASIENTO ================= -->
             <div id="serv" class="tab-content">
-                <h3 style="margin-bottom:16px;font-size:1.2em">Verificación del Plano de Asiento - Cargas de Servicio (ASD)</h3>
                 <div class="grid-3-1">
                     <div class="graficos-col">
-                        <div class="svg-container"><div class="svg-title">Vista en Planta - Posición de la Resultante (combinación que rige)</div><div id="svgP"></div></div>
-                        <div class="svg-container"><div class="svg-title">Distribución de Presiones Brutas - Vista Lateral (Corte)</div><div id="svgS"></div></div>
-                    </div>
-                    <div>
-                        <div class="dim-panel"><h4>📐 Dimensiones de la Zapata</h4>
-                            <div class="slider-group"><label>B (ancho, dirección del momento) [m]</label><input type="range" id="sB" min="1" max="12" step="0.1" value="4.5" oninput="R()"><span class="slider-value" id="vB">4.50 m</span></div>
-                            <div class="slider-group"><label>L (largo) [m]</label><input type="range" id="sL" min="1" max="12" step="0.1" value="4.5" oninput="R()"><span class="slider-value" id="vL">4.50 m</span></div>
-                            <div class="slider-group"><label>h (altura) [m]</label><input type="range" id="sH" min="0.3" max="5" step="0.05" value="0.8" oninput="R()"><span class="slider-value" id="vH">0.80 m</span></div>
-                            <p class="note">h interviene solo en los esquemas: el peso de zapata + tapada se estima con α.</p>
+                        <div class="svg-container">
+                            <div class="svg-title">Vista en planta - resultante y núcleo central</div>
+                            <div id="svgPlanta"></div>
+                            <div class="leg">
+                                <span><i style="background:#dc2626"></i>Resultante de la combinación que rige</span>
+                                <span><i style="background:#059669"></i>Núcleo central (B/6, L/6)</span>
+                            </div>
                         </div>
-                        <div id="cP"></div>
-                    </div>
-                </div>
-                <div class="card card-green" id="tS"></div>
-                <div class="card"><h4>Notas sobre σ<sub>adm</sub></h4><ul>
-                    <li>σ<sub>adm</sub> es <strong>presión bruta</strong> en el plano de fundación (q<sub>ult</sub>/FS, FS ≈ 3, según práctica de los estudios de suelos argentinos). Por eso la demanda incluye el peso de zapata y tapada.</li>
-                    <li>La σ<sub>adm</sub> del estudio de suelos es válida para el <strong>rango de B y D<sub>f</sub></strong> indicado en el informe. Fuera de ese rango, consultar al especialista geotécnico.</li>
-                    <li>Los valores admisibles ya contemplan un asentamiento tolerable; cargas importantes o suelos saturados pueden requerir verificación de asentamientos diferidos.</li>
-                </ul></div>
-            </div>
-
-            <!-- TAB 3: ULS -->
-            <div id="uls" class="tab-content">
-                <h3 style="margin-bottom:16px;font-size:1.2em">Diseño Estructural de la Zapata - Estados Últimos (CIRSOC 201-2005)</h3>
-                <div class="card card-yellow"><h4>⚠️ Presión NETA última</h4><p>Para dimensionar la armadura se usa la <strong>presión neta última</strong>: solo las cargas mayoradas que baja la columna. El peso propio de la zapata y la tapada <strong>no generan flexión ni corte</strong> (se equilibran con la reacción que ellos mismos provocan), por eso no se incluyen. Esta presión es una herramienta de cálculo del hormigón: el suelo nunca la experimenta.</p></div>
-                <div class="grid-3-1">
-                    <div class="graficos-col">
-                        <div class="svg-container"><div class="svg-title">Vista en Planta - Combinación que rige</div><div id="svgU"></div></div>
-                        <div class="svg-container"><div class="svg-title">Esquema de Corte - Presión neta última q<sub>u</sub> sobre la base</div><div id="svgQ"></div></div>
+                        <div class="svg-container">
+                            <div class="svg-title">Corte - diagrama de presiones brutas de servicio</div>
+                            <div id="svgServ"></div>
+                        </div>
+                        <div class="card"><h4>Verificación por combinación de servicio</h4>
+                            <div id="tServ"></div></div>
                     </div>
                     <div>
-                        <div id="cU"></div>
+                        <div class="dim-panel"><h4>Dimensiones</h4>
+                            <div class="slider-group">
+                                <label>B - Ancho en dirección del momento [m]: <span class="slider-value" id="vB">4.50 m</span></label>
+                                <input type="range" id="sB" min="1" max="12" step="0.05" value="4.5" oninput="R()">
+                            </div>
+                            <div class="slider-group">
+                                <label>L - Largo [m]: <span class="slider-value" id="vL">4.50 m</span></label>
+                                <input type="range" id="sL" min="1" max="12" step="0.05" value="4.5" oninput="R()">
+                            </div>
+                            <div class="slider-group">
+                                <label>h - Altura de zapata [m]: <span class="slider-value" id="vH">0.80 m</span></label>
+                                <input type="range" id="sH" min="0.3" max="5" step="0.05" value="0.8" oninput="R()">
+                            </div>
+                            <div class="slider-group">
+                                <label>D<sub>f</sub> - Cota del plano de asiento [m]: <span class="slider-value" id="vDf">2.50 m</span></label>
+                                <input type="range" id="sDf" min="0.3" max="8" step="0.05" value="2.5" oninput="R()">
+                            </div>
+                            <div id="avDf" class="note"></div>
+                        </div>
+
+                        <div class="card"><h4>Predimensionado de B y L</h4>
+                            <div class="opt-row" style="margin-top:0;flex-direction:column;align-items:stretch;gap:8px">
+                                <span><label for="pForma">Criterio de forma</label>
+                                    <select id="pForma" style="width:100%" onchange="R()">
+                                        <option value="cuadrada" selected>L = B (cuadrada)</option>
+                                        <option value="Lfijo">L fijo, resolver B</option>
+                                        <option value="lambda">L = λ·B</option>
+                                    </select></span>
+                                <span><label for="pLam">λ (solo si L = λ·B)</label>
+                                    <input type="number" id="pLam" value="1.5" step="0.1" min="0.2" max="5" style="width:100%"></span>
+                                <span><label for="pRestr">Restricción de excentricidad</label>
+                                    <select id="pRestr" style="width:100%" onchange="R()">
+                                        <option value="B/6" selected>e ≤ B/6 (sin despegue)</option>
+                                        <option value="B/4">e ≤ B/4 (recomendada)</option>
+                                        <option value="ninguna">ninguna</option>
+                                    </select></span>
+                                <span><label for="pMod">Módulo de redondeo [m]</label>
+                                    <select id="pMod" style="width:100%" onchange="R()">
+                                        <option value="0.05" selected>0,05</option>
+                                        <option value="0.10">0,10</option>
+                                        <option value="0.25">0,25</option>
+                                    </select></span>
+                            </div>
+                            <button id="btnPre" type="button" style="width:100%;margin-top:12px;padding:11px;border:0;border-radius:8px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer">Predimensionar B y L</button>
+                            <div id="pPre" style="margin-top:12px"></div>
+                        </div>
+
+                        <div class="card"><h4>Combinación que rige</h4>
+                            <div id="pServ"></div></div>
                     </div>
                 </div>
-                <div class="card card-blue" id="tU"></div>
             </div>
 
-            <!-- TAB 4: CAPACIDAD PORTANTE ULS (AASHTO) -->
-            <div id="geo" class="tab-content">
-                <h3 style="margin-bottom:16px;font-size:1.2em">Capacidad Portante del Suelo - Estados Últimos (formato AASHTO LRFD)</h3>
-                <div class="card card-blue"><h4>Qué verifica esta rama</h4><p>Capacidad portante con <strong>cargas mayoradas</strong> y resistencia afectada por un <strong>factor de resistencia</strong>: q<sub>dem</sub> ≤ q<sub>R</sub> = φ<sub>b</sub>·q<sub>n</sub>, con la demanda supuesta <strong>uniforme sobre el área efectiva de Meyerhof</strong> (A' = B'·L, con B' = B - 2e). A diferencia de la rama estructural, acá <strong>SÍ se incluye W</strong>: el peso de la zapata y la tapada son carga vertical real sobre el suelo. AASHTO prescribe justamente la distribución uniforme sobre el área efectiva para el dimensionado geotécnico de zapatas (art. 10.6.1.4): en esta rama Meyerhof no es una comparación decorativa sino el modelo reglamentario de demanda.</p></div>
+            <!-- ================= TAB 4: ENVOLVENTE Y SECCIONES CRITICAS ================= -->
+            <div id="env" class="tab-content">
                 <div class="grid-3-1">
                     <div class="graficos-col">
-                        <div class="svg-container"><div class="svg-title">Área Efectiva - Vista en Planta (combinación que rige)</div><div id="svgGA"></div></div>
-                        <div class="svg-container"><div class="svg-title">Demanda uniforme q<sub>dem</sub> sobre B' contra q<sub>R</sub> y q<sub>n</sub></div><div id="svgGQ"></div></div>
-                    </div>
-                    <div id="cG"></div>
-                </div>
-                <div class="card"><h4>¿Qué combinación rige?</h4><p>En G4 el factor 0.9 sobre las cargas permanentes minimiza la vertical, maximiza la excentricidad y reduce el área efectiva. Pero cuál combinación rige depende de la relación entre momento y carga vertical <strong>y de la participación de W</strong>: como W entra en el término permanente, G4 conserva más vertical que su análoga estructural U4, y su excentricidad baja. Con los valores por defecto, la excentricidad pasa de 1.641 m (U4, sin W) a 1.277 m (G4, con 0.9·W), el área efectiva se reabre y termina rigiendo G3. Movete con los sliders de B y M<sub>W</sub>: la combinación sombreada de la tabla cambia según el caso.</p></div>
-                <div class="card"><h4>Factores de resistencia φ<sub>b</sub> - referencia</h4>
-                    <table class="tbl-num">
-                        <tr><th>Método / suelo / condición</th><th>φ<sub>b</sub></th></tr>
-                        <tr><td>Método teórico (Munfakh et al., 2001), en arcilla</td><td>0.50</td></tr>
-                        <tr><td>Método teórico (Munfakh et al., 2001), en arena, con CPT</td><td>0.50</td></tr>
-                        <tr><td>Método teórico (Munfakh et al., 2001), en arena, con SPT</td><td>0.45</td></tr>
-                        <tr><td>Métodos semiempíricos (Meyerhof, 1957), todos los suelos</td><td>0.45</td></tr>
-                        <tr><td>Zapatas sobre roca</td><td>0.45</td></tr>
-                        <tr><td>Ensayo de carga con placa</td><td>0.55</td></tr>
-                    </table>
-                    <p class="note">Reproducida de fuentes secundarias que citan AASHTO LRFD BDS, Tabla 10.5.5.2.2-1 (método teórico según Munfakh et al., 2001). No verificada contra el texto primario ni contra la edición vigente. Confirmar antes de uso profesional. Notar que φ<sub>b</sub> depende del método de estimación de la capacidad, no solo del tipo de suelo.</p>
-                </div>
-                <div class="card card-yellow"><h4>⚠️ Hipótesis de esta rama (declaradas, no se ocultan)</h4><ul>
-                    <li><strong>q<sub>ult</sub> se retro-calcula como FS·σ<sub>adm</sub> (bruta).</strong> El estudio de suelos entrega σ<sub>adm</sub> ya afectada por un factor de seguridad global; se lo revierte para recuperar la capacidad última nominal. Requiere conocer el FS que usó el especialista geotécnico (los informes de la zona declaran habitualmente FS = 3).</li>
-                    <li><strong>q<sub>ult</sub> así obtenido corresponde al ancho B y a la profundidad D<sub>f</sub> que asumió el informe.</strong> Al aplicarlo sobre el área efectiva B' se arrastra ese B en el tercer término de la fórmula de capacidad (½·γ·B'·N<sub>γ</sub>). En suelos predominantemente cohesivos, donde N<sub>γ</sub> es chico, el error es menor; en suelos granulares la aproximación se degrada.</li>
-                    <li><strong>La comparación es de formato de seguridad, no de exactitud.</strong> Ambas ramas parten de la misma σ<sub>adm</sub>; lo que se compara es cómo cada filosofía distribuye la seguridad, no cuál predice mejor la falla real del suelo.</li>
-                    <li><strong>Convención bruta contra bruta.</strong> AASHTO verifica en formato neto (descuenta la sobrecarga de tapada en el plano de fundación); acá demanda y capacidad son brutas, lo que es internamente consistente, con el matiz de que φ<sub>b</sub> fue calibrado en formato neto.</li>
-                    <li><strong>Mezcla de calibraciones.</strong> φ<sub>b</sub> fue calibrado contra los factores de carga de AASHTO; acá se lo combina con los de CIRSOC 201 (1.2 / 1.6 / 0.9). La comparación de formatos sigue siendo válida, pero el nivel de confiabilidad resultante no es exactamente el calibrado por AASHTO.</li>
-                    <li><strong>W afectado por 0.9 en G4.</strong> CIRSOC indica que un peso de suelo con efecto favorable solo debe considerarse si su existencia puede asegurarse, y en caso contrario adoptar un valor conservador o aún nulo; afectar W con 0.9 cuando estabiliza adopta esa lógica del lado seguro.</li>
-                    <li><strong>El cálculo riguroso de q<sub>ult</sub></strong> con parámetros del suelo (c, φ, γ, D<sub>f</sub>, posición de napa) sobre el área efectiva, según EN 1997-1 Anexo D, queda previsto para una versión posterior.</li>
-                </ul></div>
-            </div>
-
-            <!-- TAB 5: MEYERHOF -->
-            <div id="mey" class="tab-content">
-                <h3 style="margin-bottom:16px;font-size:1.2em">Área Efectiva de Meyerhof (EC7, Anexo D)</h3>
-                <div class="card"><h4>¿Cuándo se usa?</h4><p>El área efectiva <strong>A' = B'·L</strong> con <strong>B' = B - 2e</strong> es el modelo con el que se evalúa la <strong>capacidad portante con carga excéntrica</strong>: la resultante se supone uniformemente distribuida sobre A', y la fórmula general de capacidad (Terzaghi, Meyerhof, Hansen, Vesić o EC7 Anexo D) se aplica con B' en lugar de B. No se usa para dimensionar la armadura de la zapata.</p>
-                <p class="note">Como comparación didáctica, abajo se contrasta la presión uniforme equivalente V/A' contra la σ<sub>máx</sub> de la distribución lineal, ambas en servicio. Se evalúan las dos combinaciones y rige la de mayor V/A': con capacidad constante (σ<sub>adm</sub> o q<sub>n</sub>) gobierna la mayor demanda media, aunque no sea la combinación de mayor excentricidad.</p></div>
-                <div class="grid-3-1">
-                    <div class="graficos-col">
-                        <div class="svg-container"><div class="svg-title">Área Efectiva - Vista en Planta (servicio, combinación que rige por V/A')</div><div id="svgA"></div></div>
+                        <div class="svg-container">
+                            <div class="svg-title">Superposición de los diagramas de presión última</div>
+                            <div class="chk-row" id="cbEnv"></div>
+                            <div id="svgEnv"></div>
+                            <div class="leg" id="legEnv"></div>
+                        </div>
+                        <div class="card"><h4>Combinaciones últimas - presión neta</h4>
+                            <div id="tEnv"></div></div>
+                        <div class="highlight-box"><h4>Lectura del gráfico</h4>
+                            <div id="txtEnv"></div></div>
+                        <div class="pend">Secciones críticas, tabla de envolvente por solicitación y los
+                            tres gráficos del módulo 3: etapa 3.</div>
                     </div>
                     <div>
-                        <div id="cM"></div>
+                        <div class="dim-panel"><h4>Geometría de la sección</h4>
+                            <div class="opt-row" style="margin-top:0;flex-direction:column;align-items:stretch;gap:8px">
+                                <span><label for="iC1">c<sub>1</sub> - Lado de columna en dirección del momento [m]</label>
+                                    <input type="number" id="iC1" value="0.40" step="0.05" min="0.20" max="1.50" style="width:100%" oninput="R()"></span>
+                                <span><label for="iC2">c<sub>2</sub> - Lado perpendicular [m]</label>
+                                    <input type="number" id="iC2" value="0.40" step="0.05" min="0.20" max="1.50" style="width:100%" oninput="R()"></span>
+                                <span><label for="iRecSel">r - Recubrimiento, Tabla 7.7.1 (a)</label>
+                                    <select id="iRecSel" style="width:100%" onchange="recSel();R()">
+                                        <option value="0.050">50 mm - exposición A1, A2</option>
+                                        <option value="0.065">65 mm - exposición A3, Q1, C1 (+30 %)</option>
+                                        <option value="0.075" selected>75 mm - exposición CL, M1 a M3, C2, Q2, Q3 (+50 %)</option>
+                                        <option value="edit">Otro valor (editable)</option>
+                                    </select></span>
+                                <span><label for="iRec">r [m], mínimo 0,05</label>
+                                    <input type="number" id="iRec" value="0.075" step="0.005" min="0.05" max="0.20" style="width:100%" oninput="R()" disabled></span>
+                            </div>
+                            <div class="note" id="nRec"></div>
+                        </div>
+                        <div class="card card-blue"><h4>Materiales</h4>
+                            <div class="opt-row" style="margin-top:0;flex-direction:column;align-items:stretch;gap:8px">
+                                <span><label for="iFc">f'<sub>c</sub> [MPa]</label>
+                                    <input type="number" id="iFc" value="25" step="1" min="20" max="50" style="width:100%" oninput="R()"></span>
+                                <span><label for="iFy">f<sub>y</sub> [MPa]</label>
+                                    <input type="number" id="iFy" value="420" step="10" min="220" max="500" style="width:100%" oninput="R()"></span>
+                                <span><label for="iGh">γ<sub>h</sub> - Peso unitario del hormigón [kN/m³]</label>
+                                    <input type="number" id="iGh" value="25" step="0.5" min="20" max="28" style="width:100%" oninput="R()"></span>
+                                <span><label for="iGs">γ<sub>s</sub> - Peso unitario del suelo de tapada [kN/m³]</label>
+                                    <input type="number" id="iGs" value="18" step="0.5" min="12" max="24" style="width:100%" oninput="R()"></span>
+                            </div>
+                            <div class="note"><span class="warn-badge warn-y">SIN VERIFICAR</span>
+                            γ<sub>h</sub> y γ<sub>s</sub> no surgen de CIRSOC 201-2005: el reglamento usa la
+                            densidad del hormigón solo para E<sub>c</sub> y para el factor λ, nunca como peso
+                            unitario de cálculo de acciones. Los pesos unitarios de acciones permanentes son
+                            de CIRSOC 101 y γ<sub>s</sub> es dato del estudio de suelos. Quedan editables.</div>
+                        </div>
+                        <div class="card"><h4>Secciones críticas</h4>
+                            <div id="pSecc"></div></div>
                     </div>
                 </div>
-                <div class="card" id="tMey"></div>
-                <div class="card card-purple"><h4>Módulo previsto: capacidad portante última</h4><p>La verificación completa (q<sub>ult</sub> calculada con parámetros del suelo c, φ, γ, D<sub>f</sub> y posición de napa, aplicada sobre A') se incorporará en una próxima versión, previa validación contra ejemplos publicados. Mientras tanto, la capacidad se toma del estudio de suelos a través de σ<sub>adm</sub>. Con ese módulo, además, la combinación que rige podría dejar de ser la de mayor V/A': como la capacidad dependerá de B' a través de ½·γ·B'·N<sub>γ</sub>, un B' menor también reduce la capacidad, y la combinación de máxima excentricidad puede volver a gobernar. El criterio de rige la mayor V/A' vale solo mientras q<sub>n</sub> se toma constante.</p></div>
             </div>
 
-            <!-- TAB 6: COMPARACIÓN DE RAMAS -->
-            <div id="comp" class="tab-content">
-                <h3 style="margin-bottom:16px;font-size:1.2em">Comparación de Ramas - ¿Las dos filosofías dan la misma zapata?</h3>
-                <div class="card card-green" id="tCmp"></div>
-                <div class="grid-2">
-                    <div class="highlight-box" id="cFS"></div>
-                    <div>
-                        <div class="svg-container"><div class="svg-title">B mínimo requerido por cada rama (con L y α fijos)</div><div id="svgB"></div></div>
-                        <div class="card"><h4>Notas del modelo</h4><p class="note">Como W se modela como porcentaje de la carga de columna, no crece con B; en un modelo con peso propio geométrico el resultado se desplazaría levemente. Además, entre casos triangulares el pico de la distribución lineal es siempre 4/3 de la demanda uniforme de Meyerhof de la misma combinación: el modelo de presión por sí solo no invierte cuál combinación gobierna; lo que sí puede invertirlo es la participación de W en las combinaciones G.</p></div>
-                    </div>
-                </div>
+            <!-- ================= TAB 5: DIMENSIONAMIENTO ================= -->
+            <div id="dim" class="tab-content">
+                <div class="pend">Módulo 4: altura de zapata, armadura de flexión en las dos
+                    direcciones, armadura mínima del art. 7.12, distribución del art. 15.4.4 y
+                    verificaciones complementarias. Etapa 4.</div>
             </div>
 
-            <!-- TAB 7: RESUMEN -->
+            <!-- ================= TAB 6: RESUMEN ================= -->
             <div id="resumen" class="tab-content">
-                <h3 style="margin-bottom:16px;font-size:1.2em">Resumen de Verificaciones</h3>
-                <div class="grid-2" id="rC"></div>
-                <div class="card"><h4>Flujo de Verificación - Tres ramas sobre las mismas cargas características</h4><div class="flow"><div class="flow-box">Cargas características<br><small>N<sub>D</sub>, N<sub>L</sub>, M<sub>W</sub></small></div><span class="flow-arrow">→</span><div style="display:flex;flex-direction:column;gap:8px"><div class="flow-box" style="background:#dcfce7;border-color:#22c55e"><strong>Suelo - Servicio (ASD)</strong><br><small>con W · σ<sub>máx</sub> bruta ≤ σ<sub>adm</sub></small></div><div class="flow-box" style="background:#dbeafe;border-color:#3b82f6"><strong>Suelo - Últimos (AASHTO)</strong><br><small>combinaciones con W · q<sub>dem</sub> sobre A' ≤ φ<sub>b</sub>·q<sub>n</sub></small></div><div class="flow-box" style="background:#f3e8ff;border-color:#a855f7"><strong>Hormigón - Últimos (CIRSOC 201)</strong><br><small>combinaciones sin W · q<sub>u</sub> neta → armadura, corte, punzonado</small></div></div></div></div>
-                <div class="card card-yellow" id="nF"></div>
+                <div class="pend">Resumen, diagrama de flujo de las dos ramas y utilización de cada
+                    verificación. Etapa 5.</div>
             </div>
         </div>
 
         <div class="footer">
             <div class="author-main">Ing. Gomes Leandro Daniel</div>
-            <div>Cátedra de Cimentaciones - UTN FRGP</div>
-            <div style="margin-top:8px;font-size:.8em">Referencias: CIRSOC 201-2005 (art. 9.2 y Cap. 15), CIRSOC 101/102-2005, EN 1997-1:2004 (cl. 6.5.4 y Anexo D), AASHTO LRFD BDS (Tabla 10.5.5.2.2-1 y art. 10.6.1.4)</div>
-            <div style="margin-top:4px;font-size:.75em;color:#9ca3af">© 2025 - Uso educativo</div>
+            Cátedra de Cimentaciones - UTN Facultad Regional General Pacheco<br>
+            Herramienta didáctica. Los resultados deben verificarse antes de aplicarlos a un proyecto real.
         </div>
     </div>
-
     <script>
-    (function(){
-        /* ==================================================================
-           NÚCLEO DE CÁLCULO (funciones puras, sin DOM, para poder validarlas)
-           ================================================================== */
-        /*CALC-START*/
-        // Distribución lineal de presiones bajo zapata rígida.
-        // V [kN] vertical, M [kN.m] momento, B [m] en la dirección de M, L [m].
-        // Devuelve: e, tipo ('uniforme'|'trapezoidal'|'triangular'|'vuelco'),
-        //           smax, smin [kPa], a [m] longitud de contacto.
-        function distr(V, M, B, L){
-            if(V<=0) return {e:0,tipo:'uniforme',smax:0,smin:0,a:B};
-            var e=M/V;
-            if(e<=1e-9) return {e:0,tipo:'uniforme',smax:V/(B*L),smin:V/(B*L),a:B};
-            if(e<=B/6){
-                var s0=V/(B*L);
-                return {e:e,tipo:'trapezoidal',smax:s0*(1+6*e/B),smin:s0*(1-6*e/B),a:B};
-            }
-            if(e<B/2){
-                var a=3*(B/2-e);                 // longitud de contacto
-                return {e:e,tipo:'triangular',smax:2*V/(a*L),smin:0,a:a};
-            }
-            return {e:e,tipo:'vuelco',smax:Infinity,smin:0,a:0};
+    /*CALC-START*/
+    // ===================================================================
+    // NUCLEO DE CALCULO - v8
+    // Funciones puras, sin acceso al DOM. Extraible para testeo con Node.
+    // Unidades: kN, kN.m, kPa, m, MPa, mm.
+    // Referencias entre parentesis: CIRSOC 201-2005.
+    // ===================================================================
+    
+    // -------------------------------------------------------------------
+    // 1. DISTRIBUCION LINEAL DE PRESIONES BAJO ZAPATA RIGIDA
+    // Heredada de la v7 sin modificaciones. NO TOCAR.
+    // V [kN] vertical, M [kN.m] momento, B [m] en la direccion de M, L [m].
+    // Devuelve: e, tipo ('uniforme'|'trapezoidal'|'triangular'|'vuelco'),
+    //           smax, smin [kPa], a [m] longitud de contacto.
+    // -------------------------------------------------------------------
+    function distr(V, M, B, L){
+        if(V<=0) return {e:0,tipo:'uniforme',smax:0,smin:0,a:B};
+        var e=M/V;
+        if(e<=1e-9) return {e:0,tipo:'uniforme',smax:V/(B*L),smin:V/(B*L),a:B};
+        if(e<=B/6){
+            var s0=V/(B*L);
+            return {e:e,tipo:'trapezoidal',smax:s0*(1+6*e/B),smin:s0*(1-6*e/B),a:B};
         }
-
-        // Cálculo completo. inp = {Nd, Nl, Mw, sa, al, B, L}
-        function CALC(inp){
-            var Nd=inp.Nd, Nl=inp.Nl, Mw=inp.Mw, B=inp.B, L=inp.L;
-            var W=inp.al/100*(Nd+Nl);            // peso zapata + tapada (permanente)
-
-            // --- SERVICIO (presión bruta: columna + peso propio + tapada) ---
-            var S1=distr(Nd+Nl+W, Mw, B, L); S1.nom='S1: D + L + W'; S1.V=Nd+Nl+W; S1.M=Mw;
-            var S2=distr(Nd+W,    Mw, B, L); S2.nom='S2: D + W';     S2.V=Nd+W;    S2.M=Mw;
-            var sRige=(S2.smax>S1.smax)?S2:S1;    // rige por sigma max
-            var sEmax=(S2.e>=S1.e)?S2:S1;         // mayor excentricidad (para Meyerhof)
-            var verif=sRige.smax<=inp.sa && sRige.smax!==Infinity;
-
-            // --- ESTADOS ÚLTIMOS (presión NETA: solo cargas de columna mayoradas) ---
-            var U=[
-                Object.assign(distr(1.4*Nd,          0,      B, L), {nom:'U1: 1.4·D',                V:1.4*Nd,          M:0}),
-                Object.assign(distr(1.2*Nd+1.6*Nl,   0,      B, L), {nom:'U2: 1.2·D + 1.6·L',        V:1.2*Nd+1.6*Nl,   M:0}),
-                Object.assign(distr(1.2*Nd+1.0*Nl, 1.6*Mw,   B, L), {nom:'U3: 1.2·D + 1.0·L + 1.6·W',V:1.2*Nd+1.0*Nl,   M:1.6*Mw}),
-                Object.assign(distr(0.9*Nd,        1.6*Mw,   B, L), {nom:'U4: 0.9·D + 1.6·W',        V:0.9*Nd,          M:1.6*Mw})
-            ];
-            var uRige=U.reduce(function(a,b){return (b.smax>a.smax)?b:a;},U[0]);
-            var uEmax=U.reduce(function(a,b){return (b.e>a.e)?b:a;},U[0]);
-
-            // --- MEYERHOF (área efectiva, servicio, combinación de mayor e) ---
-            var Bf=Math.max(0,B-2*sEmax.e), Af=Bf*L;
-            var qMey=(Af>0 && sEmax.smax!==Infinity)?sEmax.V/Af:Infinity;
-
-            // ================= v8: extensiones (funciones puras, sin DOM) =================
-
-            // --- Meyerhof en servicio para AMBAS combinaciones (demanda uniforme V/A') ---
-            // Rige la de mayor V/A': con capacidad constante gobierna la mayor demanda media,
-            // aunque no sea la combinacion de mayor excentricidad (ver nota en pestaña 5).
-            function mey(c){
-                var Bp=B-2*c.e;
-                if(c.smax===Infinity||Bp<=0) return {Bp:Math.max(0,Bp),Ap:Math.max(0,Bp)*L,q:Infinity};
-                return {Bp:Bp,Ap:Bp*L,q:c.V/(Bp*L)};
-            }
-            var mS1=mey(S1), mS2=mey(S2);
-            var sMey=(mS2.q>mS1.q)?S2:S1;
-            var mMey=(mS2.q>mS1.q)?mS2:mS1;
-
-            // --- Rama geotecnica ULS (formato AASHTO LRFD) ---
-            // q_n = FS·σ_adm (bruta, retro-calculada del estudio); q_R = φ_b·q_n.
-            // Demanda uniforme de Meyerhof sobre A' = B'·L, con W incluido y afectado por el
-            // mismo factor que las cargas permanentes (combinaciones CIRSOC 201-2005 art. 9.2).
-            var qn=inp.FS*inp.sa;                 // capacidad ultima nominal
-            var qR=inp.phi*qn;                    // resistencia de calculo
-            function geoComb(nom,V,M){
-                var e=(V>0)?M/V:0, Bp=B-2*e;
-                if(V<=0||Bp<=0) return {nom:nom,V:V,M:M,e:e,Bp:0,Ap:0,q:Infinity,rdc:Infinity,vuelco:true};
-                var Ap=Bp*L;
-                return {nom:nom,V:V,M:M,e:e,Bp:Bp,Ap:Ap,q:V/Ap,rdc:(qR>0)?V/(Ap*qR):Infinity,vuelco:false};
-            }
-            var G=[
-                geoComb('G1: 1.4·(D+W)',                  1.4*(Nd+W),           0),
-                geoComb('G2: 1.2·(D+W) + 1.6·L',          1.2*(Nd+W)+1.6*Nl,    0),
-                geoComb('G3: 1.2·(D+W) + 1.0·L + 1.6·Mw', 1.2*(Nd+W)+1.0*Nl,    1.6*Mw),
-                geoComb('G4: 0.9·(D+W) + 1.6·Mw',         0.9*(Nd+W),           1.6*Mw)
-            ];
-            var gRige=G.reduce(function(a,b){return (b.rdc>a.rdc)?b:a;},G[0]);
-            var gVuelco=false; for(var gi=0;gi<G.length;gi++){if(G[gi].vuelco)gVuelco=true;}
-            var verifG=!gVuelco && gRige.q<=qR;
-
-            // --- Indicadores de coherencia entre ramas (pestaña 6) ---
-            // FS disponible: seguridad global que el diseño actual tiene, en formato Meyerhof.
-            // No depende de φ_b ni de los factores de carga.
-            var FSdisp=(mMey.q>0 && mMey.q!==Infinity)?qn/mMey.q:0;
-            // FS exigido por la rama ultima: (q_dem/q_serv_equiv)/φ_b, comparable con el FS del estudio.
-            var FSexig=(mMey.q>0 && mMey.q!==Infinity && gRige.q!==Infinity)?(gRige.q/mMey.q)/inp.phi:Infinity;
-
-            // --- B minimo por rama (biseccion en [1,12], tol 0.01 m, max 60 iter) ---
-            // Con L y α fijos, W no depende de B y las excentricidades tampoco: σ_max y q_dem
-            // son estrictamente decrecientes en B, la factibilidad es monotona y la biseccion vale.
-            function okASD(Bx){
-                var a=distr(S1.V,S1.M,Bx,L), b=distr(S2.V,S2.M,Bx,L);
-                var sx=Math.max(a.smax,b.smax);
-                return sx!==Infinity && sx<=inp.sa;
-            }
-            function okGEO(Bx){
-                var peor=0;
-                for(var i=0;i<G.length;i++){
-                    var Bp=Bx-2*G[i].e;
-                    if(G[i].V<=0||Bp<=0) return false;
-                    var q=G[i].V/(Bp*L);
-                    if(q>peor)peor=q;
-                }
-                return peor<=qR;
-            }
-            function Bmin(ok){
-                if(!ok(12)) return {val:12,estado:'gt12'};
-                if(ok(1))   return {val:1, estado:'le1'};
-                var lo=1,hi=12,it=0;
-                while(hi-lo>0.01 && it<60){var mB=(lo+hi)/2; if(ok(mB))hi=mB; else lo=mB; it++;}
-                return {val:hi,estado:'ok'};
-            }
-            var BminASD=Bmin(okASD), BminGEO=Bmin(okGEO);
-
-            return {W:W,S1:S1,S2:S2,sRige:sRige,sEmax:sEmax,verif:verif,
-                    U:U,uRige:uRige,uEmax:uEmax,Bf:Bf,Af:Af,qMey:qMey,
-                    mS1:mS1,mS2:mS2,sMey:sMey,mMey:mMey,
-                    qn:qn,qR:qR,G:G,gRige:gRige,gVuelco:gVuelco,verifG:verifG,
-                    FSdisp:FSdisp,FSexig:FSexig,BminASD:BminASD,BminGEO:BminGEO};
+        if(e<B/2){
+            var a=3*(B/2-e);                 // longitud de contacto
+            return {e:e,tipo:'triangular',smax:2*V/(a*L),smin:0,a:a};
         }
-        /*CALC-END*/
-
-        function _g(i){return parseFloat(document.getElementById(i).value)||0;}
-        function _e(i){return document.getElementById(i);}
-        function fx(v,d){return v===Infinity?'∞':v.toFixed(d===undefined?1:d);}
-
-        // Advertencias de excentricidad para una combinación
-        function badges(c,B){
-            var b='';
-            if(c.tipo==='vuelco'){b+='<span class="warn-badge warn-r">VUELCO: e ≥ B/2</span>';return b;}
-            if(c.e>B/3) b+='<span class="warn-badge warn-r">e &gt; B/3 - EC7 6.5.4: precauciones especiales</span>';
-            else if(c.e>B/6) b+='<span class="warn-badge warn-y">e &gt; B/6 - despegue parcial</span>';
-            return b;
+        return {e:e,tipo:'vuelco',smax:Infinity,smin:0,a:0};
+    }
+    
+    // -------------------------------------------------------------------
+    // 2. TRASLADO DE ACCIONES AL PLANO DE ASIENTO
+    // Las acciones se ingresan en un plano de referencia y se trasladan al
+    // plano de asiento. Una fuerza horizontal aporta momento igual a H por
+    // el brazo z; una fuerza vertical centrada no aporta momento.
+    // Regla unica para las tres acciones, sin caso especial para el viento:
+    //     M_base = M + H * z
+    // z = D_f si las acciones se dan en el nivel +-0,00 (con pedestal)
+    // z = h   si las acciones se dan en la cara superior de la zapata
+    // -------------------------------------------------------------------
+    function trasladar(acc, z){
+        return {N: acc.N||0, M: (acc.M||0) + (acc.H||0)*z, H: acc.H||0};
+    }
+    
+    // -------------------------------------------------------------------
+    // 3. PESO PROPIO GEOMETRICO (decision D3)
+    //     P_z = hormigon de zapata + tapada + pedestal
+    //     t   = D_f - h   espesor de tapada sobre la cara superior
+    // Accion permanente. Entra SOLO en la rama de servicio (presion bruta,
+    // art. 15.2.2). No entra en la rama neta (art. 15.2.1): el peso propio
+    // y la tapada se equilibran con la reaccion uniforme que ellos mismos
+    // generan y no producen flexion ni corte en la placa.
+    // -------------------------------------------------------------------
+    function pesoPropio(g){
+        var t = Math.max(0, g.Df - g.h);
+        var Ph = g.B*g.L*g.h*g.gh;                        // hormigon de zapata
+        var Pt = Math.max(0,(g.B*g.L - g.c1*g.c2))*t*g.gs; // tapada
+        var Pp = g.c1*g.c2*t*g.gh;                         // pedestal
+        return {t:t, Ph:Ph, Pt:Pt, Pp:Pp, Pz:Ph+Pt+Pp, alfaEq:(Ph+Pt+Pp)/Math.max(1e-9,g.Nd+g.Nl)};
+    }
+    
+    // -------------------------------------------------------------------
+    // 4. MOTOR DE COMBINACIONES - art. 9.2.1
+    // Recibe las acciones por tipo ya trasladadas y devuelve la lista de
+    // combinaciones con su N, M y H resultantes.
+    //   (9-1) U = 1,4 (D + F)
+    //   (9-2) U = 1,2 (D + F + T) + 1,6 (L + H_s) + 0,5 max(Lr, S, R)
+    //   (9-3) U = 1,2 D + 1,6 max(Lr, S, R) + (f1 L  o  0,8 W)   dos ramas
+    //   (9-4) U = 1,2 D + 1,6 W + f1 L + 0,5 max(Lr, S, R)
+    //   (9-6) U = 0,9 D + 1,6 W + 1,6 H_s
+    // Las (9-5) y (9-7), sismicas, estan fuera del alcance de la v8.
+    // ATENCION: las ecuaciones (9-3), (9-4) y (9-6) NO incluyen F.
+    // Confirmado con el Ejemplo 1.I del documento oficial de aplicacion.
+    // H_s es el empuje de suelo del reglamento, no la fuerza horizontal.
+    // -------------------------------------------------------------------
+    function combinaciones(a, f1){
+        var Z = {N:0,M:0,H:0};
+        var D=a.D||Z, F=a.F||Z, T=a.T||Z, L=a.L||Z, Hs=a.Hs||Z;
+        var Lr=a.Lr||Z, S=a.S||Z, R=a.R||Z, W=a.W||Z;
+    
+        // max(Lr, S, R) por componente: se toma la accion de cubierta dominante
+        function techo(k){ return Math.max(Lr[k]||0, S[k]||0, R[k]||0); }
+        var Tc = {N:techo('N'), M:techo('M'), H:techo('H')};
+    
+        function lc(nom, eq, expr, term){
+            var o={nom:nom, eq:eq, expr:expr, N:0, M:0, H:0};
+            term.forEach(function(t){
+                o.N += t[0]*(t[1].N||0); o.M += t[0]*(t[1].M||0); o.H += t[0]*(t[1].H||0);
+            });
+            return o;
         }
-
-        // Advertencias para la rama geotécnica última (usa B' además de e)
-        function badgesGeo(g,B){
-            if(g.vuelco) return '<span class="warn-badge warn-r">VUELCO: no queda área efectiva</span>';
-            var b='';
-            if(g.e>B/3) b+='<span class="warn-badge warn-r">e &gt; B/3 - EC7 6.5.4: precauciones especiales</span>';
-            else if(g.e>B/6) b+='<span class="warn-badge warn-y">e &gt; B/6 - resultante fuera del tercio central</span>';
-            if(g.Bp<B/3) b+='<span class="warn-badge warn-y">Área efectiva reducida a menos de un tercio de B</span>';
-            return b;
-        }
-
-        window.T=function(t,el){
-            document.querySelectorAll('.tab-content').forEach(function(x){x.classList.remove('active');});
-            document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
-            _e(t).classList.add('active');
-            var _b=el||(window.event&&window.event.target);
-            if(_b&&_b.classList)_b.classList.add('active');
-            R();
+    
+        return [
+            lc('C1','(9-1)','1,4 (D + F)',
+               [[1.4,D],[1.4,F]]),
+            lc('C2','(9-2)','1,2 (D + F + T) + 1,6 (L + H) + 0,5 (Lr o S o R)',
+               [[1.2,D],[1.2,F],[1.2,T],[1.6,L],[1.6,Hs],[0.5,Tc]]),
+            lc('C3a','(9-3a)','1,2 D + 1,6 (Lr o S o R) + f1 L',
+               [[1.2,D],[1.6,Tc],[f1,L]]),
+            lc('C3b','(9-3b)','1,2 D + 1,6 (Lr o S o R) + 0,8 W',
+               [[1.2,D],[1.6,Tc],[0.8,W]]),
+            lc('C4','(9-4)','1,2 D + 1,6 W + f1 L + 0,5 (Lr o S o R)',
+               [[1.2,D],[1.6,W],[f1,L],[0.5,Tc]]),
+            lc('C6','(9-6)','0,9 D + 1,6 W + 1,6 H',
+               [[0.9,D],[1.6,W],[1.6,Hs]])
+        ];
+    }
+    
+    // -------------------------------------------------------------------
+    // 5. PERFIL DE PRESIONES PARAMETRIZADO
+    // La distribucion es siempre lineal a trozos. x medido desde el borde
+    // izquierdo. El momento positivo desplaza la resultante hacia +x.
+    // Si el momento es negativo se calcula con |M| y se marca espejo:
+    // el perfil real es el reflejado respecto de x = B/2.
+    // -------------------------------------------------------------------
+    function perfil(d, B, espejo){
+        var x0 = (d.tipo==='triangular') ? (B - d.a) : 0;
+        var qs = (d.tipo==='triangular') ? 0 : d.smin;
+        var k  = (B - x0 > 1e-12) ? (d.smax - qs)/(B - x0) : 0;
+        return {x0:x0, qs:qs, k:k, B:B, espejo:!!espejo, tipo:d.tipo, a:d.a,
+                smax:d.smax, smin:d.smin, e:d.e};
+    }
+    
+    // Valor de la presion en x, ya considerando el espejo. Solo para graficos.
+    function qEn(p, x){
+        var xx = p.espejo ? (p.B - x) : x;
+        if(xx < p.x0) return 0;
+        if(xx > p.B)  return 0;
+        return p.qs + p.k*(xx - p.x0);
+    }
+    
+    // -------------------------------------------------------------------
+    // 6. INTEGRALES EN FORMA CERRADA sobre el perfil canonico
+    // u = x - x0, limites recortados a [x0, B], c = x0 - xref.
+    //   Fuerza:  int q dx      = qs (u_r - u_p) + k (u_r^2 - u_p^2)/2
+    //   Momento: int q (x-xref) dx = F(u_r) - F(u_p)
+    //            F(u) = qs u^2/2 + qs c u + k u^3/3 + k c u^2/2
+    // Resultado por unidad de ancho. Multiplicar por L para kN y kN.m.
+    // -------------------------------------------------------------------
+    function intQ(p, xa, xb){
+        var lo = Math.max(xa, p.x0), hi = Math.min(xb, p.B);
+        if(hi <= lo) return 0;
+        var up = lo - p.x0, ur = hi - p.x0;
+        return p.qs*(ur-up) + p.k*(ur*ur - up*up)/2;
+    }
+    function intQx(p, xa, xb, xref){
+        var lo = Math.max(xa, p.x0), hi = Math.min(xb, p.B);
+        if(hi <= lo) return 0;
+        var c = p.x0 - xref;
+        var Fu = function(u){ return p.qs*u*u/2 + p.qs*c*u + p.k*u*u*u/3 + p.k*c*u*u/2; };
+        return Fu(hi - p.x0) - Fu(lo - p.x0);
+    }
+    
+    // -------------------------------------------------------------------
+    // 7. GEOMETRIA DE LAS SECCIONES CRITICAS
+    //   Flexion   (15.4.2 a): cara de columna
+    //   Corte 1D  (15.5.2 + 11.1.3.1): a distancia d de la cara
+    //   Punzonado (11.12.1.2): perimetro a d/2 de las caras
+    // -------------------------------------------------------------------
+    function seccionesCriticas(g){
+        var d = g.h - g.r;
+        var xL = g.B/2 - g.c1/2, xR = g.B/2 + g.c1/2;
+        var xVd = xR + d, xVi = xL - d;
+        var xPa = xL - d/2, xPb = xR + d/2;
+        return {
+            d:d, xL:xL, xR:xR,
+            xVder:xVd, xVizq:xVi,
+            aplicaVder:(xVd < g.B - 1e-9), aplicaVizq:(xVi > 1e-9),
+            xPa:xPa, xPb:xPb, anchoPunz:xPb-xPa,
+            aplicaPunz:(xPa > 1e-9 && xPb < g.B - 1e-9 && (g.c2+d) < g.L - 1e-9),
+            b0: 2*(g.c1+d) + 2*(g.c2+d)
         };
-
-        window.R=function(){
-            var B=_g('sB'), L=_g('sL'), h=_g('sH');
-            _e('vB').textContent=B.toFixed(2)+' m';
-            _e('vL').textContent=L.toFixed(2)+' m';
-            _e('vH').textContent=h.toFixed(2)+' m';
-
-            var fsIn=_g('iFS'); if(!(fsIn>0)) fsIn=3;
-            var phiIn=_g('iPhi'); if(!(phiIn>0 && phiIn<=1)) phiIn=0.45;
-            var r=CALC({Nd:_g('iNd'),Nl:_g('iNl'),Mw:_g('iMw'),sa:_g('iSa'),al:_g('iAl'),B:B,L:L,FS:fsIn,phi:phiIn});
-            var sa=_g('iSa');
-            var rG=r.sRige.smax!==Infinity?(r.sRige.smax/sa*100).toFixed(0):'∞';
-
-            /* ---------- SVG Concepto (estático) ---------- */
-            var cE=0.5,cB=4,sW=580,sHh=260,scC=90,zCW=cB*scC,zCH=140,sCX=(sW-zCW)/2,sCY=55,iW=2*cE*scC;
-            _e('svgC').innerHTML='<svg width="'+sW+'" height="'+sHh+'" viewBox="0 0 '+sW+' '+sHh+'"><defs><pattern id="hC" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M-2,2 l4,-4 M0,10 l10,-10 M8,12 l4,-4" stroke="#64748b" stroke-width="1.5"/></pattern></defs><rect x="'+sCX+'" y="'+sCY+'" width="'+iW+'" height="'+zCH+'" fill="url(#hC)" stroke="#475569" stroke-width="2"/><rect x="'+(sCX+iW)+'" y="'+sCY+'" width="'+(zCW-iW)+'" height="'+zCH+'" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="3"/><rect x="'+sCX+'" y="'+sCY+'" width="'+zCW+'" height="'+zCH+'" fill="none" stroke="#334155" stroke-width="2"/><circle cx="'+(sCX+zCW/2)+'" cy="'+(sCY+zCH/2)+'" r="7" fill="#374151"/><text x="'+(sCX+zCW/2)+'" y="'+(sCY+zCH/2-15)+'" text-anchor="middle" font-size="14" fill="#374151" font-weight="bold">CG</text><circle cx="'+(sCX+zCW/2+cE*scC)+'" cy="'+(sCY+zCH/2)+'" r="9" fill="#dc2626"/><text x="'+(sCX+zCW/2+cE*scC)+'" y="'+(sCY+zCH/2+28)+'" text-anchor="middle" font-size="14" fill="#dc2626" font-weight="bold">V</text><line x1="'+(sCX+zCW/2)+'" y1="'+(sCY+zCH/2)+'" x2="'+(sCX+zCW/2+cE*scC)+'" y2="'+(sCY+zCH/2)+'" stroke="#059669" stroke-width="3"/><text x="'+(sCX+zCW/2+cE*scC/2)+'" y="'+(sCY+zCH/2-10)+'" text-anchor="middle" font-size="14" fill="#059669" font-weight="bold">e</text><line x1="'+sCX+'" y1="'+(sCY+zCH+25)+'" x2="'+(sCX+zCW)+'" y2="'+(sCY+zCH+25)+'" stroke="#333" stroke-width="2"/><text x="'+(sCX+zCW/2)+'" y="'+(sCY+zCH+45)+'" text-anchor="middle" font-size="14" font-weight="bold">B</text><line x1="'+(sCX+iW)+'" y1="'+(sCY-15)+'" x2="'+(sCX+zCW)+'" y2="'+(sCY-15)+'" stroke="#1d4ed8" stroke-width="3"/><text x="'+(sCX+iW+(zCW-iW)/2)+'" y="'+(sCY-25)+'" text-anchor="middle" font-size="14" fill="#1d4ed8" font-weight="bold">B\' = B - 2e</text><line x1="'+sCX+'" y1="'+(sCY-15)+'" x2="'+(sCX+iW)+'" y2="'+(sCY-15)+'" stroke="#64748b" stroke-width="2"/><text x="'+(sCX+iW/2)+'" y="'+(sCY-25)+'" text-anchor="middle" font-size="12" fill="#64748b" font-weight="bold">2e</text><rect x="'+(sW-135)+'" y="8" width="16" height="16" fill="url(#hC)" stroke="#475569"/><text x="'+(sW-115)+'" y="20" font-size="11">Zona ignorada</text><rect x="'+(sW-135)+'" y="28" width="16" height="16" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="2"/><text x="'+(sW-115)+'" y="40" font-size="11">Área efectiva A\'</text></svg>';
-
-            /* ---------- Panel de cálculo servicio (lateral) ---------- */
-            _e('cP').innerHTML='<div class="card"><h4>Cálculo (servicio, combinación que rige)</h4>'+
-                '<table><tr><td>W = α·(N<sub>D</sub>+N<sub>L</sub>)</td><td>'+r.W.toFixed(1)+' kN</td></tr>'+
-                '<tr><td>Rige</td><td>'+r.sRige.nom+'</td></tr>'+
-                '<tr><td>V</td><td>'+r.sRige.V.toFixed(1)+' kN</td></tr>'+
-                '<tr><td>e = M<sub>W</sub>/V</td><td>'+r.sRige.e.toFixed(3)+' m</td></tr>'+
-                '<tr><td>B/6</td><td>'+(B/6).toFixed(3)+' m</td></tr>'+
-                '<tr><td>Distribución</td><td>'+r.sRige.tipo.toUpperCase()+'</td></tr>'+
-                '<tr><td>σ<sub>máx</sub> (bruta)</td><td class="'+(r.verif?'text-green':'text-red')+'"><strong>'+fx(r.sRige.smax)+' kPa</strong></td></tr>'+
-                '<tr><td>σ<sub>mín</sub></td><td>'+fx(r.sRige.smin)+' kPa</td></tr>'+
-                '<tr><td>σ<sub>adm</sub></td><td>'+sa+' kPa</td></tr></table>'+
-                '<div style="margin-top:8px">'+badges(r.sEmax,B)+'</div>'+
-                '<div class="big-result '+(r.verif?'result-ok':'result-fail')+'">'+(r.verif?'✓ VERIFICA':'✗ NO VERIFICA')+' ('+rG+'%)</div></div>';
-
-            /* ---------- Tabla de combinaciones de servicio ---------- */
-            var fS=function(c){
-                var esRige=(c===r.sRige)?' class="rige"':'';
-                return '<tr'+esRige+'><td>'+c.nom+'</td><td>'+c.V.toFixed(0)+'</td><td>'+c.M.toFixed(0)+'</td><td>'+c.e.toFixed(3)+'</td><td>'+c.tipo+'</td><td>'+fx(c.smax)+'</td><td>'+fx(c.smin)+'</td></tr>';
-            };
-            _e('tS').innerHTML='<h4>Combinaciones de servicio evaluadas (presión bruta)</h4>'+
-                '<table class="tbl-num"><tr><th>Combinación</th><th>V [kN]</th><th>M [kN·m]</th><th>e [m]</th><th>Distribución</th><th>σ<sub>máx</sub> [kPa]</th><th>σ<sub>mín</sub> [kPa]</th></tr>'+
-                fS(r.S1)+fS(r.S2)+'</table>'+
-                '<p class="note">Sombreada: la que rige por σ<sub>máx</sub>. D+W (sin sobrecarga) maximiza la excentricidad y puede provocar despegue aunque D+L+W verifique. W = peso zapata + tapada = '+r.W.toFixed(0)+' kN, presente en ambas por ser carga permanente física.</p>';
-
-            /* ---------- SVG Planta servicio ---------- */
-            function svgPlanta(id, comb, etiquetaV){
-                var sPW=500,sPH=320;
-                var scP=Math.min((sPW-100)/B,(sPH-100)/L,70);
-                var zPW=B*scP,zPH=L*scP;
-                var sXP=(sPW-zPW)/2,sYP=50;
-                var xCG=sXP+zPW/2;
-                var ePx=Math.min(comb.e*scP,zPW/2-12);
-                var xV=xCG+ePx;
-                _e(id).innerHTML='<svg width="'+sPW+'" height="'+sPH+'" viewBox="0 0 '+sPW+' '+sPH+'">'+
-                    '<text x="'+(sPW/2)+'" y="20" text-anchor="middle" font-size="12" fill="#64748b">'+comb.nom+'</text>'+
-                    '<rect x="'+sXP+'" y="'+sYP+'" width="'+zPW+'" height="'+zPH+'" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>'+
-                    '<circle cx="'+xCG+'" cy="'+(sYP+zPH/2)+'" r="7" fill="#374151"/>'+
-                    '<text x="'+xCG+'" y="'+(sYP+zPH/2-14)+'" text-anchor="middle" font-size="13" fill="#374151" font-weight="bold">CG</text>'+
-                    '<circle cx="'+xV+'" cy="'+(sYP+zPH/2)+'" r="9" fill="#dc2626"/>'+
-                    '<text x="'+xV+'" y="'+(sYP+zPH/2+28)+'" text-anchor="middle" font-size="13" fill="#dc2626" font-weight="bold">'+etiquetaV+'</text>'+
-                    '<line x1="'+xCG+'" y1="'+(sYP+zPH/2)+'" x2="'+xV+'" y2="'+(sYP+zPH/2)+'" stroke="#059669" stroke-width="3"/>'+
-                    '<text x="'+((xCG+xV)/2)+'" y="'+(sYP+zPH/2-10)+'" text-anchor="middle" font-size="13" fill="#059669" font-weight="bold">e = '+comb.e.toFixed(3)+' m</text>'+
-                    '<line x1="'+sXP+'" y1="'+(sYP+zPH+25)+'" x2="'+(sXP+zPW)+'" y2="'+(sYP+zPH+25)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+sXP+'" y1="'+(sYP+zPH+18)+'" x2="'+sXP+'" y2="'+(sYP+zPH+32)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+(sXP+zPW)+'" y1="'+(sYP+zPH+18)+'" x2="'+(sXP+zPW)+'" y2="'+(sYP+zPH+32)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<text x="'+(sXP+zPW/2)+'" y="'+(sYP+zPH+48)+'" text-anchor="middle" font-size="14" font-weight="bold">B = '+B.toFixed(2)+' m</text>'+
-                    '<line x1="'+(sXP-25)+'" y1="'+sYP+'" x2="'+(sXP-25)+'" y2="'+(sYP+zPH)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+(sXP-32)+'" y1="'+sYP+'" x2="'+(sXP-18)+'" y2="'+sYP+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+(sXP-32)+'" y1="'+(sYP+zPH)+'" x2="'+(sXP-18)+'" y2="'+(sYP+zPH)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<text x="'+(sXP-40)+'" y="'+(sYP+zPH/2+5)+'" text-anchor="middle" font-size="14" font-weight="bold" transform="rotate(-90 '+(sXP-40)+' '+(sYP+zPH/2)+')">L = '+L.toFixed(2)+' m</text></svg>';
-            }
-            svgPlanta('svgP', r.sRige, 'V');
-
-            /* ---------- SVG Distribución de presiones (eje sigma hacia abajo) ---------- */
-            function svgPres(id, comb, lim, limLabel, color, colorDark){
-                var sSW=500,sSH2=400;
-                var mS={t:60,r:80,b:55,l:60};
-                var pSW=sSW-mS.l-mS.r,pSH=sSH2-mS.t-mS.b;
-                var mxP=Math.max(comb.smax===Infinity?(lim||200)*1.5:comb.smax*1.2,(lim||0)*1.2,100);
-                var scY=pSH/mxP,scX=pSW/B;
-                var zY=mS.t,zH2=22,bY=zY+zH2;
-                var pP;
-                if(comb.tipo==='trapezoidal'||comb.tipo==='uniforme'){
-                    pP=mS.l+','+bY+' '+mS.l+','+(bY+comb.smin*scY)+' '+(mS.l+pSW)+','+(bY+comb.smax*scY)+' '+(mS.l+pSW)+','+bY;
-                }else if(comb.tipo==='triangular'){
-                    var xS=mS.l+pSW-comb.a*scX;
-                    pP=Math.max(mS.l,xS)+','+bY+' '+(mS.l+pSW)+','+(bY+Math.min(comb.smax,mxP)*scY)+' '+(mS.l+pSW)+','+bY;
-                }else{
-                    pP=mS.l+','+bY+' '+(mS.l+pSW)+','+bY;
-                }
-                var xCGp=mS.l+pSW/2;
-                var xVp=Math.min(mS.l+(B/2+comb.e)*scX,mS.l+pSW-5);
-                var ticks=[0,50,100,150,200,250,300,400,500,600,800,1000,1200,1500].filter(function(v){return v<=mxP&&v>0;}).map(function(v){
-                    return '<line x1="'+mS.l+'" y1="'+(bY+v*scY)+'" x2="'+(mS.l+pSW)+'" y2="'+(bY+v*scY)+'" stroke="#e5e7eb"/><text x="'+(mS.l-8)+'" y="'+(bY+v*scY+4)+'" font-size="10" fill="#6b7280" text-anchor="end">'+v+'</text>';
-                }).join('');
-                var limLine='';
-                if(lim){
-                    var yL=bY+lim*scY;
-                    limLine='<line x1="'+mS.l+'" y1="'+yL+'" x2="'+(mS.l+pSW)+'" y2="'+yL+'" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="8,4"/><text x="'+(mS.l+pSW+8)+'" y="'+(yL+5)+'" font-size="11" fill="#dc2626" font-weight="bold">'+limLabel+'='+lim+'</text>';
-                }
-                _e(id).innerHTML='<svg width="'+sSW+'" height="'+sSH2+'" viewBox="0 0 '+sSW+' '+sSH2+'">'+
-                    '<defs><linearGradient id="pg'+id+'" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="'+color+'" stop-opacity="0.25"/><stop offset="100%" stop-color="'+color+'" stop-opacity="0.6"/></linearGradient></defs>'+
-                    '<text x="'+(sSW/2)+'" y="18" text-anchor="middle" font-size="12" fill="#64748b">'+comb.nom+' - Distribución: '+comb.tipo.toUpperCase()+'</text>'+
-                    '<line x1="'+mS.l+'" y1="'+bY+'" x2="'+mS.l+'" y2="'+(bY+pSH)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<text x="'+(mS.l-8)+'" y="'+(mS.t-12)+'" font-size="12" fill="#333" font-weight="500">σ (kPa)</text>'+
-                    '<polygon points="'+(mS.l-4)+','+(bY+pSH)+' '+(mS.l+4)+','+(bY+pSH)+' '+mS.l+','+(bY+pSH+10)+'" fill="#333"/>'+
-                    ticks+limLine+
-                    '<rect x="'+mS.l+'" y="'+zY+'" width="'+pSW+'" height="'+zH2+'" fill="#64748b" stroke="#334155" stroke-width="2"/>'+
-                    '<text x="'+(mS.l+pSW/2)+'" y="'+(zY+16)+'" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">ZAPATA</text>'+
-                    '<polygon points="'+pP+'" fill="url(#pg'+id+')" stroke="'+colorDark+'" stroke-width="2.5"/>'+
-                    '<line x1="'+xCGp+'" y1="'+(zY+zH2)+'" x2="'+xCGp+'" y2="'+(zY+zH2+25)+'" stroke="#374151" stroke-width="1.5" stroke-dasharray="4,3"/>'+
-                    '<circle cx="'+xCGp+'" cy="'+(zY+zH2+30)+'" r="5" fill="#374151"/>'+
-                    '<text x="'+xCGp+'" y="'+(zY+zH2+45)+'" font-size="10" fill="#374151" text-anchor="middle" font-weight="bold">CG</text>'+
-                    '<line x1="'+xVp+'" y1="'+(zY-25)+'" x2="'+xVp+'" y2="'+zY+'" stroke="#dc2626" stroke-width="3"/>'+
-                    '<polygon points="'+(xVp-6)+','+zY+' '+(xVp+6)+','+zY+' '+xVp+','+(zY+8)+'" fill="#dc2626"/>'+
-                    '<text x="'+xVp+'" y="'+(zY-30)+'" font-size="11" fill="#dc2626" text-anchor="middle" font-weight="bold">V</text>'+
-                    '<line x1="'+xCGp+'" y1="'+(zY-15)+'" x2="'+xVp+'" y2="'+(zY-15)+'" stroke="#059669" stroke-width="2"/>'+
-                    '<text x="'+((xCGp+xVp)/2)+'" y="'+(zY-20)+'" font-size="11" fill="#059669" text-anchor="middle" font-weight="bold">e</text>'+
-                    '<text x="'+(mS.l+8)+'" y="'+(bY+Math.max(comb.smin*scY,15)+16)+'" font-size="11" fill="'+colorDark+'" font-weight="bold">σmin='+fx(comb.smin,0)+'</text>'+
-                    '<text x="'+(mS.l+pSW-8)+'" y="'+(bY+Math.min((comb.smax===Infinity?mxP:comb.smax)*scY,pSH-10)+16)+'" text-anchor="end" font-size="11" fill="'+colorDark+'" font-weight="bold">σmax='+fx(comb.smax,0)+'</text>'+
-                    '<line x1="'+mS.l+'" y1="'+(sSH2-22)+'" x2="'+(mS.l+pSW)+'" y2="'+(sSH2-22)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+mS.l+'" y1="'+(sSH2-29)+'" x2="'+mS.l+'" y2="'+(sSH2-15)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+(mS.l+pSW)+'" y1="'+(sSH2-29)+'" x2="'+(mS.l+pSW)+'" y2="'+(sSH2-15)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<text x="'+(mS.l+pSW/2)+'" y="'+(sSH2-5)+'" text-anchor="middle" font-size="14" font-weight="bold">B = '+B.toFixed(2)+' m</text></svg>';
-            }
-            svgPres('svgS', r.sRige, sa, 'σadm', '#3b82f6', '#2563eb');
-
-            /* ---------- ULS: panel lateral ---------- */
-            _e('cU').innerHTML='<div class="card card-blue"><h4>Combinación que rige (por q<sub>máx</sub>)</h4>'+
-                '<table><tr><td>Rige</td><td>'+r.uRige.nom+'</td></tr>'+
-                '<tr><td>V<sub>u</sub> (neta)</td><td>'+r.uRige.V.toFixed(1)+' kN</td></tr>'+
-                '<tr><td>M<sub>u</sub> = 1.6·M<sub>W</sub></td><td>'+r.uRige.M.toFixed(1)+' kN·m</td></tr>'+
-                '<tr><td>e<sub>u</sub> = M<sub>u</sub>/V<sub>u</sub></td><td>'+r.uRige.e.toFixed(3)+' m</td></tr>'+
-                '<tr><td>Distribución</td><td>'+r.uRige.tipo.toUpperCase()+'</td></tr>'+
-                '<tr><td>q<sub>u,máx</sub></td><td class="text-purple" style="font-size:1.25em"><strong>'+fx(r.uRige.smax)+' kPa</strong></td></tr>'+
-                '<tr><td>q<sub>u,mín</sub></td><td>'+fx(r.uRige.smin)+' kPa</td></tr></table>'+
-                '<div style="margin-top:8px">'+badges(r.uEmax,B)+'</div></div>'+
-                '<div class="highlight-box"><h4>📐 Con q<sub>u</sub> se dimensiona</h4><ul>'+
-                '<li>Flexión: momento en la cara de la columna</li>'+
-                '<li>Corte unidireccional a d de la cara</li>'+
-                '<li>Punzonado a d/2 del perímetro</li></ul>'+
-                '<p class="note">Según CIRSOC 201-2005, Cap. 15. La presión neta es una herramienta de cálculo del hormigón: no comparar contra σ<sub>adm</sub>.</p></div>';
-
-            /* ---------- ULS: tabla envolvente ---------- */
-            var fU=function(c){
-                var cls=(c===r.uRige)?' class="rige"':'';
-                var w=(c.e>B/3&&c.tipo!=='vuelco')?' ⚠':(c.tipo==='vuelco'?' ✗':'');
-                return '<tr'+cls+'><td>'+c.nom+'</td><td>'+c.V.toFixed(0)+'</td><td>'+c.M.toFixed(0)+'</td><td>'+c.e.toFixed(3)+w+'</td><td>'+c.tipo+'</td><td>'+fx(c.smax)+'</td><td>'+fx(c.smin)+'</td></tr>';
-            };
-            _e('tU').innerHTML='<h4>Envolvente de combinaciones últimas (presión neta, CIRSOC 201-2005 art. 9.2)</h4>'+
-                '<table class="tbl-num"><tr><th>Combinación</th><th>V<sub>u</sub> [kN]</th><th>M<sub>u</sub> [kN·m]</th><th>e<sub>u</sub> [m]</th><th>Distribución</th><th>q<sub>u,máx</sub> [kPa]</th><th>q<sub>u,mín</sub> [kPa]</th></tr>'+
-                r.U.map(fU).join('')+'</table>'+
-                '<p class="note">Sombreada: rige por q<sub>u,máx</sub>. ⚠ = e &gt; B/3 (EN 1997-1, cl. 6.5.4: precauciones especiales). El diseño seccional debe evaluarse con el diagrama completo de cada combinación: la de mayor q<sub>máx</sub> y la de mayor excentricidad pueden regir secciones distintas.</p>';
-
-            svgPlanta('svgU', r.uRige, 'Vu');
-            svgPres('svgQ', r.uRige, null, '', '#a855f7', '#7c3aed');
-
-            /* ---------- MEYERHOF (servicio, rige por V/A') ---------- */
-            _e('cM').innerHTML='<div class="card"><h4>Área efectiva (servicio, rige '+r.sMey.nom+')</h4>'+
-                '<div class="formula">B\' = '+B.toFixed(2)+' - 2×'+r.sMey.e.toFixed(3)+' = <strong>'+r.mMey.Bp.toFixed(3)+' m</strong></div>'+
-                '<div class="formula">A\' = '+r.mMey.Bp.toFixed(3)+' × '+L.toFixed(2)+' = <strong>'+r.mMey.Ap.toFixed(2)+' m²</strong></div>'+
-                '<table><tr><td>q<sub>unif</sub> = V/A\'</td><td class="text-blue" style="font-size:1.2em"><strong>'+fx(r.mMey.q)+' kPa</strong></td></tr>'+
-                '<tr><td>σ<sub>máx</sub> lineal (misma comb.)</td><td>'+fx(r.sMey.smax)+' kPa</td></tr>'+
-                '<tr><td>σ<sub>adm</sub></td><td>'+sa+' kPa</td></tr>'+
-                '<tr><td>¿q<sub>unif</sub> ≤ σ<sub>adm</sub>?</td><td class="'+(r.mMey.q<=sa?'text-green':'text-red')+'">'+(r.mMey.q<=sa?'✓ Sí':'✗ No')+'</td></tr></table>'+
-                '<p class="note">La presión uniforme equivalente resulta menor que el pico de la distribución lineal (en casos de contacto parcial, exactamente 3/4 del pico): representa la demanda media sobre el área que efectivamente trabaja, y es la que se compara con la capacidad portante calculada con B\'.</p></div>';
-
-            var fMy=function(c,m){
-                var cls=(c===r.sMey)?' class="rige"':'';
-                return '<tr'+cls+'><td>'+c.nom+'</td><td>'+c.V.toFixed(0)+'</td><td>'+c.e.toFixed(3)+'</td><td>'+m.Bp.toFixed(3)+'</td><td>'+m.Ap.toFixed(2)+'</td><td>'+fx(m.q)+'</td></tr>';
-            };
-            _e('tMey').innerHTML='<h4>Ambas combinaciones de servicio en formato Meyerhof</h4>'+
-                '<table class="tbl-num"><tr><th>Combinación</th><th>V [kN]</th><th>e [m]</th><th>B\' [m]</th><th>A\' [m²]</th><th>q = V/A\' [kPa]</th></tr>'+
-                fMy(r.S1,r.mS1)+fMy(r.S2,r.mS2)+'</table>'+
-                '<p class="note">Sombreada: rige por mayor V/A\'. S2 (D + W, sin sobrecarga) produce la menor área efectiva por su mayor excentricidad, pero con capacidad constante gobierna la mayor demanda media, no la menor área. La rama geotécnica última (pestaña 4) usa este mismo formato con cargas mayoradas.</p>';
-
-            /* SVG de área efectiva parametrizado (pestañas 4 y 5) */
-            function svgAreaEf(id, comb, Bp, subt){
-                var sUW=500,sUH=340;
-                var scU=Math.min((sUW-100)/B,(sUH-120)/L,70);
-                var zUW=B*scU,zUH=L*scU;
-                var sXU=(sUW-zUW)/2,sYU=60;
-                var iUW=Math.min(2*comb.e*scU,zUW*0.92);
-                var eUW=zUW-iUW;
-                var ePx=Math.min(comb.e*scU,zUW/2-12);
-                var xVdU=sXU+zUW/2+ePx;
-                _e(id).innerHTML='<svg width="'+sUW+'" height="'+sUH+'" viewBox="0 0 '+sUW+' '+sUH+'">'+
-                    '<defs><pattern id="h'+id+'" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M-2,2 l4,-4 M0,10 l10,-10 M8,12 l4,-4" stroke="#64748b" stroke-width="1.5"/></pattern></defs>'+
-                    '<text x="'+(sUW/2)+'" y="18" text-anchor="middle" font-size="12" fill="#64748b">'+subt+'</text>'+
-                    '<rect x="'+sXU+'" y="'+sYU+'" width="'+iUW+'" height="'+zUH+'" fill="url(#h'+id+')" stroke="#475569" stroke-width="2"/>'+
-                    '<rect x="'+(sXU+iUW)+'" y="'+sYU+'" width="'+eUW+'" height="'+zUH+'" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="3"/>'+
-                    '<rect x="'+sXU+'" y="'+sYU+'" width="'+zUW+'" height="'+zUH+'" fill="none" stroke="#334155" stroke-width="2"/>'+
-                    '<circle cx="'+(sXU+zUW/2)+'" cy="'+(sYU+zUH/2)+'" r="6" fill="#374151"/>'+
-                    '<text x="'+(sXU+zUW/2)+'" y="'+(sYU+zUH/2-12)+'" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">CG</text>'+
-                    '<circle cx="'+xVdU+'" cy="'+(sYU+zUH/2)+'" r="8" fill="#dc2626"/>'+
-                    '<text x="'+xVdU+'" y="'+(sYU+zUH/2+25)+'" text-anchor="middle" font-size="12" fill="#dc2626" font-weight="bold">V</text>'+
-                    '<line x1="'+(sXU+zUW/2)+'" y1="'+(sYU+zUH/2)+'" x2="'+xVdU+'" y2="'+(sYU+zUH/2)+'" stroke="#059669" stroke-width="3"/>'+
-                    '<text x="'+((sXU+zUW/2+xVdU)/2)+'" y="'+(sYU+zUH/2-10)+'" text-anchor="middle" font-size="12" fill="#059669" font-weight="bold">e='+comb.e.toFixed(3)+'m</text>'+
-                    '<line x1="'+sXU+'" y1="'+(sYU+zUH+22)+'" x2="'+(sXU+zUW)+'" y2="'+(sYU+zUH+22)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+sXU+'" y1="'+(sYU+zUH+15)+'" x2="'+sXU+'" y2="'+(sYU+zUH+29)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+(sXU+zUW)+'" y1="'+(sYU+zUH+15)+'" x2="'+(sXU+zUW)+'" y2="'+(sYU+zUH+29)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<text x="'+(sXU+zUW/2)+'" y="'+(sYU+zUH+45)+'" text-anchor="middle" font-size="14" font-weight="bold">B = '+B.toFixed(2)+' m</text>'+
-                    '<line x1="'+(sXU+iUW)+'" y1="'+(sYU-15)+'" x2="'+(sXU+zUW)+'" y2="'+(sYU-15)+'" stroke="#1d4ed8" stroke-width="2.5"/>'+
-                    '<line x1="'+(sXU+iUW)+'" y1="'+(sYU-22)+'" x2="'+(sXU+iUW)+'" y2="'+(sYU-8)+'" stroke="#1d4ed8" stroke-width="2"/>'+
-                    '<line x1="'+(sXU+zUW)+'" y1="'+(sYU-22)+'" x2="'+(sXU+zUW)+'" y2="'+(sYU-8)+'" stroke="#1d4ed8" stroke-width="2"/>'+
-                    '<text x="'+(sXU+iUW+eUW/2)+'" y="'+(sYU-25)+'" text-anchor="middle" font-size="13" fill="#1d4ed8" font-weight="bold">B\' = '+Bp.toFixed(2)+' m</text>'+
-                    '<line x1="'+(sXU-25)+'" y1="'+sYU+'" x2="'+(sXU-25)+'" y2="'+(sYU+zUH)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+(sXU-32)+'" y1="'+sYU+'" x2="'+(sXU-18)+'" y2="'+sYU+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<line x1="'+(sXU-32)+'" y1="'+(sYU+zUH)+'" x2="'+(sXU-18)+'" y2="'+(sYU+zUH)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<text x="'+(sXU-40)+'" y="'+(sYU+zUH/2+5)+'" text-anchor="middle" font-size="13" font-weight="bold" transform="rotate(-90 '+(sXU-40)+' '+(sYU+zUH/2)+')">L = '+L.toFixed(2)+' m</text>'+
-                    '<rect x="'+(sUW-120)+'" y="30" width="14" height="14" fill="url(#h'+id+')" stroke="#475569"/>'+
-                    '<text x="'+(sUW-102)+'" y="41" font-size="10">Zona ignorada</text>'+
-                    '<rect x="'+(sUW-120)+'" y="48" width="14" height="14" fill="#3b82f6" fill-opacity="0.35" stroke="#1d4ed8" stroke-width="2"/>'+
-                    '<text x="'+(sUW-102)+'" y="59" font-size="10">Área efectiva</text></svg>';
-            }
-            svgAreaEf('svgA', r.sMey, r.mMey.Bp, r.sMey.nom+' (servicio)');
-
-            /* ---------- CAPACIDAD PORTANTE ULS (AASHTO) ---------- */
-            var g=r.gRige;
-            var utilG=(g.rdc===Infinity)?'∞':(g.rdc*100).toFixed(0)+'%';
-            svgAreaEf('svgGA', g, g.Bp, g.nom+' (mayorada)');
-
-            (function(){
-                var sW2=560,sH3=380,mG={t:56,r:96,b:64,l:64};
-                var pW=sW2-mG.l-mG.r,pH=sH3-mG.t-mG.b;
-                var fin=(g.q!==Infinity);
-                var mxq=Math.max(r.qn*1.12,(fin?g.q:0)*1.15,100);
-                var scy=pH/mxq,scx=pW/B;
-                var zY=mG.t,zH2=22,bY=zY+zH2;
-                var ticksV=[25,50,100,150,200,250,300,400,500,600,800,1000,1200,1500,2000,2500,3000,4000,5000].filter(function(v){return v<=mxq;}).map(function(v){
-                    return '<line x1="'+mG.l+'" y1="'+(bY+v*scy)+'" x2="'+(mG.l+pW)+'" y2="'+(bY+v*scy)+'" stroke="#e5e7eb"/><text x="'+(mG.l-8)+'" y="'+(bY+v*scy+4)+'" font-size="10" fill="#6b7280" text-anchor="end">'+v+'</text>';
-                }).join('');
-                function limLn(val,col,lab){
-                    var yL=bY+val*scy;
-                    return '<line x1="'+mG.l+'" y1="'+yL+'" x2="'+(mG.l+pW)+'" y2="'+yL+'" stroke="'+col+'" stroke-width="2.5" stroke-dasharray="8,4"/><text x="'+(mG.l+pW+6)+'" y="'+(yL+4)+'" font-size="11" fill="'+col+'" font-weight="bold">'+lab+'</text>';
-                }
-                var bloque='';
-                if(fin){
-                    var xB=mG.l+(B-g.Bp)*scx, hB2=Math.min(g.q*scy,pH);
-                    bloque='<rect x="'+xB+'" y="'+bY+'" width="'+(g.Bp*scx)+'" height="'+hB2+'" fill="#3b82f6" fill-opacity="0.45" stroke="'+(r.verifG?'#1d4ed8':'#dc2626')+'" stroke-width="2.5"/>'+
-                        '<text x="'+(xB+g.Bp*scx/2)+'" y="'+(bY+hB2+16)+'" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e3a8a">qdem='+fx(g.q)+' kPa uniforme sobre B\'='+g.Bp.toFixed(2)+' m</text>';
-                }else{
-                    bloque='<text x="'+(mG.l+pW/2)+'" y="'+(bY+pH/2)+'" text-anchor="middle" font-size="15" fill="#dc2626" font-weight="bold">VUELCO: B\' ≤ 0, no queda área efectiva</text>';
-                }
-                _e('svgGQ').innerHTML='<svg width="'+sW2+'" height="'+sH3+'" viewBox="0 0 '+sW2+' '+sH3+'">'+
-                    '<text x="'+(sW2/2)+'" y="18" text-anchor="middle" font-size="12" fill="#64748b">'+g.nom+' - demanda uniforme de Meyerhof</text>'+
-                    '<line x1="'+mG.l+'" y1="'+bY+'" x2="'+mG.l+'" y2="'+(bY+pH)+'" stroke="#333" stroke-width="1.5"/>'+
-                    '<text x="'+(mG.l-8)+'" y="'+(mG.t-10)+'" font-size="12" fill="#333" font-weight="500">q (kPa)</text>'+
-                    '<polygon points="'+(mG.l-4)+','+(bY+pH)+' '+(mG.l+4)+','+(bY+pH)+' '+mG.l+','+(bY+pH+10)+'" fill="#333"/>'+
-                    ticksV+
-                    '<rect x="'+mG.l+'" y="'+zY+'" width="'+pW+'" height="'+zH2+'" fill="#64748b" stroke="#334155" stroke-width="2"/>'+
-                    '<text x="'+(mG.l+pW/2)+'" y="'+(zY+16)+'" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">ZAPATA (B = '+B.toFixed(2)+' m)</text>'+
-                    bloque+
-                    limLn(r.qR,'#dc2626','qR='+fx(r.qR,0))+
-                    limLn(r.qn,'#6b7280','qn='+fx(r.qn,0))+
-                    '</svg>';
-            })();
-
-            var fG=function(c){
-                var cls=(c===g)?' class="rige"':'';
-                return '<tr'+cls+'><td>'+c.nom+'</td><td>'+c.V.toFixed(0)+'</td><td>'+c.M.toFixed(0)+'</td><td>'+c.e.toFixed(3)+'</td><td>'+(c.vuelco?'≤ 0':c.Bp.toFixed(2))+'</td><td>'+(c.vuelco?'-':c.Ap.toFixed(1))+'</td><td>'+fx(c.q)+'</td><td>'+(c.rdc===Infinity?'∞':(c.rdc*100).toFixed(0)+'%')+'</td></tr>';
-            };
-            _e('cG').innerHTML='<div class="card card-blue"><h4>Combinaciones geotécnicas últimas (con W)</h4>'+
-                '<table class="tbl-num" style="font-size:.85em"><tr><th>Comb.</th><th>V [kN]</th><th>M [kN·m]</th><th>e [m]</th><th>B\' [m]</th><th>A\' [m²]</th><th>q<sub>dem</sub> [kPa]</th><th>RDC</th></tr>'+
-                r.G.map(fG).join('')+'</table>'+
-                '<p class="note">W = peso zapata + tapada = '+r.W.toFixed(0)+' kN, mayorado con el factor de las permanentes. Mw = momento de viento (servicio). Sombreada: rige por mayor RDC.</p></div>'+
-                '<div class="card '+(r.verifG?'result-ok':'result-fail')+'"><h4>Verificación</h4>'+
-                '<div class="formula">q<sub>n</sub> = FS·σ<sub>adm</sub> = '+fsIn+'×'+sa+' = <strong>'+fx(r.qn,0)+' kPa</strong></div>'+
-                '<div class="formula">q<sub>R</sub> = φ<sub>b</sub>·q<sub>n</sub> = '+phiIn+'×'+fx(r.qn,0)+' = <strong>'+fx(r.qR,0)+' kPa</strong></div>'+
-                '<table><tr><td>Rige</td><td>'+g.nom+'</td></tr>'+
-                '<tr><td>q<sub>dem</sub></td><td class="'+(r.verifG?'text-green':'text-red')+'"><strong>'+fx(g.q)+' kPa</strong></td></tr>'+
-                '<tr><td>RDC = q<sub>dem</sub>/q<sub>R</sub></td><td>'+utilG+'</td></tr></table>'+
-                '<div style="margin-top:8px">'+badgesGeo(g,B)+'</div>'+
-                '<div class="big-result" style="background:transparent">'+(r.verifG?'✓ VERIFICA':'✗ NO VERIFICA')+'</div></div>';
-
-            /* ---------- COMPARACIÓN DE RAMAS ---------- */
-            _e('tCmp').innerHTML='<h4>Tabla comparativa</h4><table>'+
-                '<tr><th>Concepto</th><th>Rama argentina (ASD)</th><th>Rama última (LRFD)</th></tr>'+
-                '<tr><td>Cargas</td><td>Servicio, sin mayorar</td><td>Mayoradas, envolvente de 4 combinaciones</td></tr>'+
-                '<tr><td>Distribución supuesta</td><td>Lineal (trapecial o triangular)</td><td>Uniforme sobre área efectiva B\'</td></tr>'+
-                '<tr><td>Área considerada</td><td>B·L (completa, o zona en contacto)</td><td>B\'·L (efectiva, Meyerhof)</td></tr>'+
-                '<tr><td>Formato de seguridad</td><td>Coeficiente global FS embebido en σ<sub>adm</sub></td><td>Factores parciales: carga (1.2/1.6/0.9) y resistencia (φ<sub>b</sub>)</td></tr>'+
-                '<tr><td>Combinación que rige</td><td>'+r.sRige.nom+'</td><td>'+g.nom+'</td></tr>'+
-                '<tr><td>Demanda</td><td>σ<sub>máx</sub> = '+fx(r.sRige.smax)+' kPa</td><td>q<sub>dem</sub> = '+fx(g.q)+' kPa</td></tr>'+
-                '<tr><td>Capacidad</td><td>σ<sub>adm</sub> = '+sa+' kPa</td><td>q<sub>R</sub> = '+fx(r.qR)+' kPa</td></tr>'+
-                '<tr><td>Utilización</td><td>'+rG+'%</td><td>'+utilG+'</td></tr>'+
-                '<tr><td>Veredicto</td><td class="'+(r.verif?'text-green':'text-red')+'">'+(r.verif?'✓ VERIFICA':'✗ NO VERIFICA')+'</td><td class="'+(r.verifG?'text-green':'text-red')+'">'+(r.verifG?'✓ VERIFICA':'✗ NO VERIFICA')+'</td></tr></table>'+
-                '<p class="note">Las combinaciones que rigen pueden diferir entre ramas (estructural: '+r.uRige.nom+'; geotécnica: '+g.nom+') porque la rama geotécnica incorpora W en el término permanente, lo que reduce la excentricidad de la combinación con 0.9·D. El modelo de presión por sí solo no invierte el orden entre casos triangulares: el pico lineal es siempre 4/3 de la demanda uniforme de Meyerhof.</p>';
-
-            var interp;
-            if(r.FSexig!==Infinity && r.FSdisp>0){
-                interp=(r.FSexig>fsIn)?
-                    'FS exigido &gt; FS del estudio: para este caso, la rama última es <strong>más exigente</strong> que la práctica argentina.':
-                    'FS exigido ≤ FS del estudio: para este caso, la rama última es <strong>igual o menos exigente</strong> que la práctica argentina.';
-            }else{
-                interp='Con vuelco en alguna combinación los indicadores pierden sentido: primero hay que recuperar área efectiva (aumentar B o reducir M<sub>W</sub>).';
-            }
-            _e('cFS').innerHTML='<h4>🔑 FS global implícito: el cierre de la comparación</h4>'+
-                '<p class="note">q<sub>serv,equiv</sub> = V/A\' de la combinación de servicio que rige por V/A\' ('+r.sMey.nom+') = '+fx(r.mMey.q)+' kPa</p>'+
-                '<table><tr><td>FS del estudio (rama argentina)</td><td>'+fsIn+'</td></tr>'+
-                '<tr><td>FS disponible del diseño actual = q<sub>n</sub>/q<sub>serv,equiv</sub></td><td>'+(r.FSdisp>0?r.FSdisp.toFixed(2):'∞')+'</td></tr>'+
-                '<tr><td>FS que exige la rama última = (q<sub>dem</sub>/q<sub>serv,equiv</sub>)/φ<sub>b</sub></td><td>'+(r.FSexig===Infinity?'∞':r.FSexig.toFixed(2))+'</td></tr></table>'+
-                '<p style="margin-top:8px">'+interp+'</p>'+
-                '<p class="note">El FS disponible mide cuánta seguridad global tiene el diseño actual en formato Meyerhof; no depende de φ<sub>b</sub> ni de los factores de carga (crece si agrandás la zapata). El FS exigido sí es comparable contra el FS del estudio: expresa, en el mismo formato, la seguridad global que el criterio LRFD requiere para dar utilización 100%.</p>'+
-                '<p class="note">Las utilizaciones crudas de la tabla mezclan dos efectos: el formato de seguridad y el modelo de presión (pico lineal contra uniforme sobre B\'). El FS exigido aísla el formato, porque deja el modelo de presión constante en Meyerhof.</p>'+
-                '<p class="note">Calibración: el comentario C10.5.5.2.2 de AASHTO indica que los φ<sub>b</sub> se desarrollaron combinando teoría de confiabilidad con ajuste al método de tensiones admisibles, con FS típicos de 2.5 a 3.0 para capacidad portante de zapatas. Por construcción, el FS exigido debería caer cerca de ese rango: LRFD no vino a cambiar el nivel de seguridad sino a distribuirlo de forma más racional. Verificalo moviendo φ<sub>b</sub>.</p>';
-
-            (function(){
-                var Wd=560,Hd=190,mL=50,mR=50,y0=112;
-                var pW2=Wd-mL-mR;
-                function xB2(b){return mL+(Math.min(12,Math.max(1,b))-1)/11*pW2;}
-                function lbl(o){return o.estado==='gt12'?'&gt; 12 m':(o.estado==='le1'?'≤ 1 m':o.val.toFixed(2)+' m');}
-                var ticks2='';
-                for(var t=1;t<=12;t++){ticks2+='<line x1="'+xB2(t)+'" y1="'+(y0-4)+'" x2="'+xB2(t)+'" y2="'+(y0+4)+'" stroke="#64748b"/><text x="'+xB2(t)+'" y="'+(y0+20)+'" text-anchor="middle" font-size="10" fill="#6b7280">'+t+'</text>';}
-                function marca(o,col,yLab,nombre){
-                    var x=xB2(o.estado==='gt12'?12:o.val);
-                    return '<line x1="'+x+'" y1="'+(y0-34)+'" x2="'+x+'" y2="'+y0+'" stroke="'+col+'" stroke-width="3"'+(o.estado==='gt12'?' stroke-dasharray="5,4"':'')+'/>'+
-                        '<polygon points="'+(x-6)+','+(y0-8)+' '+(x+6)+','+(y0-8)+' '+x+','+y0+'" fill="'+col+'"/>'+
-                        '<text x="'+Math.min(Math.max(x,mL+55),mL+pW2-55)+'" y="'+yLab+'" text-anchor="middle" font-size="12" font-weight="bold" fill="'+col+'">'+nombre+' = '+lbl(o)+'</text>';
-                }
-                var xAct=xB2(B);
-                _e('svgB').innerHTML='<svg width="'+Wd+'" height="'+Hd+'" viewBox="0 0 '+Wd+' '+Hd+'">'+
-                    '<line x1="'+mL+'" y1="'+y0+'" x2="'+(mL+pW2)+'" y2="'+y0+'" stroke="#334155" stroke-width="2"/>'+ticks2+
-                    '<text x="'+(mL+pW2/2)+'" y="'+(Hd-8)+'" text-anchor="middle" font-size="12" font-weight="bold">B [m]</text>'+
-                    marca(r.BminASD,'#16a34a',34,'B mín ASD')+
-                    marca(r.BminGEO,'#7c3aed',54,'B mín LRFD')+
-                    '<line x1="'+xAct+'" y1="'+(y0-52)+'" x2="'+xAct+'" y2="'+(y0+8)+'" stroke="#1e3a8a" stroke-width="2" stroke-dasharray="4,3"/>'+
-                    '<text x="'+Math.min(Math.max(xAct,mL+55),mL+pW2-55)+'" y="'+(y0-58)+'" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">B actual = '+B.toFixed(2)+' m</text>'+
-                    '</svg>';
-            })();
-
-            /* ---------- RESUMEN ---------- */
-            _e('rC').innerHTML='<div class="card '+(r.verif?'result-ok':'result-fail')+'"><h4>1. Plano de asiento (servicio, presión bruta)</h4>'+
-                '<table><tr><td>Datos:</td><td>N<sub>D</sub>='+_g('iNd')+', N<sub>L</sub>='+_g('iNl')+', M<sub>W</sub>='+_g('iMw')+'</td></tr>'+
-                '<tr><td>Zapata:</td><td>'+B.toFixed(2)+'×'+L.toFixed(2)+' m, W='+r.W.toFixed(0)+' kN (α='+_g('iAl')+'%)</td></tr>'+
-                '<tr><td>Rige:</td><td>'+r.sRige.nom+'</td></tr>'+
-                '<tr><td>σ<sub>máx</sub>:</td><td>'+fx(r.sRige.smax)+' kPa</td></tr>'+
-                '<tr><td>σ<sub>adm</sub> (bruta):</td><td>'+sa+' kPa</td></tr>'+
-                '<tr><td>Utilización:</td><td class="'+(r.verif?'text-green':'text-red')+'" style="font-size:1.3em">'+rG+'%</td></tr></table>'+
-                '<div class="big-result" style="background:transparent">'+(r.verif?'✓ VERIFICA':'✗ NO VERIFICA')+'</div></div>'+
-                '<div class="card card-blue"><h4>2. Diseño estructural (ULS, presión neta)</h4>'+
-                '<table><tr><td>Rige:</td><td>'+r.uRige.nom+'</td></tr>'+
-                '<tr><td>V<sub>u</sub>:</td><td>'+r.uRige.V.toFixed(1)+' kN</td></tr>'+
-                '<tr><td>M<sub>u</sub>:</td><td>'+r.uRige.M.toFixed(1)+' kN·m</td></tr>'+
-                '<tr><td>e<sub>u</sub>:</td><td>'+r.uRige.e.toFixed(3)+' m</td></tr>'+
-                '<tr><td>q<sub>u,máx</sub>:</td><td class="text-purple" style="font-size:1.3em">'+fx(r.uRige.smax)+' kPa</td></tr></table>'+
-                '<p class="note" style="text-align:center">q<sub>u</sub> se usa para armadura, corte y punzonado (CIRSOC 201). Nunca se compara con σ<sub>adm</sub>.</p></div>'+
-                '<div class="card '+(r.verifG?'result-ok':'result-fail')+'"><h4>3. Capacidad portante (ULS, AASHTO)</h4>'+
-                '<table><tr><td>Rige:</td><td>'+g.nom+'</td></tr>'+
-                '<tr><td>q<sub>dem</sub> (sobre A\'):</td><td>'+fx(g.q)+' kPa</td></tr>'+
-                '<tr><td>q<sub>n</sub> = FS·σ<sub>adm</sub>:</td><td>'+fx(r.qn,0)+' kPa</td></tr>'+
-                '<tr><td>q<sub>R</sub> = φ<sub>b</sub>·q<sub>n</sub>:</td><td>'+fx(r.qR,0)+' kPa</td></tr>'+
-                '<tr><td>RDC:</td><td class="'+(r.verifG?'text-green':'text-red')+'" style="font-size:1.3em">'+utilG+'</td></tr></table>'+
-                '<div class="big-result" style="background:transparent">'+(r.verifG?'✓ VERIFICA':'✗ NO VERIFICA')+'</div></div>';
-
-            _e('nF').innerHTML='<h4>📌 Recordatorio Final</h4>'+
-                '<p>Tres verificaciones sobre la misma zapata, sin mezclarse: el <strong>suelo en servicio</strong> con presión <strong>bruta</strong> (σ<sub>máx</sub>='+fx(r.sRige.smax)+' '+(r.verif?'≤':'&gt;')+' σ<sub>adm</sub>='+sa+' kPa, utilización '+rG+'%); el <strong>suelo en estados últimos</strong> con formato AASHTO (q<sub>dem</sub>='+fx(g.q)+' '+(r.verifG?'≤':'&gt;')+' q<sub>R</sub>='+fx(r.qR)+' kPa, utilización '+utilG+'); y el <strong>hormigón en estados últimos</strong> con presión <strong>neta</strong> (q<sub>u,máx</sub>='+fx(r.uRige.smax)+' kPa, combinación '+r.uRige.nom+'), que nunca se compara con σ<sub>adm</sub>.</p>'+
-                '<p style="margin-top:10px">Cierre de la comparación: FS disponible del diseño = '+(r.FSdisp>0?r.FSdisp.toFixed(2):'∞')+' contra FS que exige la rama última = '+(r.FSexig===Infinity?'∞':r.FSexig.toFixed(2))+', con FS del estudio = '+fsIn+'.</p>'+
-                '<p style="margin-top:10px"><strong>Referencias:</strong> CIRSOC 201-2005 art. 9.2 (combinaciones) y Cap. 15 (zapatas); EN 1997-1 cl. 6.5.4 (excentricidad grande) y Anexo D (área efectiva); AASHTO LRFD BDS Tabla 10.5.5.2.2-1 (φ<sub>b</sub>) y art. 10.6.1.4 (demanda uniforme sobre área efectiva).</p>';
+    }
+    
+    // -------------------------------------------------------------------
+    // 8. SOLICITACIONES DE UNA COMBINACION
+    // Se integra el perfil canonico. Si el perfil esta espejado, mirar el
+    // diagrama respecto de x = B/2 equivale a intercambiar los lados,
+    // porque la columna esta centrada: xL y xR son simetricos.
+    // El punzonado no cambia: su perimetro tambien es simetrico.
+    // -------------------------------------------------------------------
+    function solicitaciones(p, g, sc, Vtot){
+        var Mder = g.L * intQx(p, sc.xR, g.B, sc.xR);
+        var Mizq = -g.L * intQx(p, 0, sc.xL, sc.xL);
+        var Vder = sc.aplicaVder ? g.L * intQ(p, sc.xVder, g.B) : null;
+        var Vizq = sc.aplicaVizq ? g.L * intQ(p, 0, sc.xVizq) : null;
+    
+        var Vpunz = null;
+        if(sc.aplicaPunz){
+            var Vdentro = (g.c2 + sc.d) * intQ(p, sc.xPa, sc.xPb);
+            Vpunz = Vtot - Vdentro;
+        }
+        // Flexion en la direccion de L. La presion no varia en y.
+        var My = (Vtot/g.L) * Math.pow(Math.max(0,g.L - g.c2),2) / 8;
+    
+        var o = {Mder:Mder, Mizq:Mizq, Vder:Vder, Vizq:Vizq, Vpunz:Vpunz, My:My};
+        if(p.espejo){ // intercambio de lados
+            o = {Mder:Mizq, Mizq:Mder, Vder:Vizq, Vizq:Vder, Vpunz:Vpunz, My:My};
+        }
+        return o;
+    }
+    
+    // -------------------------------------------------------------------
+    // 9. PREDIMENSIONADO DEL PLANO DE ASIENTO (art. 15.2.2)
+    // El area se determina con fuerzas y momentos NO mayorados.
+    // Con peso propio geometrico (D3) P_z crece con B, de modo que la
+    // excentricidad de servicio DEPENDE de B y la restriccion e <= B/6 ya
+    // no tiene forma cerrada: se resuelve por biseccion igual que el area.
+    // -------------------------------------------------------------------
+    
+    // Estado de servicio para un par (B, L) dado. Devuelve el maximo
+    // sigma_max y la maxima excentricidad sobre S0, S1 y S2, ambos sentidos.
+    function estadoServicio(inp, B, L){
+        var g = {B:B, L:L, h:inp.h, c1:inp.c1, c2:inp.c2, Df:inp.Df,
+                 gh:inp.gh, gs:inp.gs, Nd:inp.Nd, Nl:inp.Nl};
+        var z = (inp.plano === 'cara') ? inp.h : inp.Df;
+        var D = trasladar({N:inp.Nd, M:inp.Md, H:inp.Hd}, z);
+        var Lq= trasladar({N:inp.Nl, M:inp.Ml, H:inp.Hl}, z);
+        var W = trasladar({N:inp.Nw, M:inp.Mw, H:inp.Hw}, z);
+        var Pz = pesoPropio(g).Pz;
+        var sMax = 0, eMax = 0, vuelco = false;
+        var sentidos = inp.rev ? [1,-1] : [1];
+        [[1,1,0],[1,1,1],[1,0,1]].forEach(function(c){
+            sentidos.forEach(function(s){
+                if(c[2]===0 && s<0) return;
+                var N = c[0]*D.N + c[1]*Lq.N + c[2]*W.N + Pz;
+                var M = Math.abs(c[0]*D.M + c[1]*Lq.M + c[2]*s*W.M);
+                var d = distr(N, M, B, L);
+                if(d.tipo==='vuelco') vuelco = true;
+                if(isFinite(d.smax) && d.smax > sMax) sMax = d.smax;
+                if(Math.abs(d.e) > eMax) eMax = Math.abs(d.e);
+            });
+        });
+        return {smax:sMax, emax:eMax, vuelco:vuelco, Pz:Pz};
+    }
+    
+    // Biseccion del menor B en [1, 12] que satisface un predicado monotono.
+    // Tolerancia 0.005 m, maximo 60 iteraciones (pliego 5.1).
+    function menorB(pred){
+        var lo = 1, hi = 12;
+        if(!pred(hi)) return null;                 // sin solucion en el rango
+        if(pred(lo))  return lo;
+        for(var i=0; i<60 && (hi-lo) > 0.005; i++){
+            var m = (lo+hi)/2;
+            if(pred(m)) hi = m; else lo = m;
+        }
+        return hi;
+    }
+    
+    function predimensionar(inp, opt){
+        var modulo = opt.modulo || 0.05;
+        var kRes = (opt.restr === 'B/6') ? 6 : (opt.restr === 'B/4' ? 4 : 0);
+        var Lde = function(B){
+            if(opt.forma === 'Lfijo')  return opt.Lfijo;
+            if(opt.forma === 'lambda') return opt.lambda * B;
+            return B;                                        // cuadrada, L = B
         };
+    
+        // Cotas inferiores informativas, cada una por separado
+        var B_area = menorB(function(B){
+            var g = {B:B, L:Lde(B), h:inp.h, c1:inp.c1, c2:inp.c2, Df:inp.Df,
+                     gh:inp.gh, gs:inp.gs, Nd:inp.Nd, Nl:inp.Nl};
+            var Vk = inp.Nd + inp.Nl + Math.max(0,inp.Nw) + pesoPropio(g).Pz;
+            return Vk/(B*Lde(B)) <= inp.sa;                  // solo area, sin excentricidad
+        });
+        var B_exc = kRes ? menorB(function(B){
+            return B >= kRes * estadoServicio(inp, B, Lde(B)).emax;
+        }) : null;
+    
+        // Condicion completa: tensiones en TODAS las combinaciones y restriccion de e
+        var B_min = menorB(function(B){
+            var L = Lde(B), e = estadoServicio(inp, B, L);
+            if(e.vuelco) return false;
+            if(e.smax > inp.sa) return false;
+            if(kRes && B < kRes*e.emax) return false;
+            return true;
+        });
+    
+        if(B_min === null){
+            var piso = inp.h*inp.gh + Math.max(0,inp.Df-inp.h)*inp.gs;
+            return {ok:false, literal:'> 12 m', pisoTension:piso,
+                    imposible: inp.sa <= piso,
+                    B_area:B_area, B_exc:B_exc};
+        }
+        var B_ad = Math.ceil((B_min - 1e-9)/modulo)*modulo;
+        B_ad = Math.round(B_ad*1e6)/1e6;
+        var L_ad = Math.round(Lde(B_ad)/modulo + 1e-9)*modulo;
+        L_ad = Math.round(L_ad*1e6)/1e6;
+        var fin = estadoServicio(inp, B_ad, L_ad);
+        // Que condicion gobierna: la que todavia falla apenas por debajo de B_min.
+        // No alcanza con comparar B_area y B_exc, porque el B que manda surge de
+        // la tension CON excentricidad, que no es ninguna de las dos cotas.
+        var Bp = Math.max(1, B_min - 0.01), ep = estadoServicio(inp, Bp, Lde(Bp));
+        var falTen = ep.vuelco || ep.smax > inp.sa;
+        var falExc = kRes ? (Bp < kRes*ep.emax) : false;
+        var rige = falTen && falExc ? 'tension y excentricidad'
+                 : falExc ? 'restriccion de excentricidad'
+                 : 'tension admisible';
+        return {ok:true, B_area:B_area, B_exc:B_exc, B_min:B_min,
+                B:B_ad, L:L_ad, modulo:modulo, rige:rige,
+                smax:fin.smax, emax:fin.emax, Pz:fin.Pz, util:fin.smax/inp.sa,
+                verifica: fin.smax <= inp.sa && !fin.vuelco,
+                pisoTension: inp.h*inp.gh + Math.max(0,inp.Df-inp.h)*inp.gs};
+    }
+    
+    // -------------------------------------------------------------------
+    // 10. CALCULO COMPLETO
+    // -------------------------------------------------------------------
+    function CALC(inp){
+        var g = {B:inp.B, L:inp.L, h:inp.h, c1:inp.c1, c2:inp.c2, r:inp.r,
+                 Df:inp.Df, gh:inp.gh, gs:inp.gs, Nd:inp.Nd, Nl:inp.Nl};
+        var z = (inp.plano === 'cara') ? inp.h : inp.Df;
+    
+        var D = trasladar({N:inp.Nd, M:inp.Md, H:inp.Hd}, z);
+        var Lq= trasladar({N:inp.Nl, M:inp.Ml, H:inp.Hl}, z);
+        var W = trasladar({N:inp.Nw, M:inp.Mw, H:inp.Hw}, z);
+    
+        var pp = pesoPropio(g);
+        var sc = seccionesCriticas(g);
+    
+        // --- SERVICIO: presion BRUTA, cargas no mayoradas (art. 15.2.2) ---
+        var sentidos = inp.rev ? [1,-1] : [1];
+        var SER = [];
+        [['S0','D + L',    1,1,0],
+         ['S1','D + L + W',1,1,1],
+         ['S2','D + W',    1,0,1]].forEach(function(c){
+            sentidos.forEach(function(s){
+                if(c[4]===0 && s<0) return;              // sin viento no hay dos sentidos
+                var N = c[2]*D.N + c[3]*Lq.N + c[4]*W.N + pp.Pz;
+                var M = c[2]*D.M + c[3]*Lq.M + c[4]*s*W.M;
+                var d = distr(N, Math.abs(M), g.B, g.L);
+                SER.push(Object.assign({}, d, {nom:c[0], expr:c[1], sentido:s,
+                         V:N, M:M, util:d.smax/inp.sa}));
+            });
+        });
+        var sRige = SER.reduce(function(x,y){return (y.smax>x.smax)?y:x;}, SER[0]);
+        var verif = sRige.smax <= inp.sa && isFinite(sRige.smax);
+    
+        // --- ULTIMOS: presion NETA, solo cargas de columna (art. 15.2.1) ---
+        var comb = combinaciones({D:D, L:Lq, W:W}, inp.f1);
+        var ULT = [];
+        comb.forEach(function(c){
+            sentidos.forEach(function(s){
+                var usaW = (c.nom==='C3b' || c.nom==='C4' || c.nom==='C6');
+                if(!usaW && s<0) return;
+                var M = c.M * (usaW ? s : 1);
+                var d = distr(c.N, Math.abs(M), g.B, g.L);
+                var p = perfil(d, g.B, M < 0);
+                var sol = solicitaciones(p, g, sc, c.N);
+                ULT.push(Object.assign({}, d, {nom:c.nom, eq:c.eq, expr:c.expr,
+                         sentido:s, V:c.N, M:M, perf:p, sol:sol}));
+            });
+        });
+    
+        // --- ENVOLVENTE POR SOLICITACION (no por max de q_max) ---
+        var claves = ['Mder','Mizq','My','Vder','Vizq','Vpunz'];
+        var env = {};
+        claves.forEach(function(k){
+            var mejor = null;
+            ULT.forEach(function(u){
+                var v = u.sol[k];
+                if(v===null || !isFinite(v)) return;
+                if(mejor===null || v > mejor.valor) mejor = {valor:v, comb:u};
+            });
+            env[k] = mejor;
+        });
+        // Envolvente de diseno con viento reversible: maximo sobre lados
+        var dis = {
+            Mu:   Math.max(env.Mder?env.Mder.valor:0, env.Mizq?env.Mizq.valor:0),
+            Muy:  env.My ? env.My.valor : 0,
+            Vu1D: Math.max(env.Vder?env.Vder.valor:0, env.Vizq?env.Vizq.valor:0),
+            Vup:  env.Vpunz ? env.Vpunz.valor : null
+        };
+        var gobiernan = {};
+        claves.forEach(function(k){ if(env[k]) gobiernan[env[k].comb.nom]=true; });
+        var noGobierna = ULT.filter(function(u){ return !gobiernan[u.nom]; })
+                            .map(function(u){ return u.nom; });
+    
+        return {pp:pp, sc:sc, z:z, D:D, L:Lq, W:W,
+                SER:SER, sRige:sRige, verif:verif,
+                ULT:ULT, env:env, dis:dis,
+                gobiernan:Object.keys(gobiernan),
+                noGobierna:noGobierna.filter(function(v,i,ar){return ar.indexOf(v)===i;})};
+    }
+    /*CALC-END*/
+    
+    // ===================================================================
+    // CAPA DE INTERFAZ. Nada de esto entra en los marcadores de calculo.
+    // ===================================================================
+    function _g(i){return parseFloat(document.getElementById(i).value)||0;}
+    function _e(i){return document.getElementById(i);}
+    function _v(i){return document.getElementById(i).value;}
+    function fx(v,d){return (v===Infinity||v===null||!isFinite(v))?'n/a':Number(v).toFixed(d===undefined?1:d);}
 
+    // Paleta por combinacion. Sentido -W en trazo discontinuo.
+    var COL = {C1:'#64748b', C2:'#2563eb', C3a:'#0891b2', C3b:'#7c3aed', C4:'#dc2626', C6:'#ea580c'};
+    var EQ  = {C1:'(9-1)', C2:'(9-2)', C3a:'(9-3a)', C3b:'(9-3b)', C4:'(9-4)', C6:'(9-6)'};
+    // Correspondencia con la nomenclatura de la v7, que sigue circulando en la catedra
+    var V7  = {C1:'U1', C2:'U2', C4:'U3', C6:'U4'};
+    function clave(u){return u.nom+(u.sentido<0?'-':'+');}
+    function rotulo(u){return u.nom+(u.sentido<0?' (-W)':'');}
+
+    function recSel(){
+        var s=_v('iRecSel'), inp=_e('iRec');
+        if(s==='edit'){ inp.disabled=false; }
+        else { inp.disabled=true; inp.value=parseFloat(s).toFixed(3); }
+    }
+
+    // Insignias de excentricidad (pliego 5.2)
+    function badges(c,B){
+        if(c.tipo==='vuelco') return '<span class="warn-badge warn-r">VUELCO: e ≥ B/2, no se calcula</span>';
+        var e=Math.abs(c.e), b='';
+        if(e>B/4) b+='<span class="warn-badge warn-r">e &gt; B/4 - fuera de la práctica recomendada</span>';
+        else if(e>B/6) b+='<span class="warn-badge warn-y">e &gt; B/6 - despegue parcial</span>';
+        return b;
+    }
+
+    // -------------------------------------------------------------------
+    // SVG 1: vista en planta con el nucleo central
+    // Bandas reservadas arriba y abajo para que ningun rotulo se recorte
+    // ni se superponga, cualquiera sea la relacion B/L.
+    // -------------------------------------------------------------------
+    function svgPlanta(id, B, L, ex, ey, c1, c2){
+        var W=580, H=430, bT=46, bB=70, bL=70, bR=40;
+        var pw=W-bL-bR, ph=H-bT-bB;
+        var s=Math.min(pw/B, ph/L), bw=B*s, bh=L*s;
+        var x0=bL+(pw-bw)/2, y0=bT+(ph-bh)/2, cx=x0+bw/2, cy=y0+bh/2;
+        var px=cx+ex*s, py=cy-ey*s;
+        var nx=bw/6, ny=bh/6;
+        var fuera=(Math.abs(ex)/(B/6)+Math.abs(ey)/(L/6))>1+1e-9;
+        var g='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">';
+        g+='<text x="'+(W/2)+'" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="'+
+           (fuera?'#dc2626':'#059669')+'">'+
+           (fuera?'La resultante SALE del núcleo central: hay despegue'
+                 :'La resultante cae DENTRO del núcleo central: contacto en toda el área')+'</text>';
+        g+='<rect x="'+x0+'" y="'+y0+'" width="'+bw+'" height="'+bh+'" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>';
+        g+='<line x1="'+x0+'" y1="'+cy+'" x2="'+(x0+bw)+'" y2="'+cy+'" stroke="#cbd5e1" stroke-width="1"/>';
+        g+='<line x1="'+cx+'" y1="'+y0+'" x2="'+cx+'" y2="'+(y0+bh)+'" stroke="#cbd5e1" stroke-width="1"/>';
+        g+='<polygon points="'+(cx+nx)+','+cy+' '+cx+','+(cy-ny)+' '+(cx-nx)+','+cy+' '+cx+','+(cy+ny)+
+           '" fill="#10b981" fill-opacity="0.18" stroke="#059669" stroke-width="2" stroke-dasharray="6 4"/>';
+        g+='<rect x="'+(cx-c1*s/2)+'" y="'+(cy-c2*s/2)+'" width="'+(c1*s)+'" height="'+(c2*s)+
+           '" fill="#94a3b8" stroke="#334155" stroke-width="2"/>';
+        g+='<line x1="'+cx+'" y1="'+cy+'" x2="'+px+'" y2="'+py+'" stroke="#dc2626" stroke-width="2.5"/>';
+        g+='<circle cx="'+px+'" cy="'+py+'" r="7.5" fill="#dc2626"/>';
+        g+='<text x="'+(px+12)+'" y="'+(py-10)+'" font-size="13" font-weight="bold" fill="#dc2626">R</text>';
+        g+='<text x="'+(cx+nx+6)+'" y="'+(cy-8)+'" font-size="12" fill="#059669" font-weight="bold">B/6</text>';
+        // cota de B, en la banda inferior reservada
+        var yd=y0+bh+20;
+        g+='<line x1="'+x0+'" y1="'+yd+'" x2="'+(x0+bw)+'" y2="'+yd+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<line x1="'+x0+'" y1="'+(yd-5)+'" x2="'+x0+'" y2="'+(yd+5)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<line x1="'+(x0+bw)+'" y1="'+(yd-5)+'" x2="'+(x0+bw)+'" y2="'+(yd+5)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<text x="'+cx+'" y="'+(yd+17)+'" text-anchor="middle" font-size="13" font-weight="bold">B = '+B.toFixed(2)+' m</text>';
+        // cota de L, en la banda izquierda reservada
+        var xd=x0-24;
+        g+='<line x1="'+xd+'" y1="'+y0+'" x2="'+xd+'" y2="'+(y0+bh)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<text x="'+(xd-9)+'" y="'+cy+'" text-anchor="middle" font-size="13" font-weight="bold" transform="rotate(-90 '+
+           (xd-9)+' '+cy+')">L = '+L.toFixed(2)+' m</text>';
+        g+='<text x="'+(W/2)+'" y="'+(H-12)+'" text-anchor="middle" font-size="12" fill="#475569">e = '+
+           Math.abs(ex).toFixed(3)+' m     B/6 = '+(B/6).toFixed(3)+' m     e/B = '+(Math.abs(ex)/B).toFixed(3)+'</text>';
+        g+='</svg>';
+        _e(id).innerHTML=g;
+    }
+
+    // -------------------------------------------------------------------
+    // SVG 2 y 3: corte con uno o varios diagramas de presion.
+    // Eje sigma positivo hacia abajo. La escala se calcula sobre los datos:
+    // ante valores extremos el dibujo se reescala en lugar de recortarse.
+    // opt.multi = superposicion, contorno sin relleno pesado y rotulo al
+    // final de cada curva del sentido +W.
+    // -------------------------------------------------------------------
+    function svgCorte(id, B, h, c1, series, opt){
+        opt=opt||{};
+        var W=740, ml=94, mr=opt.multi?92:126, mt=58, pw=W-ml-mr;
+        var resB=opt.cotas?74:30, H=opt.alto||430;
+        var s=pw/B, x0=ml, yTop=mt, hpx=Math.max(18,Math.min(70,(h/B)*pw)), yBase=yTop+hpx;
+        var qmax=0, hayVuelco=false;
+        series.forEach(function(v){
+            if(!v.perf || !isFinite(v.perf.smax)){ hayVuelco=true; return; }
+            if(v.perf.smax>qmax) qmax=v.perf.smax;
+        });
+        if(opt.lim && isFinite(opt.lim) && opt.lim>qmax) qmax=opt.lim;
+        if(!(qmax>0)) qmax=1;
+        var hq=Math.max(60,H-yBase-resB), sq=hq/(qmax*1.06);
+        var X=function(x){return x0+x*s;}, Y=function(q){return yBase+q*sq;};
+        var clampX=function(x){return Math.max(x0+6, Math.min(X(B)-6, x));};
+
+        var g='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">';
+        // cota de B, arriba de todo, con la banda mt reservada
+        g+='<line x1="'+x0+'" y1="'+(mt-30)+'" x2="'+X(B)+'" y2="'+(mt-30)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<line x1="'+x0+'" y1="'+(mt-35)+'" x2="'+x0+'" y2="'+(mt-25)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<line x1="'+X(B)+'" y1="'+(mt-35)+'" x2="'+X(B)+'" y2="'+(mt-25)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<text x="'+X(B/2)+'" y="'+(mt-38)+'" text-anchor="middle" font-size="13" font-weight="bold">B = '+B.toFixed(2)+' m</text>';
+        // eje de presiones
+        var xa=x0-40;
+        g+='<line x1="'+xa+'" y1="'+yBase+'" x2="'+xa+'" y2="'+(yBase+hq)+'" stroke="#334155" stroke-width="1.5"/>';
+        for(var i=0;i<=4;i++){
+            var q=qmax*i/4, yy=Y(q);
+            g+='<line x1="'+(xa-5)+'" y1="'+yy+'" x2="'+xa+'" y2="'+yy+'" stroke="#334155" stroke-width="1.2"/>';
+            g+='<text x="'+(xa-9)+'" y="'+(yy+4)+'" text-anchor="end" font-size="10.5" fill="#475569">'+q.toFixed(0)+'</text>';
+        }
+        g+='<text x="18" y="'+(yBase+hq/2)+'" text-anchor="middle" font-size="11.5" fill="#475569" font-weight="bold" transform="rotate(-90 18 '+
+           (yBase+hq/2)+')">σ [kPa]  (positivo hacia abajo)</text>';
+        // columna, zapata, plano de asiento
+        g+='<rect x="'+X(B/2-c1/2)+'" y="'+(yTop-24)+'" width="'+(c1*s)+'" height="24" fill="#94a3b8" stroke="#334155" stroke-width="2"/>';
+        g+='<rect x="'+x0+'" y="'+yTop+'" width="'+(B*s)+'" height="'+hpx+'" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>';
+        g+='<line x1="'+x0+'" y1="'+yBase+'" x2="'+X(B)+'" y2="'+yBase+'" stroke="#334155" stroke-width="2"/>';
+        // limite sigma_adm
+        if(opt.lim && isFinite(opt.lim)){
+            var yl=Y(opt.lim);
+            g+='<line x1="'+x0+'" y1="'+yl+'" x2="'+X(B)+'" y2="'+yl+'" stroke="#dc2626" stroke-width="2" stroke-dasharray="9 5"/>';
+            g+='<text x="'+(X(B)+7)+'" y="'+(yl-5)+'" font-size="11" font-weight="bold" fill="#dc2626">'+(opt.limLabel||'')+'</text>';
+        }
+        // diagramas
+        series.forEach(function(v){
+            var p=v.perf; if(!p || !isFinite(p.smax)) return;
+            var ia=p.espejo?0:p.x0, ib=p.espejo?(B-p.x0):B;
+            var qa, qb;
+            if(p.tipo==='triangular'){ qa=p.espejo?p.smax:0; qb=p.espejo?0:p.smax; }
+            else { qa=p.espejo?p.smax:p.qs; qb=p.espejo?p.qs:p.smax; }
+            g+='<polygon points="'+X(ia)+','+yBase+' '+X(ia)+','+Y(qa)+' '+X(ib)+','+Y(qb)+' '+X(ib)+','+yBase+
+               '" fill="'+v.color+'" fill-opacity="'+(v.fill===undefined?0.16:v.fill)+
+               '" stroke="'+v.color+'" stroke-width="'+(v.w||2.4)+'"'+(v.sentido<0?' stroke-dasharray="8 4"':'')+'/>';
+            if(opt.multi && v.rot && v.sentido>0)
+                g+='<text x="'+(X(B)+7)+'" y="'+(Y(qb)+4)+'" font-size="11" font-weight="bold" fill="'+v.color+'">'+v.rot+'</text>';
+        });
+        // cotas de la serie principal, ancladas dentro del lienzo
+        var pr=series[0]&&series[0].perf;
+        if(opt.cotas && pr && isFinite(pr.smax)){
+            var qMx=pr.smax, qMn=(pr.tipo==='triangular')?0:pr.smin;
+            var xMx=clampX(X(pr.espejo?0:B)), xMn=clampX(X(pr.espejo?B:0));
+            var col=series[0].color;
+            g+='<text x="'+xMx+'" y="'+(Y(qMx)+18)+'" text-anchor="'+(pr.espejo?'start':'end')+
+               '" font-size="12.5" font-weight="bold" fill="'+col+'">σmáx = '+qMx.toFixed(1)+' kPa</text>';
+            g+='<text x="'+xMn+'" y="'+(Y(qMn)-8)+'" text-anchor="'+(pr.espejo?'end':'start')+
+               '" font-size="12.5" font-weight="bold" fill="'+col+'">σmín = '+qMn.toFixed(1)+' kPa</text>';
+            var ya=yBase+hq+26;
+            if(pr.tipo==='triangular'){
+                var ax=pr.espejo?X(0):X(B-pr.a), bx=pr.espejo?X(pr.a):X(B);
+                g+='<line x1="'+ax+'" y1="'+ya+'" x2="'+bx+'" y2="'+ya+'" stroke="#7c3aed" stroke-width="2"/>';
+                g+='<line x1="'+ax+'" y1="'+(ya-5)+'" x2="'+ax+'" y2="'+(ya+5)+'" stroke="#7c3aed" stroke-width="2"/>';
+                g+='<line x1="'+bx+'" y1="'+(ya-5)+'" x2="'+bx+'" y2="'+(ya+5)+'" stroke="#7c3aed" stroke-width="2"/>';
+                g+='<text x="'+((ax+bx)/2)+'" y="'+(ya+18)+'" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">a = '+
+                   pr.a.toFixed(3)+' m: contacto parcial, el resto despega</text>';
+            } else {
+                g+='<text x="'+X(B/2)+'" y="'+(ya+14)+'" text-anchor="middle" font-size="12" fill="#475569">contacto en toda la base, a = B = '+
+                   B.toFixed(2)+' m</text>';
+            }
+        }
+        if(hayVuelco) g+='<text x="'+X(B/2)+'" y="'+(H-8)+'" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">Hay al menos una combinación en vuelco (e ≥ B/2): no se dibuja</text>';
+        g+='</svg>';
+        _e(id).innerHTML=g;
+    }
+
+    // -------------------------------------------------------------------
+    window.T=function(t,el){
+        document.querySelectorAll('.tab-content').forEach(function(x){x.classList.remove('active');});
+        document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});
+        _e(t).classList.add('active');
+        var b=el||(window.event&&window.event.target);
+        if(b&&b.classList) b.classList.add('active');
         R();
-    })();
-    </script>
+    };
 
+    function leerInp(){
+        var rec = (_v('iRecSel')==='edit') ? _g('iRec') : parseFloat(_v('iRecSel'));
+        return {
+            Nd:_g('iNd'), Nl:_g('iNl'), Nw:_g('iNw'),
+            Md:_g('iMd'), Ml:_g('iMl'), Mw:_g('iMw'),
+            Hd:_g('iHd'), Hl:_g('iHl'), Hw:_g('iHw'),
+            sa:_g('iSa'), f1:parseFloat(_v('iF1')), rev:_e('iRev').checked,
+            plano:_v('iPlano'),
+            B:_g('sB'), L:_g('sL'), h:_g('sH'), Df:_g('sDf'),
+            c1:_g('iC1'), c2:_g('iC2'), r:rec,
+            gh:_g('iGh'), gs:_g('iGs'), fc:_g('iFc'), fy:_g('iFy')
+        };
+    }
+
+    var envVis = null;   // combinaciones visibles en el grafico de superposicion
+
+    window.R=function(){
+        var I=leerInp();
+        _e('vB').textContent=I.B.toFixed(2)+' m';
+        _e('vL').textContent=I.L.toFixed(2)+' m';
+        _e('vH').textContent=I.h.toFixed(2)+' m';
+        _e('vDf').textContent=I.Df.toFixed(2)+' m';
+        _e('avDf').innerHTML = (I.Df < I.h)
+            ? '<span class="warn-badge warn-r">D<sub>f</sub> &lt; h</span> La cota de fundación no puede ser menor que la altura de la zapata. Se toma tapada nula.'
+            : 'Tapada t = D<sub>f</sub> - h = '+(I.Df-I.h).toFixed(2)+' m';
+        _e('nRec').innerHTML='d = h - r = '+(I.h-I.r).toFixed(3)+' m. '+
+            (I.h-I.r<=0?'<span class="warn-badge warn-r">d ≤ 0</span>':'')+
+            ' Simplificación: estrictamente d se mide al baricentro de la armadura y las dos direcciones '+
+            'tienen d distinto, del orden de un diámetro de diferencia.';
+
+        var r=CALC(I);
+        var sa=I.sa;
+
+        // ---------- TAB 2: traslado, combinaciones ----------
+        var z=r.z;
+        _e('tTras').innerHTML='<table class="tbl-num"><tr><th>Acción</th><th>N [kN]</th>'+
+            '<th>M ingresado [kN·m]</th><th>H [kN]</th><th>M<sub>base</sub> = M + H·z [kN·m]</th></tr>'+
+            [['D',I.Nd,I.Md,I.Hd,r.D.M],['L',I.Nl,I.Ml,I.Hl,r.L.M],['W',I.Nw,I.Mw,I.Hw,r.W.M]].map(function(a){
+                return '<tr><td>'+a[0]+'</td><td>'+fx(a[1])+'</td><td>'+fx(a[2])+'</td><td>'+fx(a[3])+'</td><td>'+fx(a[4])+'</td></tr>';
+            }).join('')+'</table>'+
+            '<div class="note">z = '+z.toFixed(2)+' m ('+(I.plano==='cara'?'z = h, acciones en la cara superior de la zapata':'z = D<sub>f</sub>, acciones en el nivel ±0,00 con pedestal')+')</div>';
+
+        _e('tCombU').innerHTML='<table class="tbl-num"><tr><th>Comb.</th><th>Ec.</th><th>v7</th>'+
+            '<th>Expresión particularizada</th><th>V<sub>u</sub> [kN]</th><th>M<sub>u</sub> [kN·m]</th><th>e<sub>u</sub> [m]</th></tr>'+
+            r.ULT.filter(function(u){return u.sentido>0;}).map(function(u){
+                return '<tr><td style="color:'+COL[u.nom]+'"><strong>'+u.nom+'</strong></td><td>'+EQ[u.nom]+
+                '</td><td>'+(V7[u.nom]||'-')+'</td><td style="text-align:left">'+expr(u.nom,I.f1)+'</td><td>'+
+                fx(u.V)+'</td><td>'+fx(u.M)+'</td><td>'+fx(Math.abs(u.e),3)+'</td></tr>';
+            }).join('')+'</table>';
+        _e('nCombU').innerHTML='Nomenclatura alineada con el número de ecuación del reglamento. La columna '+
+            '"v7" mantiene la correspondencia con el material de cátedra ya distribuido: U1 a U4.'+
+            (I.rev?' Viento reversible: cada combinación con W se evalúa además en sentido contrario.':'');
+
+        _e('tCombS').innerHTML='<table class="tbl-num"><tr><th>Comb.</th><th>Acciones</th>'+
+            '<th>V<sub>k</sub> [kN]</th><th>M<sub>k</sub> [kN·m]</th><th>e [m]</th></tr>'+
+            r.SER.filter(function(s){return s.sentido>0;}).map(function(s){
+                return '<tr><td><strong>'+s.nom+'</strong></td><td style="text-align:left">'+s.expr+
+                (s.nom==='S2'?' <span class="ref">máxima excentricidad</span>':'')+
+                '</td><td>'+fx(s.V)+'</td><td>'+fx(s.M)+'</td><td>'+fx(Math.abs(s.M/s.V),3)+'</td></tr>';
+            }).join('')+'</table>';
+
+        var pp=r.pp;
+        _e('pPz').innerHTML='<table class="tbl-num">'+
+            '<tr><td>Hormigón de zapata B·L·h·γ<sub>h</sub></td><td>'+fx(pp.Ph)+' kN</td></tr>'+
+            '<tr><td>Tapada (B·L - c<sub>1</sub>c<sub>2</sub>)·t·γ<sub>s</sub></td><td>'+fx(pp.Pt)+' kN</td></tr>'+
+            '<tr><td>Pedestal c<sub>1</sub>c<sub>2</sub>·t·γ<sub>h</sub></td><td>'+fx(pp.Pp)+' kN</td></tr>'+
+            '<tr class="rige"><td><strong>P<sub>z</sub></strong></td><td><strong>'+fx(pp.Pz)+' kN</strong></td></tr>'+
+            '<tr><td>Equivalente en α</td><td>'+fx(100*pp.alfaEq,1)+' % de (N<sub>D</sub>+N<sub>L</sub>)</td></tr></table>'+
+            '<div class="note">Modelo geométrico. P<sub>z</sub> depende de B y de L, por lo que la '+
+            'excentricidad de servicio disminuye al crecer B y el predimensionado requiere iterar. '+
+            'El peso del pedestal se incluye en la rama de servicio y se excluye de la presión neta: es '+
+            'carga concentrada, pero representa el '+fx(100*pp.Pp/Math.max(1,I.Nd),2)+' % de N<sub>D</sub>.</div>';
+
+        // C3: demostracion de dominancia, calculada
+        var c3a=g1(r,'C3a'), c3b=g1(r,'C3b'), c2=g1(r,'C2'), c4=g1(r,'C4');
+        _e('pC3').innerHTML='<p>La (9-3) tiene dos ramas alternativas, f<sub>1</sub>·L u 0,8·W. La '+
+            'herramienta evalúa <strong>las dos</strong> y muestra por qué se descartan, en lugar de '+
+            'omitirlas.</p><table class="tbl-num">'+
+            '<tr><th>Rama</th><th>V<sub>u</sub></th><th>M<sub>u</sub></th><th>Comparada con</th><th>Estado</th></tr>'+
+            '<tr><td>C3a</td><td>'+fx(c3a.V)+'</td><td>'+fx(c3a.M)+'</td><td>C2 ('+fx(c2.V)+' / '+fx(c2.M)+')</td><td>'+dom(c3a,c2)+'</td></tr>'+
+            '<tr><td>C3b</td><td>'+fx(c3b.V)+'</td><td>'+fx(c3b.M)+'</td><td>C4 ('+fx(c4.V)+' / '+fx(c4.M)+')</td><td>'+dom(c3b,c4)+'</td></tr>'+
+            '</table><div class="note">C3a queda envuelta por C2 porque f<sub>1</sub> ≤ 1,0 &lt; 1,6. C3b '+
+            'queda envuelta por C4 mientras N<sub>W</sub> ≥ 0; con succión (N<sub>W</sub> &lt; 0) la '+
+            'envolvencia deja de estar garantizada y por eso se calcula igual.</div>';
+
+        // ---------- TAB 3: plano de asiento ----------
+        var sRige=r.sRige;
+        _e('tServ').innerHTML='<table class="tbl-num"><tr><th>Comb.</th><th>V<sub>k</sub> [kN]</th>'+
+            '<th>M<sub>k</sub> [kN·m]</th><th>e [m]</th><th>e/B</th><th>Tipo</th><th>a [m]</th>'+
+            '<th>σ<sub>máx</sub> [kPa]</th><th>σ<sub>mín</sub> [kPa]</th><th>σ<sub>máx</sub>/σ<sub>adm</sub></th><th>Veredicto</th></tr>'+
+            r.SER.map(function(s){
+                var ok=s.smax<=sa && s.tipo!=='vuelco';
+                return '<tr'+(s===sRige?' class="rige"':'')+'><td>'+s.nom+(s.sentido<0?' (-W)':'')+'</td><td>'+
+                fx(s.V)+'</td><td>'+fx(s.M)+'</td><td>'+fx(Math.abs(s.M/s.V),3)+'</td><td>'+
+                fx(Math.abs(s.M/s.V)/I.B,3)+'</td><td>'+s.tipo+'</td><td>'+fx(s.a,3)+'</td><td>'+
+                fx(s.smax)+'</td><td>'+fx(s.smin)+'</td><td>'+fx(s.util,3)+'</td><td class="'+
+                (ok?'text-green':'text-red')+'">'+(ok?'verifica':'no verifica')+'</td></tr>';
+            }).join('')+'</table><div style="margin-top:8px">'+badges(sRige,I.B)+'</div>'+
+            '<div class="note">Área determinada con fuerzas y momentos no mayorados y presión bruta '+
+            '(art. 15.2.2). σ<sub>adm</sub> es presión bruta en el plano de fundación.</div>';
+
+        var util=sRige.smax/sa;
+        _e('pServ').innerHTML='<table class="tbl-num">'+
+            '<tr><td>Rige</td><td>'+sRige.nom+(sRige.sentido<0?' (-W)':'')+'</td></tr>'+
+            '<tr><td>V<sub>k</sub></td><td>'+fx(sRige.V)+' kN</td></tr>'+
+            '<tr><td>e</td><td>'+fx(Math.abs(sRige.M/sRige.V),3)+' m</td></tr>'+
+            '<tr><td>B/6</td><td>'+fx(I.B/6,3)+' m</td></tr>'+
+            '<tr><td>Distribución</td><td>'+sRige.tipo.toUpperCase()+'</td></tr>'+
+            '<tr><td>σ<sub>máx</sub> (bruta)</td><td class="'+(r.verif?'text-green':'text-red')+'"><strong>'+fx(sRige.smax)+' kPa</strong></td></tr>'+
+            '<tr><td>σ<sub>adm</sub></td><td>'+fx(sa)+' kPa</td></tr></table>'+
+            '<div class="big-result '+(r.verif?'result-ok':'result-fail')+'">'+
+            (r.verif?'VERIFICA':'NO VERIFICA')+' ('+fx(util*100,1)+' %)</div>';
+
+        var eR=Math.abs(sRige.M/sRige.V)*(sRige.sentido<0?-1:1);
+        svgPlanta('svgPlanta', I.B, I.L, eR, 0, I.c1, I.c2);
+        svgCorte('svgServ', I.B, I.h, I.c1,
+            [{perf:perfil(sRige,I.B,sRige.M<0), color:'#1d4ed8', sentido:sRige.sentido}],
+            {lim:sa, limLabel:'σadm = '+fx(sa)+' kPa', cotas:true});
+
+        // ---------- TAB 4: envolvente ----------
+        var act=r.ULT.filter(function(u){return u.tipo!=='vuelco';});
+        if(envVis===null){ envVis={}; r.ULT.forEach(function(u){envVis[clave(u)]=true;}); }
+        _e('cbEnv').innerHTML=r.ULT.map(function(u){
+            var k=clave(u);
+            return '<label><input type="checkbox" data-k="'+k+'"'+(envVis[k]!==false?' checked':'')+
+            ' onchange="togEnv(this)"><span style="color:'+COL[u.nom]+';font-weight:700">'+rotulo(u)+'</span></label>';
+        }).join('');
+        var series=r.ULT.filter(function(u){return envVis[clave(u)]!==false;}).map(function(u){
+            return {perf:u.perf, color:COL[u.nom], sentido:u.sentido, fill:0.05, w:3, rot:u.nom};
+        });
+        svgCorte('svgEnv', I.B, I.h, I.c1, series, {alto:470, multi:true});
+        _e('legEnv').innerHTML=r.ULT.filter(function(u){return envVis[clave(u)]!==false;}).map(function(u){
+            return '<span><i style="background:'+COL[u.nom]+'"></i>'+rotulo(u)+' '+EQ[u.nom]+'</span>';
+        }).join('');
+
+        _e('tEnv').innerHTML='<table class="tbl-num"><tr><th>Comb.</th><th>Ec.</th><th>V<sub>u</sub> [kN]</th>'+
+            '<th>M<sub>u</sub> [kN·m]</th><th>e<sub>u</sub> [m]</th><th>e<sub>u</sub>/B</th><th>Tipo</th>'+
+            '<th>a [m]</th><th>q<sub>u,máx</sub> [kPa]</th><th>q<sub>u,mín</sub> [kPa]</th></tr>'+
+            r.ULT.map(function(u){
+                var domi=(u.nom==='C3a'&&domB(u,c2))||(u.nom==='C3b'&&domB(u,c4));
+                return '<tr'+(domi?' class="dom"':'')+'><td style="color:'+COL[u.nom]+'"><strong>'+rotulo(u)+
+                '</strong></td><td>'+EQ[u.nom]+'</td><td>'+fx(u.V)+'</td><td>'+fx(u.M)+'</td><td>'+
+                fx(Math.abs(u.e),3)+'</td><td>'+fx(Math.abs(u.e)/I.B,3)+'</td><td>'+u.tipo+'</td><td>'+
+                fx(u.a,3)+'</td><td>'+fx(u.smax)+'</td><td>'+fx(u.smin)+'</td></tr>'+
+                (badges(u,I.B)?'<tr><td colspan="10" style="text-align:left">'+badges(u,I.B)+'</td></tr>':'');
+            }).join('')+'</table>'+
+            '<div class="note">Presión neta: solo cargas de columna mayoradas (art. 15.2.1). '+
+            'No se compara nunca con σ<sub>adm</sub>. La combinación que rige <strong>no</strong> se define '+
+            'por el mayor q<sub>u,máx</sub>: se define por solicitación, en el módulo 3.</div>';
+
+        // texto interpretativo generado dinamicamente
+        var pico=act.reduce(function(a,b){return (b.smax>a.smax)?b:a;},act[0]);
+        var largo=act.reduce(function(a,b){return (b.a>a.a)?b:a;},act[0]);
+        _e('txtEnv').innerHTML='<p>Los diagramas <strong>no son escalados unos de otros</strong>. '+
+            'Cambian de valor, de longitud de contacto y hasta de tipo, porque cada combinación mayora '+
+            'V y M con factores distintos y por lo tanto <strong>la excentricidad mayorada no coincide '+
+            'con la de servicio</strong>.</p><table class="tbl-num"><tr><th>Comb.</th><th>q<sub>u,máx</sub> [kPa]</th>'+
+            '<th>Contacto a [m]</th><th>a/B</th><th>Tipo</th></tr>'+
+            act.map(function(u){return '<tr'+(u===pico?' class="rige"':'')+'><td>'+rotulo(u)+'</td><td>'+
+            fx(u.smax)+'</td><td>'+fx(u.a,3)+'</td><td>'+fx(u.a/I.B,3)+'</td><td>'+u.tipo+'</td></tr>';}).join('')+
+            '</table><p style="margin-top:10px">La combinación de mayor pico es <strong>'+rotulo(pico)+
+            '</strong>, con q<sub>u,máx</sub> = '+fx(pico.smax)+' kPa, pero su contacto se reduce a '+
+            fx(pico.a,2)+' m, es decir el '+fx(100*pico.a/I.B,0)+' % de B. Esa presión alta actúa sobre un '+
+            'brazo de palanca corto, así que <strong>no se puede anticipar que gobierne el '+
+            'dimensionamiento</strong>. La combinación de mayor contacto es '+rotulo(largo)+', con a = '+
+            fx(largo.a,2)+' m. Cuál gobierna cada sección se resuelve integrando, en el módulo 3.</p>';
+
+        var sc=r.sc;
+        _e('pSecc').innerHTML='<table class="tbl-num">'+
+            '<tr><td>d = h - r</td><td>'+fx(sc.d,3)+' m</td></tr>'+
+            '<tr><td>Cara izquierda x<sub>L</sub></td><td>'+fx(sc.xL,3)+' m</td></tr>'+
+            '<tr><td>Cara derecha x<sub>R</sub></td><td>'+fx(sc.xR,3)+' m</td></tr>'+
+            '<tr><td>Corte 1D derecha</td><td>'+(sc.aplicaVder?fx(sc.xVder,3)+' m':'no aplica')+'</td></tr>'+
+            '<tr><td>Corte 1D izquierda</td><td>'+(sc.aplicaVizq?fx(sc.xVizq,3)+' m':'no aplica')+'</td></tr>'+
+            '<tr><td>Punzonado, de x</td><td>'+(sc.aplicaPunz?fx(sc.xPa,4)+' a '+fx(sc.xPb,4)+' m':'no aplica')+'</td></tr>'+
+            '<tr><td>b<sub>0</sub></td><td>'+fx(sc.b0,3)+' m</td></tr></table>'+
+            '<div class="note">Flexión en la cara de la columna (art. 15.4.2 a). Corte unidireccional a '+
+            'distancia d de la cara (art. 15.5.2 con 11.1.3.1). Punzonado en el perímetro a d/2 de las '+
+            'caras (art. 11.12.1.2).'+
+            ((!sc.aplicaVder||!sc.aplicaVizq)?' <span class="warn-badge warn-y">Alguna sección de corte cae fuera de la zapata: ese lado no requiere verificación</span>':'')+
+            (!sc.aplicaPunz?' <span class="warn-badge warn-y">El rectángulo crítico excede la zapata: el punzonado no aplica</span>':'')+'</div>';
+    };
+
+    function g1(r,nom){ return r.ULT.filter(function(u){return u.nom===nom && u.sentido>0;})[0] || {V:0,M:0}; }
+    function domB(a,b){ return a.V<=b.V+1e-9 && Math.abs(a.M)<=Math.abs(b.M)+1e-9; }
+    function dom(a,b){ return domB(a,b)
+        ? '<span class="warn-badge warn-y">dominada</span>'
+        : '<span class="warn-badge warn-r">NO dominada, se evalúa</span>'; }
+    function expr(n,f1){
+        var f=f1.toFixed(1).replace('.',',');
+        return {C1:'1,4·D', C2:'1,2·D + 1,6·L', C3a:'1,2·D + '+f+'·L',
+                C3b:'1,2·D + 0,8·W', C4:'1,2·D + 1,6·W + '+f+'·L', C6:'0,9·D + 1,6·W'}[n];
+    }
+    window.togEnv=function(el){ envVis[el.getAttribute('data-k')]=el.checked; R(); };
+
+    document.getElementById('btnPre').addEventListener('click', function(){
+        var I=leerInp();
+        var p=predimensionar(I, {forma:_v('pForma'), Lfijo:I.L, lambda:_g('pLam'),
+                                 restr:_v('pRestr'), modulo:parseFloat(_v('pMod'))});
+        if(!p.ok){
+            _e('pPre').innerHTML='<div class="big-result result-fail">B '+p.literal+'</div>'+
+                '<div class="note">'+(p.imposible
+                ? 'No existe B que verifique, por grande que sea. Al crecer B la tensión no tiende a cero '+
+                  'sino al peso de la columna de material que la propia zapata agrega: h·γ<sub>h</sub> + '+
+                  't·γ<sub>s</sub> = '+fx(p.pisoTension)+' kPa, y σ<sub>adm</sub> = '+fx(I.sa)+' kPa está por '+
+                  'debajo de ese piso. La zapata no puede ni con su propia tapada: hay que reducir '+
+                  'D<sub>f</sub>, reducir h, o revisar σ<sub>adm</sub>.'
+                : 'No se encontró solución dentro del rango de búsqueda [1 m, 12 m].')+'</div>';
+            return;
+        }
+        _e('sB').value=p.B.toFixed(2);
+        _e('sL').value=p.L.toFixed(2);
+        _e('pPre').innerHTML='<table class="tbl-num">'+
+            '<tr><td>Cota por área sola</td><td>'+fx(p.B_area,3)+' m</td></tr>'+
+            '<tr><td>Cota por restricción de e</td><td>'+(p.B_exc===null?'no aplica':fx(p.B_exc,3)+' m')+'</td></tr>'+
+            '<tr><td>B mínimo (bisección)</td><td>'+fx(p.B_min,3)+' m</td></tr>'+
+            '<tr class="rige"><td><strong>B adoptado</strong></td><td><strong>'+fx(p.B,2)+' m</strong></td></tr>'+
+            '<tr class="rige"><td><strong>L adoptado</strong></td><td><strong>'+fx(p.L,2)+' m</strong></td></tr>'+
+            '<tr><td>Gobierna</td><td>'+p.rige+'</td></tr>'+
+            '<tr><td>σ<sub>máx</sub> resultante</td><td>'+fx(p.smax)+' kPa ('+fx(p.util*100,1)+' %)</td></tr></table>'+
+            '<div class="note">Las dos cotas son informativas: el B que manda surge de la tensión '+
+            '<strong>con</strong> excentricidad, que no coincide con ninguna de las dos. Como '+
+            'P<sub>z</sub> crece con B, la excentricidad de servicio disminuye al crecer B y la '+
+            'restricción e ≤ B/6 no tiene forma cerrada: se resuelve por bisección, tolerancia 0,005 m.</div>';
+        R();
+    });
+
+    recSel();
+    </script>
     <script>
     /* =======================================================================
        CONTROL DE ACCESO BETA
@@ -838,7 +1177,7 @@
         var CONFIG = {
             version:      'v8-beta',
             vence:        '2026-12-31',                 // AAAA-MM-DD
-            urlFeedback:  'mailto:dgomes@docentes.frgp.utn.edu.ar?subject=Feedback%20herramienta%20fundacion%20excentrica%20v7-beta'
+            urlFeedback:  'mailto:dgomes@docentes.frgp.utn.edu.ar?subject=Feedback%20herramienta%20fundacion%20excentrica%20v8-beta'
         };
 
         var CODIGOS = {
