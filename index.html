@@ -160,6 +160,11 @@
                     </select></span>
                 <span><label class="ack" style="display:inline-flex;gap:6px;align-items:center">
                     <input type="checkbox" id="iRev" checked onchange="R()"> Viento reversible</label></span>
+                <span><label for="iWrev">Al invertir el viento se invierte</label>
+                    <select id="iWrev" onchange="R()">
+                        <option value="accion" selected>la acción W completa: N, M y H</option>
+                        <option value="momento">solo M y H; N<sub>W</sub> se mantiene</option>
+                    </select></span>
             </div>
             <div class="note" style="margin-top:10px">
                 Las acciones se ingresan en el plano elegido y se trasladan al plano de asiento con la
@@ -463,6 +468,26 @@
     }
     
     // -------------------------------------------------------------------
+    // 1 bis. ESTADO DE CONTACTO
+    // Envoltorio de distr(), que NO se toca (regla 1 de la seccion 9).
+    // Agrega el estado 'traccion': resultante vertical negativa, o sea que
+    // la zapata no apoya. Una base traccionada necesita anclaje y excede el
+    // alcance de la herramienta: se declara, no se calcula, igual que el
+    // vuelco. Antes caia en la primera guarda de distr() y salia rotulada
+    // 'uniforme' con a = B, o sea apoyo total sobre una base que no apoya.
+    // V = 0 con momento tampoco tiene equilibrio: es vuelco.
+    // V = 0 sin momento sigue siendo el uniforme nulo.
+    // -------------------------------------------------------------------
+    function estadoContacto(V, M, B, L){
+        if(V < -1e-9)
+            return {e:null, tipo:'traccion', smax:null, smin:null, a:0};
+        if(V <= 1e-9 && Math.abs(M) > 1e-9)
+            return {e:Infinity, tipo:'vuelco', smax:Infinity, smin:0, a:0};
+        return distr(V, M, B, L);
+    }
+    function sinEquilibrio(o){ return o.tipo === 'vuelco' || o.tipo === 'traccion'; }
+
+    // -------------------------------------------------------------------
     // 2. TRASLADO DE ACCIONES AL PLANO DE ASIENTO
     // Las acciones se ingresan en un plano de referencia y se trasladan al
     // plano de asiento. Una fuerza horizontal aporta momento igual a H por
@@ -516,8 +541,8 @@
         function techo(k){ return Math.max(Lr[k]||0, S[k]||0, R[k]||0); }
         var Tc = {N:techo('N'), M:techo('M'), H:techo('H')};
     
-        function lc(nom, eq, expr, term){
-            var o={nom:nom, eq:eq, expr:expr, N:0, M:0, H:0};
+        function lc(nom, eq, expr, term, usaW){
+            var o={nom:nom, eq:eq, expr:expr, usaW:!!usaW, N:0, M:0, H:0};
             term.forEach(function(t){
                 o.N += t[0]*(t[1].N||0); o.M += t[0]*(t[1].M||0); o.H += t[0]*(t[1].H||0);
             });
@@ -532,11 +557,11 @@
             lc('C3a','(9-3a)','1,2 D + 1,6 (Lr o S o R) + f1 L',
                [[1.2,D],[1.6,Tc],[f1,L]]),
             lc('C3b','(9-3b)','1,2 D + 1,6 (Lr o S o R) + 0,8 W',
-               [[1.2,D],[1.6,Tc],[0.8,W]]),
+               [[1.2,D],[1.6,Tc],[0.8,W]], true),
             lc('C4','(9-4)','1,2 D + 1,6 W + f1 L + 0,5 (Lr o S o R)',
-               [[1.2,D],[1.6,W],[f1,L],[0.5,Tc]]),
+               [[1.2,D],[1.6,W],[f1,L],[0.5,Tc]], true),
             lc('C6','(9-6)','0,9 D + 1,6 W + 1,6 H',
-               [[0.9,D],[1.6,W],[1.6,Hs]])
+               [[0.9,D],[1.6,W],[1.6,Hs]], true)
         ];
     }
     
@@ -548,11 +573,18 @@
     // el perfil real es el reflejado respecto de x = B/2.
     // -------------------------------------------------------------------
     function perfil(d, B, espejo){
+        // Sin equilibrio no hay perfil. Antes se devolvia un objeto bien
+        // formado con k = Infinity, y qEn() daba Infinity para todo x.
+        // La bandera 'existe' es el unico test valido: isFinite(null) da
+        // true, de modo que mirar smax no alcanza para el estado traccion.
+        if(sinEquilibrio(d))
+            return {x0:B, qs:0, k:0, B:B, espejo:!!espejo, tipo:d.tipo, a:0,
+                    smax:d.smax, smin:d.smin, e:d.e, existe:false};
         var x0 = (d.tipo==='triangular') ? (B - d.a) : 0;
         var qs = (d.tipo==='triangular') ? 0 : d.smin;
         var k  = (B - x0 > 1e-12) ? (d.smax - qs)/(B - x0) : 0;
         return {x0:x0, qs:qs, k:k, B:B, espejo:!!espejo, tipo:d.tipo, a:d.a,
-                smax:d.smax, smin:d.smin, e:d.e};
+                smax:d.smax, smin:d.smin, e:d.e, existe:true};
     }
     
     // Valor de la presion en x, ya considerando el espejo. Solo para graficos.
@@ -585,6 +617,13 @@
         return Fu(hi - p.x0) - Fu(lo - p.x0);
     }
     
+    // Claves de solicitacion y su bandera de aplicabilidad. Viven aca y no
+    // en la seccion 11 porque CALC() las necesita para armar 'gobiernan'.
+    var CLAVES_SOL = ['Mder','Mizq','My','Vder','Vizq','Vy','Vpunz'];
+    var BANDERA_SOL = {Mder:'aplicaMder', Mizq:'aplicaMizq', My:'aplicaMy',
+                       Vder:'aplicaVder', Vizq:'aplicaVizq', Vy:'aplicaVy',
+                       Vpunz:'aplicaPunz'};
+
     // -------------------------------------------------------------------
     // 7. GEOMETRIA DE LAS SECCIONES CRITICAS
     //   Flexion   (15.4.2 a): cara de columna
@@ -632,11 +671,14 @@
         // con e >= B/2. Las otras cinco dan Infinity y ya quedaban filtradas.
         // V_y tiene exactamente la misma forma que M_y y por lo tanto el mismo
         // agujero: va en esta guarda por el mismo motivo (defecto 1).
-        if(p.tipo === 'vuelco')
+        if(sinEquilibrio(p))
             return {Mder:null, Mizq:null, Vder:null, Vizq:null, Vpunz:null,
                     My:null, Vy:null};
-        var Mder = g.L * intQx(p, sc.xR, g.B, sc.xR);
-        var Mizq = -g.L * intQx(p, 0, sc.xL, sc.xL);
+        // Sin voladizo la seccion no existe: null, no cero. Sin esta guarda
+        // la integral daba 0 y esa fila fantasma marcaba como gobernante a
+        // la primera combinacion de la lista.
+        var Mder = sc.aplicaMder ? g.L * intQx(p, sc.xR, g.B, sc.xR) : null;
+        var Mizq = sc.aplicaMizq ? -g.L * intQx(p, 0, sc.xL, sc.xL) : null;
         var Vder = sc.aplicaVder ? g.L * intQ(p, sc.xVder, g.B) : null;
         var Vizq = sc.aplicaVizq ? g.L * intQ(p, 0, sc.xVizq) : null;
     
@@ -646,7 +688,7 @@
             Vpunz = Vtot - Vdentro;
         }
         // Flexion en la direccion de L. La presion no varia en y.
-        var My = (Vtot/g.L) * Math.pow(Math.max(0,g.L - g.c2),2) / 8;
+        var My = sc.aplicaMy ? (Vtot/g.L) * Math.pow(Math.max(0,g.L - g.c2),2) / 8 : null;
     
         // Corte unidireccional en la direccion de L (art. 15.5.2 con 11.1.3.1).
         // La seccion critica es un plano perpendicular a y, a distancia d de la
@@ -687,14 +729,17 @@
         var W = trasladar({N:inp.Nw, M:inp.Mw, H:inp.Hw}, z);
         var Pz = pesoPropio(g).Pz;
         var sMax = 0, eMax = 0, vuelco = false;
-        var sentidos = inp.rev ? [1,-1] : [1];
+        var wNulo = (Math.abs(W.N) < 1e-12 && Math.abs(W.M) < 1e-12);
+        var sN = (inp.wrev === 'momento') ? 0 : 1;
+        var sentidos = (inp.rev && !wNulo) ? [1,-1] : [1];
         [[1,1,0],[1,1,1],[1,0,1]].forEach(function(c){
             sentidos.forEach(function(s){
                 if(c[2]===0 && s<0) return;
-                var N = c[0]*D.N + c[1]*Lq.N + c[2]*W.N + Pz;
+                var sw = sN ? s : 1;
+                var N = c[0]*D.N + c[1]*Lq.N + c[2]*sw*W.N + Pz;
                 var M = Math.abs(c[0]*D.M + c[1]*Lq.M + c[2]*s*W.M);
-                var d = distr(N, M, B, L);
-                if(d.tipo==='vuelco') vuelco = true;
+                var d = estadoContacto(N, M, B, L);
+                if(sinEquilibrio(d)) vuelco = true;
                 if(isFinite(d.smax) && d.smax > sMax) sMax = d.smax;
                 if(Math.abs(d.e) > eMax) eMax = Math.abs(d.e);
             });
@@ -787,16 +832,24 @@
         var sc = seccionesCriticas(g);
     
         // --- SERVICIO: presion BRUTA, cargas no mayoradas (art. 15.2.2) ---
-        var sentidos = inp.rev ? [1,-1] : [1];
+        // Reversibilidad: el signo multiplica la ACCION de viento, nunca el
+        // resultado de la combinacion. inp.wrev = 'accion' invierte N, M y H
+        // de W (viento sobre estructura simetrica); 'momento' invierte M y H
+        // y deja N_W fijo (componente axil no reversible, succion de cubierta).
+        // Con N_W = 0 las dos hipotesis coinciden.
+        var wNulo = (Math.abs(W.N) < 1e-12 && Math.abs(W.M) < 1e-12);
+        var sN = (inp.wrev === 'momento') ? 0 : 1;
+        var sentidos = (inp.rev && !wNulo) ? [1,-1] : [1];
         var SER = [];
         [['S0','D + L',    1,1,0],
          ['S1','D + L + W',1,1,1],
          ['S2','D + W',    1,0,1]].forEach(function(c){
             sentidos.forEach(function(s){
                 if(c[4]===0 && s<0) return;              // sin viento no hay dos sentidos
-                var N = c[2]*D.N + c[3]*Lq.N + c[4]*W.N + pp.Pz;
+                var sw = sN ? s : 1;
+                var N = c[2]*D.N + c[3]*Lq.N + c[4]*sw*W.N + pp.Pz;
                 var M = c[2]*D.M + c[3]*Lq.M + c[4]*s*W.M;
-                var d = distr(N, Math.abs(M), g.B, g.L);
+                var d = estadoContacto(N, Math.abs(M), g.B, g.L);
                 SER.push(Object.assign({}, d, {nom:c[0], expr:c[1], sentido:s,
                          V:N, M:M, util:d.smax/inp.sa}));
             });
@@ -805,23 +858,32 @@
         var verif = sRige.smax <= inp.sa && isFinite(sRige.smax);
     
         // --- ULTIMOS: presion NETA, solo cargas de columna (art. 15.2.1) ---
-        var comb = combinaciones({D:D, L:Lq, W:W}, inp.f1);
-        var ULT = [];
-        comb.forEach(function(c){
-            sentidos.forEach(function(s){
-                var usaW = (c.nom==='C3b' || c.nom==='C4' || c.nom==='C6');
-                if(!usaW && s<0) return;
-                var M = c.M * (usaW ? s : 1);
-                var d = distr(c.N, Math.abs(M), g.B, g.L);
-                var p = perfil(d, g.B, M < 0);
+        // El sentido es el bucle exterior porque el signo entra en la accion.
+        // Multiplicar c.M por s daria vuelta tambien a 1,2.M_D y a f1.M_L, que
+        // no son viento: las columnas del sentido contrario quedaban siendo el
+        // espejo exacto de las otras aunque M_D no fuera nulo.
+        var ULT = [], ORD = {}, nOrd = 0;
+        sentidos.forEach(function(s){
+            var Ws = {N: (sN ? s : 1)*W.N, M: s*W.M, H: s*W.H};
+            combinaciones({D:D, L:Lq, W:Ws}, inp.f1).forEach(function(c){
+                if(!c.usaW && s<0) return;
+                if(!(c.nom in ORD)) ORD[c.nom] = nOrd++;
+                var d = estadoContacto(c.N, Math.abs(c.M), g.B, g.L);
+                var p = perfil(d, g.B, c.M < 0);
                 var sol = solicitaciones(p, g, sc, c.N);
                 ULT.push(Object.assign({}, d, {nom:c.nom, eq:c.eq, expr:c.expr,
-                         sentido:s, V:c.N, M:M, perf:p, sol:sol}));
+                         sentido:s, V:c.N, M:c.M, perf:p, sol:sol}));
             });
         });
+        // Cada combinacion seguida de su espejo, que es el orden documentado en
+        // 5.2 y el que deja comparables las dos columnas. El sentido pasa a ser
+        // el bucle exterior por el signo de la accion, asi que hay que reordenar.
+        ULT.sort(function(a,b){ return (ORD[a.nom]-ORD[b.nom]) || (b.sentido-a.sentido); });
     
         // --- ENVOLVENTE POR SOLICITACION (no por max de q_max) ---
-        var claves = ['Mder','Mizq','My','Vder','Vizq','Vy','Vpunz'];
+        // Una sola fuente para las claves. Tener aca una lista literal aparte
+        // permitia que CALC y hechos() divergieran sin que nada lo notara.
+        var claves = CLAVES_SOL;
         var env = {};
         claves.forEach(function(k){
             var mejor = null;
@@ -840,8 +902,11 @@
             Vuy:  env.Vy ? env.Vy.valor : null,
             Vup:  env.Vpunz ? env.Vpunz.valor : null
         };
+        // Solo gobierna quien gobierna una fila que existe.
         var gobiernan = {};
-        claves.forEach(function(k){ if(env[k]) gobiernan[env[k].comb.nom]=true; });
+        claves.forEach(function(k){
+            if(env[k] && sc[BANDERA_SOL[k]]) gobiernan[env[k].comb.nom]=true;
+        });
         var noGobierna = ULT.filter(function(u){ return !gobiernan[u.nom]; })
                             .map(function(u){ return u.nom; });
     
@@ -864,16 +929,18 @@
     // Es un numero, no una anecdota: vale igual cuando el pico gobierna
     // (error 0 %) y cuando no.
     // -------------------------------------------------------------------
-    var CLAVES_SOL = ['Mder','Mizq','My','Vder','Vizq','Vy','Vpunz'];
-    var BANDERA_SOL = {Mder:'aplicaMder', Mizq:'aplicaMizq', My:'aplicaMy',
-                       Vder:'aplicaVder', Vizq:'aplicaVizq', Vy:'aplicaVy',
-                       Vpunz:'aplicaPunz'};
-    
     function hechos(r, B){
-        var act = r.ULT.filter(function(u){ return u.tipo !== 'vuelco'; });
-        var nVuelco = r.ULT.length - act.length;
+        var act = r.ULT.filter(function(u){ return !sinEquilibrio(u); });
+        var nVuelco = r.ULT.filter(function(u){ return u.tipo === 'vuelco';   }).length;
+        var nTracc  = r.ULT.filter(function(u){ return u.tipo === 'traccion'; }).length;
+        // Carga nula: hay equilibrio pero no hay carga. El diagrama existe y
+        // vale cero en todo B. Sin esta bandera la redaccion afirmaba apoyo
+        // total y acierto con error nulo sobre un diagrama que no dice nada.
+        var nulo = act.every(function(u){ return !(u.V > 1e-9); });
         if(act.length === 0)
-            return {sinDiagrama:true, nUlt:r.ULT.length, nVuelco:nVuelco};
+            return {sinDiagrama:true, nUlt:r.ULT.length, nulo:false,
+                    nVuelco:nVuelco, hayVuelco:nVuelco > 0,
+                    nTracc:nTracc,   hayTracc:nTracc > 0};
     
         var pico  = act.reduce(function(a,b){ return b.smax > a.smax ? b : a; }, act[0]);
         var largo = act.reduce(function(a,b){ return b.a    > a.a    ? b : a; }, act[0]);
@@ -901,7 +968,9 @@
         });
     
         return {
-            sinDiagrama:false, nUlt:r.ULT.length, nVuelco:nVuelco, hayVuelco:nVuelco > 0,
+            sinDiagrama:false, nUlt:r.ULT.length, nulo:nulo,
+            nVuelco:nVuelco, hayVuelco:nVuelco > 0,
+            nTracc:nTracc,   hayTracc:nTracc > 0,
             pico:pico, largo:largo, corto:corto,
             nAct:act.length, nCompleto:nCompleto, nParcial:act.length - nCompleto,
             contactoParcial:(pico.a < B - 1e-9), ratioContacto:(B > 0 ? pico.a/B : 0),
@@ -935,12 +1004,31 @@
         var s = [];
 
         if(H.sinDiagrama){
-            s.push('Las **' + H.nUlt + '** combinaciones est\u00e1n en vuelco: en todas la ' +
-                   'excentricidad mayorada alcanza o supera B/2 y la resultante se sale de la base.');
+            // Una sola oracion para los dos motivos, con el desglose adentro:
+            // separarla en ramas creaba una que ninguna entrada alcanza.
+            s.push('Ninguna de las **' + H.nUlt + '** combinaciones tiene equilibrio: **' +
+                   H.nVuelco + '** en vuelco, con la excentricidad mayorada alcanzando o superando ' +
+                   'B/2, y **' + H.nTracc + '** con resultante vertical de tracci\u00f3n.');
             s.push('Sin equilibrio no hay diagrama de presiones que integrar, de modo que **no hay ' +
                    'envolvente ni solicitaciones que calcular**. No es que la zapata est\u00e9 poco ' +
                    'armada: no est\u00e1 en equilibrio. Hay que aumentar B, reducir el momento o ' +
                    'revisar las acciones antes de mirar cualquier otra cosa.');
+            return s;
+        }
+
+        // Carga nula. Se responde antes que nada: sin carga no hay pico que
+        // nombrar, ni criterio que costear, ni combinacion que gobierne.
+        if(H.nulo){
+            s.push('Las **' + H.nAct + '** combinaciones con equilibrio dan resultante vertical ' +
+                   '**nula**: el diagrama de presiones existe y vale cero en toda la base.');
+            s.push('Con carga nula **no hay nada que dimensionar** y ninguna comparaci\u00f3n entre ' +
+                   'combinaciones significa algo: las solicitaciones son cero porque no hay acciones, ' +
+                   'no porque alguna combinaci\u00f3n resulte favorable.');
+            if(H.hayTracc)
+                s.push('Las otras **' + H.nTracc + '** dejan resultante de **tracci\u00f3n**, que ' +
+                       'excede el alcance de esta herramienta y no se calcula.');
+            if(H.hayVuelco)
+                s.push('Otras **' + H.nVuelco + '** quedan fuera por vuelco (e >= B/2).');
             return s;
         }
 
@@ -985,6 +1073,13 @@
             s.push('De las ' + H.nAct + ' combinaciones con equilibrio, **' + H.nCompleto +
                    '** apoyan sobre toda la base y **' + H.nParcial + '** despegan una parte. ' +
                    'La de menor contacto es ' + rot(H.corto) + ', con a = ' + n2(H.corto.a) + ' m.');
+
+        // 6 bis. Traccion: fuera del alcance, se declara y no se calcula.
+        if(H.hayTracc)
+            s.push('**' + H.nTracc + '** combinaci' + (H.nTracc === 1 ? '\u00f3n deja' : 'ones dejan') +
+                   ' resultante vertical de **tracci\u00f3n**: la zapata no apoya sobre el suelo. ' +
+                   'Ese caso necesita anclaje y **excede el alcance de esta herramienta**, as\u00ed que ' +
+                   'no se calcula. Sus solicitaciones son indefinidas, no cero.');
 
         // 6. Vuelcos parciales.
         if(H.hayVuelco)
@@ -1044,7 +1139,7 @@
     // Tabla del costo del criterio max(q_u,max). Es el dato que sostiene el
     // parrafo: no depende de que se cumpla ninguna anecdota en particular.
     function tablaCosto(H){
-        if(H.sinDiagrama) return '';
+        if(H.sinDiagrama || H.nulo) return '';
         var ETIQ={Mder:'M<sub>u</sub> cara derecha', Mizq:'M<sub>u</sub> cara izquierda',
                   My:'M<sub>u</sub> dirección L', Vder:'V<sub>u</sub> corte 1D derecho',
                   Vizq:'V<sub>u</sub> corte 1D izquierdo',
@@ -1070,6 +1165,8 @@
 
     // Insignias de excentricidad (pliego 5.2)
     function badges(c,B){
+        if(c.tipo==='traccion') return '<span class="warn-badge warn-r">TRACCIÓN: la resultante '+
+            'vertical es negativa, la zapata no apoya. Fuera del alcance: no se calcula</span>';
         if(c.tipo==='vuelco') return '<span class="warn-badge warn-r">VUELCO: e ≥ B/2, no se calcula</span>';
         var e=Math.abs(c.e), b='';
         if(e>B/4) b+='<span class="warn-badge warn-r">e &gt; B/4 - fuera de la práctica recomendada</span>';
@@ -1135,9 +1232,9 @@
         var W=740, ml=94, mr=opt.multi?92:126, mt=58, pw=W-ml-mr;
         var resB=opt.cotas?74:30, H=opt.alto||430;
         var s=pw/B, x0=ml, yTop=mt, hpx=Math.max(18,Math.min(70,(h/B)*pw)), yBase=yTop+hpx;
-        var qmax=0, hayVuelco=false;
+        var qmax=0, sinEq=false;
         series.forEach(function(v){
-            if(!v.perf || !isFinite(v.perf.smax)){ hayVuelco=true; return; }
+            if(!v.perf || v.perf.existe===false){ sinEq=true; return; }
             if(v.perf.smax>qmax) qmax=v.perf.smax;
         });
         if(opt.lim && isFinite(opt.lim) && opt.lim>qmax) qmax=opt.lim;
@@ -1174,7 +1271,7 @@
         }
         // diagramas
         series.forEach(function(v){
-            var p=v.perf; if(!p || !isFinite(p.smax)) return;
+            var p=v.perf; if(!p || p.existe===false) return;
             var ia=p.espejo?0:p.x0, ib=p.espejo?(B-p.x0):B;
             var qa, qb;
             if(p.tipo==='triangular'){ qa=p.espejo?p.smax:0; qb=p.espejo?0:p.smax; }
@@ -1187,7 +1284,7 @@
         });
         // cotas de la serie principal, ancladas dentro del lienzo
         var pr=series[0]&&series[0].perf;
-        if(opt.cotas && pr && isFinite(pr.smax)){
+        if(opt.cotas && pr && pr.existe!==false){
             var qMx=pr.smax, qMn=(pr.tipo==='triangular')?0:pr.smin;
             var xMx=clampX(X(pr.espejo?0:B)), xMn=clampX(X(pr.espejo?B:0));
             var col=series[0].color;
@@ -1208,7 +1305,7 @@
                    B.toFixed(2)+' m</text>';
             }
         }
-        if(hayVuelco) g+='<text x="'+X(B/2)+'" y="'+(H-8)+'" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">Hay al menos una combinación en vuelco (e ≥ B/2): no se dibuja</text>';
+        if(sinEq) g+='<text x="'+X(B/2)+'" y="'+(H-8)+'" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">Hay al menos una combinación sin equilibrio (vuelco o tracción): no se dibuja</text>';
         g+='</svg>';
         _e(id).innerHTML=g;
     }
@@ -1238,13 +1335,17 @@
         var hq=250, hFila=42, hCota=30;
 
         // --- que diagramas se dibujan ---
-        var series = sel ? [sel] : r.ULT.filter(function(u){return u.tipo!=='vuelco';});
+        var series = sel ? [sel] : r.ULT.filter(function(u){return !sinEquilibrio(u);});
         var qmax=0;
         series.forEach(function(u){
-            if(u.perf && isFinite(u.perf.smax) && u.perf.smax>qmax) qmax=u.perf.smax;
+            if(u.perf && u.perf.existe!==false && u.perf.smax>qmax) qmax=u.perf.smax;
         });
         // Dos motivos distintos para no tener diagrama, y hay que decir cual es.
-        var todoVuelco = series.length>0 && series.every(function(u){return u.tipo==='vuelco';});
+        var todoSinEq = series.length>0 && series.every(function(u){return sinEquilibrio(u);});
+        // Cuantas quedaron fuera de la serie por falta de equilibrio. Sin este
+        // dato el cartel de diagrama nulo culpaba a acciones nulas que no lo son.
+        var nSinEq = sel ? 0 : r.ULT.filter(function(u){return sinEquilibrio(u);}).length;
+        var todoTracc = todoSinEq && series.every(function(u){return u.tipo==='traccion';});
         var sinDiag = !(qmax>0);
         if(sinDiag) qmax=1;
         // Decimales del eje segun el orden de magnitud, para no rotular "0 0 1 1 1".
@@ -1328,13 +1429,34 @@
         g+='<line x1="'+X(0)+'" y1="'+yBase+'" x2="'+X(B)+'" y2="'+yBase+'" stroke="#334155" stroke-width="2"/>';
 
         // ---- diagramas de presion ----
+        var cartelSinDiag = '';
         if(sinDiag){
-            g+='<text x="'+X(B/2)+'" y="'+(yBase+hq/2)+'" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">'+
-               (todoVuelco ? 'Sin equilibrio (e &#8805; B/2): no hay diagrama que integrar'
-                           : 'Todas las acciones son nulas: no hay presi\u00f3n que dibujar') + '</text>';
+            // Cuatro motivos distintos y ninguno es el otro. El ancho del fondo
+            // sale del largo del texto, no de una constante por rama: con una
+            // constante, agregar un motivo deja el fondo del tamano equivocado.
+            var msg;
+            if(series.length === 0)
+                msg = 'Ninguna combinaci\u00f3n tiene equilibrio: no hay diagrama que integrar';
+            else if(todoSinEq)
+                msg = todoTracc ? 'Resultante de tracci\u00f3n: la zapata no apoya, no se calcula'
+                                : 'Sin equilibrio: no hay diagrama que integrar';
+            else if(nSinEq > 0)
+                msg = 'Las ' + series.length + ' combinaciones con equilibrio dan resultante nula; ' +
+                      'las otras ' + nSinEq + ' no tienen equilibrio';
+            else
+                msg = 'Todas las acciones son nulas: no hay presi\u00f3n que dibujar';
+            // El cartel se emite al final del SVG: las lineas de seccion critica
+            // se dibujan despues y le pasaban por encima. Un fondo puesto aca
+            // queda debajo de ellas y no alcanza (defectos 9 y 26).
+            var wCart = 8.1*msg.length + 16;
+            cartelSinDiag =
+               '<rect x="'+(X(B/2)-wCart/2)+'" y="'+(yBase+hq/2-14)+'" width="'+wCart+
+               '" height="20" fill="#ffffff" fill-opacity="0.95"/>'+
+               '<text x="'+X(B/2)+'" y="'+(yBase+hq/2)+'" text-anchor="middle" font-size="14" '+
+               'font-weight="bold" fill="#dc2626">' + msg + '</text>';
         } else {
             series.forEach(function(u){
-                var pf=u.perf; if(!pf || !isFinite(pf.smax)) return;
+                var pf=u.perf; if(!pf || pf.existe===false) return;
                 var ia=pf.espejo?0:pf.x0, ib=pf.espejo?(B-pf.x0):B, qa, qb;
                 if(pf.tipo==='triangular'){ qa=pf.espejo?pf.smax:0; qb=pf.espejo?0:pf.smax; }
                 else { qa=pf.espejo?pf.smax:pf.qs; qb=pf.espejo?pf.qs:pf.smax; }
@@ -1408,6 +1530,7 @@
             g+=cota(yC2, sc.xPa, sc.xL, 'd/2 = '+fx(sc.d/2,3), COL_SEC.punz);
             g+=cota(yC2, sc.xR, sc.xPb, 'd/2 = '+fx(sc.d/2,3), COL_SEC.punz);
         }
+        g += cartelSinDiag;   // ultimo, para que nada le pase por encima
         g+='</svg>';
         _e(id).innerHTML=g;
 
@@ -1480,7 +1603,7 @@
 
         // --- contacto del perfil de esa combinacion ---
         var pf=u?u.perf:null;
-        var hayPerf=!!(pf && u.tipo!=='vuelco' && isFinite(pf.smax) && pf.smax>0);
+        var hayPerf=!!(pf && pf.existe!==false && pf.smax>0);
         var ia=hayPerf?(pf.espejo?0:pf.x0):0;
         var ib=hayPerf?(pf.espejo?(B-pf.x0):B):B;
         var parcial=hayPerf && (ib-ia) < B-1e-9;
@@ -1508,7 +1631,9 @@
             l2=det.join('  y  ')+'.';
         } else if(val===null){
             cEst='#dc2626';
-            l1=sel?'La combinación elegida está en vuelco: no hay diagrama que integrar'
+            l1=sel?(sel.tipo==='traccion'
+                      ?'La combinación elegida deja resultante de tracción: la zapata no apoya'
+                      :'La combinación elegida está en vuelco: no hay diagrama que integrar')
                   :'Ninguna combinación tiene equilibrio: no hay diagrama que integrar';
             l2='El perímetro existe como geometría, pero '+sub('V','u,punz',' no está definido.');
         } else {
@@ -1735,7 +1860,8 @@
             g+='<text x="'+(ml+pw/2)+'" y="'+(mt+hq/2)+'" text-anchor="middle" font-size="14" '+
                'font-weight="bold" fill="#dc2626">Sin equilibrio en ninguna combinación: no hay envolvente que graficar</text>';
             g+='</svg>'; _e(id).innerHTML=g;
-            _e(nota).innerHTML='Con todas las combinaciones en vuelco no hay solicitaciones que comparar.';
+            _e(nota).innerHTML='Ninguna combinación tiene equilibrio ('+HE.nVuelco+' en vuelco, '+
+                HE.nTracc+' con resultante de tracción): no hay solicitaciones que comparar.';
             return;
         }
 
@@ -1756,7 +1882,7 @@
                sub(gr[1],gr[2],'')+'</text>';
             var lin1, lin2='';
             if(aplica && en){ lin1=fx(en.valor,1)+' '+gr[3]; lin2='rige '+rotulo(en.comb); }
-            else            { lin1=(aplica?'todas en vuelco':gr[5]); }
+            else            { lin1=(aplica?'ninguna con equilibrio':gr[5]); }
             var fsT=Math.min(9.5, 9.5*(wg-6)/Math.max(1e-9, anchoTxt(lin1.length>lin2.length?lin1:lin2, 9.5)));
             fsT=Math.max(7, fsT);
             g+='<text x="'+cxg+'" y="'+(yT+13)+'" text-anchor="middle" font-size="'+fsT+'" fill="#64748b">'+
@@ -1768,9 +1894,9 @@
             if(!aplica || !en){
                 g+='<rect x="'+(xg+6)+'" y="'+mt+'" width="'+(wg-12)+'" height="'+hq+
                    '" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5 4"/>';
-                // La seccion puede existir y no haber envolvente: el motivo es el
-                // vuelco, no la geometria. Decir "sin voladizo" ahi seria falso.
-                g+=vert(cxg+4, mt+hq/2, aplica?'sin envolvente: todas en vuelco':('no aplica: '+gr[5]),
+                // La seccion puede existir y no haber envolvente: el motivo es la
+                // falta de equilibrio, no la geometria. Decir "sin voladizo" seria falso.
+                g+=vert(cxg+4, mt+hq/2, aplica?'sin envolvente: ninguna con equilibrio':('no aplica: '+gr[5]),
                         10.5, '#94a3b8', false, 'middle');
                 return;
             }
@@ -1793,7 +1919,7 @@
                 g+=vert(xb+wb/2+3.5, y0+8, rotulo(u), 9.5,
                         elegida?COL[u.nom]:'#64748b', elegida);
                 var v=u.sol[gr[0]];
-                if(u.tipo==='vuelco' || v===null || !isFinite(v)){
+                if(sinEquilibrio(u) || v===null || !isFinite(v)){
                     // Marca vertical por combinacion. Con barras contiguas, una
                     // marca horizontal se leia como una sola linea corrida.
                     g+='<line x1="'+(xb+wb/2)+'" y1="'+y0+'" x2="'+(xb+wb/2)+'" y2="'+(y0-8)+
@@ -1828,15 +1954,16 @@
         _e(id).innerHTML=g;
 
         // ---- nota: como se lee, sin adelantar ningun resultado ----
-        var hayVuelco=act.some(function(u){return u.tipo==='vuelco';});
+        var haySinEq=r.ULT.some(function(u){return sinEquilibrio(u);});
         _e(nota).innerHTML=
             'Cada grupo es una solicitación y está normalizado a <strong>su propio</strong> valor de '+
             'envolvente: la barra que llega a 100 % es la que rige esa fila. En un mismo eje no se '+
             'pueden mezclar kN·m con kN, por eso no hay valores absolutos acá: están en la tabla y '+
             'debajo de cada grupo. Las barras van en gris salvo la que rige, en oscuro; con una '+
             'combinación elegida en el selector, su barra queda contorneada en su color.'+
-            (hayVuelco?' La marca roja sobre el eje es una combinación en vuelco: no tiene barra porque '+
-             'su solicitación no es cero, es inexistente.':'')+
+            (haySinEq?' La marca roja sobre el eje es una combinación sin equilibrio, por vuelco o '+
+             'por resultante de tracción: no tiene barra porque su solicitación no es cero, '+
+             'es inexistente.':'')+
             (hayNeg?' Un porcentaje negativo, marcado en gris sobre el eje, es una combinación en la que '+
              'esa solicitación cambia de signo: la resultante mayorada resulta de tracción. La envolvente '+
              'toma el máximo, de modo que nunca la elige.':'')+
@@ -1903,7 +2030,7 @@
 
         // --- contacto: solo con una combinacion elegida ---
         var pf=sel?sel.perf:null;
-        var hayPerf=!!(pf && sel.tipo!=='vuelco' && isFinite(pf.smax) && pf.smax>0);
+        var hayPerf=!!(pf && pf.existe!==false && pf.smax>0);
         var ia=hayPerf?(pf.espejo?0:pf.x0):0;
         var ib=hayPerf?(pf.espejo?(B-pf.x0):B):B;
         var parcial=hayPerf && (ib-ia)<B-1e-9;
@@ -2150,7 +2277,7 @@
         var hayVol=!!sc.aplicaMy;
 
         var pf=sel?sel.perf:null;
-        var hayPerf=!!(pf && sel.tipo!=='vuelco' && isFinite(pf.smax) && pf.smax>0);
+        var hayPerf=!!(pf && pf.existe!==false && pf.smax>0);
         var ia=hayPerf?(pf.espejo?0:pf.x0):0;
         var ib=hayPerf?(pf.espejo?(B-pf.x0):B):B;
         var parcial=hayPerf && (ib-ia)<B-1e-9;
@@ -2367,6 +2494,7 @@
             Md:_g('iMd'), Ml:_g('iMl'), Mw:_g('iMw'),
             Hd:_g('iHd'), Hl:_g('iHl'), Hw:_g('iHw'),
             sa:_g('iSa'), f1:parseFloat(_v('iF1')), rev:_e('iRev').checked,
+            wrev:_v('iWrev'),
             plano:_v('iPlano'),
             B:_g('sB'), L:_g('sL'), h:_g('sH'), Df:_g('sDf'),
             c1:_g('iC1'), c2:_g('iC2'), r:rec,
@@ -2402,7 +2530,10 @@
             [['D',I.Nd,I.Md,I.Hd,r.D.M],['L',I.Nl,I.Ml,I.Hl,r.L.M],['W',I.Nw,I.Mw,I.Hw,r.W.M]].map(function(a){
                 return '<tr><td>'+a[0]+'</td><td>'+fx(a[1])+'</td><td>'+fx(a[2])+'</td><td>'+fx(a[3])+'</td><td>'+fx(a[4])+'</td></tr>';
             }).join('')+'</table>'+
-            '<div class="note">z = '+z.toFixed(2)+' m ('+(I.plano==='cara'?'z = h, acciones en la cara superior de la zapata':'z = D<sub>f</sub>, acciones en el nivel ±0,00 con pedestal')+')</div>';
+            '<div class="note">z = '+z.toFixed(2)+' m ('+(I.plano==='cara'?'z = h, acciones en la cara superior de la zapata':'z = D<sub>f</sub>, acciones en el nivel ±0,00 con pedestal')+'). '+
+            'La fuerza horizontal entra <strong>solo</strong> por el momento que produce. El equilibrio '+
+            'horizontal y el vuelco global son verificaciones de Mecánica de Suelos y '+
+            '<strong>quedan fuera del alcance</strong> de esta herramienta.</div>';
 
         _e('tCombU').innerHTML='<table class="tbl-num"><tr><th>Comb.</th><th>Ec.</th><th>v7</th>'+
             '<th>Expresión particularizada</th><th>V<sub>u</sub> [kN]</th><th>M<sub>u</sub> [kN·m]</th><th>e<sub>u</sub> [m]</th></tr>'+
@@ -2453,7 +2584,7 @@
             '<th>M<sub>k</sub> [kN·m]</th><th>e [m]</th><th>e/B</th><th>Tipo</th><th>a [m]</th>'+
             '<th>σ<sub>máx</sub> [kPa]</th><th>σ<sub>mín</sub> [kPa]</th><th>σ<sub>máx</sub>/σ<sub>adm</sub></th><th>Veredicto</th></tr>'+
             r.SER.map(function(s){
-                var ok=s.smax<=sa && s.tipo!=='vuelco';
+                var ok=!sinEquilibrio(s) && s.smax<=sa;
                 return '<tr'+(s===sRige?' class="rige"':'')+'><td>'+s.nom+(s.sentido<0?' (-W)':'')+'</td><td>'+
                 fx(s.V)+'</td><td>'+fx(s.M)+'</td><td>'+fx(Math.abs(s.M/s.V),3)+'</td><td>'+
                 fx(Math.abs(s.M/s.V)/I.B,3)+'</td><td>'+s.tipo+'</td><td>'+fx(s.a,3)+'</td><td>'+
@@ -2482,7 +2613,7 @@
             {lim:sa, limLabel:'σadm = '+fx(sa)+' kPa', cotas:true});
 
         // ---------- TAB 4: envolvente ----------
-        var act=r.ULT.filter(function(u){return u.tipo!=='vuelco';});
+        var act=r.ULT.filter(function(u){return !sinEquilibrio(u);});
         if(envVis===null){ envVis={}; r.ULT.forEach(function(u){envVis[clave(u)]=true;}); }
         _e('cbEnv').innerHTML=r.ULT.map(function(u){
             var k=clave(u);
@@ -2548,7 +2679,7 @@
             }
             r.ULT.forEach(function(u){
                 var esRige=(en && en.comb===u);
-                var txt = (u.tipo==='vuelco') ? '<span class="nap">vuelco</span>' : num(u.sol[fi[0]]);
+                var txt = sinEquilibrio(u) ? '<span class="nap">'+u.tipo+'</span>' : num(u.sol[fi[0]]);
                 hSol+='<td class="'+(esRige?'rige ':'')+(u.sentido<0?'rev':'')+'">'+txt+'</td>';
             });
             hSol+='<td>'+celdaRige(en)+'</td></tr>';
@@ -2559,8 +2690,13 @@
             'combinación</strong> sobre su sección crítica, no comparando presiones de pico. Por eso la '+
             'columna "Rige" cambia de una fila a otra: no hay una combinación pésima única. Presión neta, '+
             'cargas mayoradas de columna (art. 15.2.1).'+
-            (r.ULT.length>6?' Las columnas en gris son el sentido contrario del viento; con M<sub>D</sub> '+
-             'y M<sub>L</sub> nulos son el espejo exacto de las otras, y dejan de serlo apenas alguno no lo sea.':'')+
+            (r.ULT.length>6?' Las columnas en gris son el sentido contrario del viento. El signo se '+
+             'aplica a la <strong>acción</strong> W, no al resultado de la combinación: los '+
+             'términos 1,2·M<sub>D</sub> y f<sub>1</sub>·M<sub>L</sub> no cambian de signo. '+
+             'Por eso, con M<sub>D</sub> y M<sub>L</sub> nulos las columnas grises son el espejo exacto '+
+             'de las otras, y dejan de serlo apenas alguno no lo sea.'+
+             (I.wrev==='momento'?' Con la hipótesis elegida N<sub>W</sub> no se invierte.'
+                                :' Se invierte también N<sub>W</sub>.'):'')+
             '</div>');
 
         // ---------- MODULO 3: envolvente de diseno ----------
@@ -2608,7 +2744,7 @@
             '<option value="todas"'+(secSel==='todas'?' selected':'')+'>Todas, con el valor de envolvente</option>'+
             r.ULT.map(function(u){
                 return '<option value="'+clave(u)+'"'+(secSel===clave(u)?' selected':'')+'>'+
-                       rotulo(u)+' '+EQ[u.nom]+(u.tipo==='vuelco'?' - en vuelco':'')+'</option>';
+                       rotulo(u)+' '+EQ[u.nom]+(sinEquilibrio(u)?' - en '+u.tipo:'')+'</option>';
             }).join('')+'</select></label>';
         svgSecciones('svgSec','nSecG', r, I, (secSel==='todas'?null:vivos[secSel]));
         svgPunzonado('svgPunz','nPunzG', r, I, (secSel==='todas'?null:vivos[secSel]));
