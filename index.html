@@ -8,7 +8,7 @@
     <meta name="author" content="Ing. Gomes Leandro Daniel">
     <meta name="copyright" content="© 2025 Ing. Gomes Leandro Daniel - UTN FRGP">
     <style>
-        *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f3f4f6;padding:20px;line-height:1.5}.container{max-width:1400px;margin:0 auto}.header{background:linear-gradient(135deg,#1e40af,#1e3a8a);color:#fff;padding:24px;border-radius:12px 12px 0 0}.header h1{font-size:1.4em;margin-bottom:4px}.header .subtitle{color:#93c5fd;font-size:.95em;font-weight:500}.header .institution{color:#bfdbfe;font-size:.85em;margin-top:4px}.header .author{color:#fde047;font-size:.8em;margin-top:8px;font-style:italic}.datos-problema{background:#dbeafe;border-left:4px solid #3b82f6;padding:16px}.datos-problema h2{color:#1e40af;font-size:1em;margin-bottom:12px}.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px}.input-group{display:flex;flex-direction:column}.input-group label{font-size:.85em;color:#374151;margin-bottom:4px}.input-group input{padding:10px 14px;border:2px solid #93c5fd;border-radius:6px;font-size:1.1em;font-weight:700;color:#1e3a8a;width:100%}.input-group input:focus{outline:0;border-color:#2563eb;background:#eff6ff}.input-group .unit{font-size:.8em;color:#6b7280;margin-top:2px}.content{background:#fff;padding:24px;border-radius:0 0 12px 12px;box-shadow:0 4px 6px rgba(0,0,0,.1)}.tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}.tab{padding:12px 18px;border:none;background:#e5e7eb;color:#374151;cursor:pointer;border-radius:8px 8px 0 0;font-size:.92em;font-weight:500;transition:all .2s}.tab:hover{background:#d1d5db}.tab.active{background:#2563eb;color:#fff}.tab-content{display:none}.tab-content.active{display:block}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}.grid-3-1{display:grid;grid-template-columns:2fr 1fr;gap:24px}@media (max-width:1000px){.grid-2,.grid-3-1{grid-template-columns:1fr}}.card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin-bottom:16px}.card h4{color:#374151;border-bottom:2px solid #e5e7eb;padding-bottom:8px;margin-bottom:12px;font-size:1.05em}.card-green{background:#ecfdf5;border-color:#a7f3d0}.card-green h4{color:#065f46;border-color:#a7f3d0}.card-blue{background:#eff6ff;border-color:#bfdbfe}.card-blue h4{color:#1e40af;border-color:#bfdbfe}.card-yellow{background:#fefce8;border-color:#fde047}.card-yellow h4{color:#a16207;border-color:#fde047}.card-purple{background:#faf5ff;border-color:#d8b4fe}.card-purple h4{color:#7c3aed;border-color:#d8b4fe}.result-ok{background:#dcfce7;border:2px solid #22c55e}.result-fail{background:#fee2e2;border:2px solid #ef4444}.formula{background:#fff;border:1px solid #d1d5db;padding:10px 14px;border-radius:6px;font-family:'Courier New',monospace;margin:10px 0;text-align:center;font-size:1.05em}.formula-big{font-size:1.25em;padding:14px 18px}.slider-group{margin-bottom:16px}.slider-group label{display:block;font-size:.9em;color:#4b5563;margin-bottom:6px;font-weight:500}.slider-group input[type=range]{width:100%;height:8px}.slider-value{font-weight:700;color:#2563eb;font-size:1.2em}table{width:100%;border-collapse:collapse;font-size:.93em}table td,table th{padding:7px 9px;border-bottom:1px solid #e5e7eb;text-align:left}table th{background:#f1f5f9;font-size:.88em;color:#334155}table td:last-child{font-weight:700;text-align:right}.tbl-num td{text-align:right;font-variant-numeric:tabular-nums}.tbl-num td:first-child{text-align:left;font-weight:600}.rige{background:#fef9c3}.text-green{color:#16a34a}.text-red{color:#dc2626}.text-blue{color:#2563eb}.text-purple{color:#7c3aed}.text-orange{color:#ea580c}.big-result{font-size:1.4em;text-align:center;padding:14px;margin-top:14px;border-radius:8px;font-weight:700}.svg-container{background:#fff;border:2px solid #e5e7eb;border-radius:10px;padding:15px;margin:12px 0;text-align:center;overflow:visible}.svg-container svg{max-width:100%;height:auto;display:block;margin:0 auto}.svg-title{font-weight:600;color:#374151;margin-bottom:12px;font-size:1.05em}.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:16px 0}.flow-box{background:#fff;border:1px solid #d1d5db;padding:10px 14px;border-radius:6px;text-align:center;font-size:.9em}.flow-arrow{font-size:1.5em;color:#9ca3af}.note{font-size:.9em;color:#6b7280;margin-top:10px}ul{padding-left:20px}li{margin-bottom:6px}.highlight-box{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border:2px solid #a855f7;border-radius:10px;padding:20px;margin:16px 0}.highlight-box h4{color:#7c3aed;margin-bottom:12px}.graficos-col{display:flex;flex-direction:column;gap:12px}.dim-panel{background:#f0f9ff;border:2px solid #0ea5e9;border-radius:10px;padding:16px}.dim-panel h4{color:#0369a1;margin-bottom:12px;font-size:1em}.footer{text-align:center;font-size:.85em;color:#6b7280;margin-top:16px;padding:16px;background:#f9fafb;border-radius:8px}.footer .author-main{color:#1e40af;font-weight:700;font-size:1em}.warn-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.8em;font-weight:700;margin:2px}.warn-y{background:#fef3c7;color:#92400e;border:1px solid #fcd34d}.warn-r{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f3f4f6;padding:20px;line-height:1.5}.container{max-width:1400px;margin:0 auto}.header{background:linear-gradient(135deg,#1e40af,#1e3a8a);color:#fff;padding:24px;border-radius:12px 12px 0 0}.header h1{font-size:1.4em;margin-bottom:4px}.header .subtitle{color:#93c5fd;font-size:.95em;font-weight:500}.header .institution{color:#bfdbfe;font-size:.85em;margin-top:4px}.header .author{color:#fde047;font-size:.8em;margin-top:8px;font-style:italic}.datos-problema{background:#dbeafe;border-left:4px solid #3b82f6;padding:16px}.datos-problema h2{color:#1e40af;font-size:1em;margin-bottom:12px}.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px}.input-group{display:flex;flex-direction:column}.input-group label{font-size:.85em;color:#374151;margin-bottom:4px}.input-group input{padding:10px 14px;border:2px solid #93c5fd;border-radius:6px;font-size:1.1em;font-weight:700;color:#1e3a8a;width:100%}.input-group input:focus{outline:0;border-color:#2563eb;background:#eff6ff}.input-group .unit{font-size:.8em;color:#6b7280;margin-top:2px}.content{background:#fff;padding:24px;border-radius:0 0 12px 12px;box-shadow:0 4px 6px rgba(0,0,0,.1)}.tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}.tab{padding:12px 18px;border:none;background:#e5e7eb;color:#374151;cursor:pointer;border-radius:8px 8px 0 0;font-size:.92em;font-weight:500;transition:all .2s}.tab:hover{background:#d1d5db}.tab.active{background:#2563eb;color:#fff}.tab-content{display:none}.tab-content.active{display:block}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}.grid-3-1{display:grid;grid-template-columns:2fr 1fr;gap:24px}.grid-env{display:grid;grid-template-columns:3fr 1fr;gap:20px}.grid-env>*{min-width:0}.grid-env select,.grid-env input{max-width:100%}.par-graf{display:grid;grid-template-columns:1fr 1fr;gap:12px}.par-graf>*{min-width:0}@media (max-width:1000px){.grid-2,.grid-3-1,.grid-env,.par-graf{grid-template-columns:1fr}}.card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin-bottom:16px}.card h4{color:#374151;border-bottom:2px solid #e5e7eb;padding-bottom:8px;margin-bottom:12px;font-size:1.05em}.card-green{background:#ecfdf5;border-color:#a7f3d0}.card-green h4{color:#065f46;border-color:#a7f3d0}.card-blue{background:#eff6ff;border-color:#bfdbfe}.card-blue h4{color:#1e40af;border-color:#bfdbfe}.card-yellow{background:#fefce8;border-color:#fde047}.card-yellow h4{color:#a16207;border-color:#fde047}.card-purple{background:#faf5ff;border-color:#d8b4fe}.card-purple h4{color:#7c3aed;border-color:#d8b4fe}.result-ok{background:#dcfce7;border:2px solid #22c55e}.result-fail{background:#fee2e2;border:2px solid #ef4444}.formula{background:#fff;border:1px solid #d1d5db;padding:10px 14px;border-radius:6px;font-family:'Courier New',monospace;margin:10px 0;text-align:center;font-size:1.05em}.formula-big{font-size:1.25em;padding:14px 18px}.slider-group{margin-bottom:16px}.slider-group label{display:block;font-size:.9em;color:#4b5563;margin-bottom:6px;font-weight:500}.slider-group input[type=range]{width:100%;height:8px}.slider-value{font-weight:700;color:#2563eb;font-size:1.2em}table{width:100%;border-collapse:collapse;font-size:.93em}table td,table th{padding:7px 9px;border-bottom:1px solid #e5e7eb;text-align:left}table th{background:#f1f5f9;font-size:.88em;color:#334155}table td:last-child{font-weight:700;text-align:right}.tbl-num td{text-align:right;font-variant-numeric:tabular-nums}.tbl-num td:first-child{text-align:left;font-weight:600}.rige{background:#fef9c3}.text-green{color:#16a34a}.text-red{color:#dc2626}.text-blue{color:#2563eb}.text-purple{color:#7c3aed}.text-orange{color:#ea580c}.big-result{font-size:1.4em;text-align:center;padding:14px;margin-top:14px;border-radius:8px;font-weight:700}.svg-container{background:#fff;border:2px solid #e5e7eb;border-radius:10px;padding:15px;margin:12px 0;text-align:center;overflow:visible}.svg-container svg{max-width:100%;height:auto;display:block;margin:0 auto}.svg-title{font-weight:600;color:#374151;margin-bottom:12px;font-size:1.05em}.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:16px 0}.flow-box{background:#fff;border:1px solid #d1d5db;padding:10px 14px;border-radius:6px;text-align:center;font-size:.9em}.flow-arrow{font-size:1.5em;color:#9ca3af}.note{font-size:.9em;color:#6b7280;margin-top:10px}ul{padding-left:20px}li{margin-bottom:6px}.highlight-box{background:linear-gradient(135deg,#faf5ff,#f3e8ff);border:2px solid #a855f7;border-radius:10px;padding:20px;margin:16px 0}.highlight-box h4{color:#7c3aed;margin-bottom:12px}.graficos-col{display:flex;flex-direction:column;gap:12px}#txtEnv table{margin:12px 0}.dim-panel{background:#f0f9ff;border:2px solid #0ea5e9;border-radius:10px;padding:16px}.dim-panel h4{color:#0369a1;margin-bottom:12px;font-size:1em}.footer{text-align:center;font-size:.85em;color:#6b7280;margin-top:16px;padding:16px;background:#f9fafb;border-radius:8px}.footer .author-main{color:#1e40af;font-weight:700;font-size:1em}.warn-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.8em;font-weight:700;margin:2px}.warn-y{background:#fef3c7;color:#92400e;border:1px solid #fcd34d}.warn-r{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
 /* ===== Acceso beta ===== */
 #gate{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1e3a8a,#0f172a);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
 #gate .box{background:#fff;border-radius:14px;max-width:460px;width:100%;padding:32px 28px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
@@ -57,6 +57,27 @@
 .dom td:first-child::after{content:' (dominada)';font-size:.85em;color:#6b7280;font-weight:400}
 .ref{font-size:.8em;color:#6b7280;font-style:italic}
 .pend{background:#fff7ed;border:2px dashed #fb923c;border-radius:10px;padding:20px;text-align:center;color:#9a3412}
+/* Tabla de envolvente: ocupa solo el ancho que necesita. Con 6 combinaciones
+   queda compacta; con viento reversible pasa a 9 y se achican fuente y padding. */
+.tbl-env{width:auto;margin:0 auto;font-variant-numeric:tabular-nums}
+.tbl-env td,.tbl-env th{text-align:right;padding:7px 10px;white-space:nowrap}
+.tbl-env td:first-child,.tbl-env th:first-child{text-align:left;font-weight:600;white-space:normal;min-width:180px}
+.tbl-env td:last-child{text-align:center}
+.tbl-env.ancha td,.tbl-env.ancha th{padding:5px 6px;font-size:.85em}
+.tbl-env.ancha td:first-child,.tbl-env.ancha th:first-child{min-width:150px}
+.tbl-env th.rev{background:#e2e8f0;font-style:italic}
+.tbl-env td.rev{background:#f8fafc}
+.tbl-env td.rige{background:#fef9c3;font-weight:700}
+.nap{color:#94a3b8;font-weight:400;font-style:italic;font-size:.9em}
+.tbl-env td.izq,.tbl-env th.izq{text-align:left;font-weight:400;white-space:normal}
+.highlight-box p{margin-bottom:10px}.highlight-box p:last-of-type{margin-bottom:0}
+.tbl-env .sub{display:block;font-size:.8em;color:#6b7280;font-weight:400}
+.costo{width:auto;margin:12px auto 0;font-variant-numeric:tabular-nums}
+.costo td,.costo th{text-align:right;padding:5px 10px;white-space:nowrap}
+.costo td:first-child,.costo th:first-child{text-align:left;font-weight:600}
+.costo td:last-child{text-align:right}
+.err-0{color:#16a34a;font-weight:700}
+.err-alto{color:#dc2626;font-weight:700}
     </style>
 </head>
 <body>
@@ -291,7 +312,7 @@
 
             <!-- ================= TAB 4: ENVOLVENTE Y SECCIONES CRITICAS ================= -->
             <div id="env" class="tab-content">
-                <div class="grid-3-1">
+                <div class="grid-env">
                     <div class="graficos-col">
                         <div class="svg-container">
                             <div class="svg-title">Superposición de los diagramas de presión última</div>
@@ -301,10 +322,52 @@
                         </div>
                         <div class="card"><h4>Combinaciones últimas - presión neta</h4>
                             <div id="tEnv"></div></div>
-                        <div class="highlight-box"><h4>Lectura del gráfico</h4>
+                        <div class="card"><h4>Envolvente por solicitación</h4>
+                            <div id="tSol"></div></div>
+                        <div class="card card-green"><h4>Envolvente de diseño</h4>
+                            <div id="tDis"></div></div>
+                        <div class="svg-container">
+                            <div class="svg-title">Secciones críticas: dónde se calcula cada solicitación y cuánto vale</div>
+                            <div class="chk-row" id="selSecRow"></div>
+                            <div id="svgSec"></div>
+                            <div class="note" id="nSecG"></div>
+                        </div>
+                        <div class="svg-container">
+                            <div class="svg-title">Planta: perímetro crítico de punzonado y área que aporta a V<sub>u,punz</sub></div>
+                            <div id="svgPunz"></div>
+                            <div class="note" id="nPunzG"></div>
+                        </div>
+                        <div class="par-graf">
+                            <div class="svg-container" style="margin:0">
+                                <div class="svg-title">Planta: área que tributa a la <strong>flexión</strong>, dirección de B</div>
+                                <div id="svgTribBM"></div>
+                                <div class="note" id="nTribBM"></div>
+                            </div>
+                            <div class="svg-container" style="margin:0">
+                                <div class="svg-title">Planta: área que tributa a la <strong>flexión</strong>, dirección de L</div>
+                                <div id="svgTribL"></div>
+                                <div class="note" id="nTribL"></div>
+                            </div>
+                        </div>
+                        <div class="par-graf">
+                            <div class="svg-container" style="margin:0">
+                                <div class="svg-title">Planta: área que tributa al <strong>corte</strong>, dirección de B</div>
+                                <div id="svgTribBV"></div>
+                                <div class="note" id="nTribBV"></div>
+                            </div>
+                            <div class="svg-container" style="margin:0">
+                                <div class="svg-title">Planta: área que tributa al <strong>corte</strong>, dirección de L</div>
+                                <div id="svgTribLV"></div>
+                                <div class="note" id="nTribLV"></div>
+                            </div>
+                        </div>
+                        <div class="svg-container">
+                            <div class="svg-title">Quién gana cada puesto: cada solicitación contra su propia envolvente</div>
+                            <div id="svgBar"></div>
+                            <div class="note" id="nBarG"></div>
+                        </div>
+                        <div class="highlight-box"><h4>Lectura de la envolvente</h4>
                             <div id="txtEnv"></div></div>
-                        <div class="pend">Secciones críticas, tabla de envolvente por solicitación y los
-                            tres gráficos del módulo 3: etapa 3.</div>
                     </div>
                     <div>
                         <div class="dim-panel"><h4>Geometría de la sección</h4>
@@ -533,10 +596,22 @@
         var xL = g.B/2 - g.c1/2, xR = g.B/2 + g.c1/2;
         var xVd = xR + d, xVi = xL - d;
         var xPa = xL - d/2, xPb = xR + d/2;
+        var ay = (g.L - g.c2)/2;                 // voladizo en la direccion de L
         return {
             d:d, xL:xL, xR:xR,
+            // Sin voladizo no hay seccion de flexion: si la columna llega al
+            // borde, el momento en la cara no es cero, es inexistente. Y con
+            // c2 >= L tampoco hay voladizo en la direccion de L.
+            aplicaMizq:(xL > 1e-9), aplicaMder:(xR < g.B - 1e-9),
+            aplicaMy:(g.L > g.c2 + 1e-9),
             xVder:xVd, xVizq:xVi,
             aplicaVder:(xVd < g.B - 1e-9), aplicaVizq:(xVi > 1e-9),
+            // Corte 1D en la direccion de L. El voladizo mide (L - c2)/2 y la
+            // seccion critica cae a d de la cara, o sea a (L - c2)/2 - d del
+            // borde. Dos condiciones y no una: que haya voladizo, y que la
+            // seccion caiga adentro. Con d <= 0 la primera sola no alcanza.
+            ay:ay, yVy:ay - d,
+            aplicaVy:(g.L > g.c2 + 1e-9 && ay > d + 1e-9),
             xPa:xPa, xPb:xPb, anchoPunz:xPb-xPa,
             aplicaPunz:(xPa > 1e-9 && xPb < g.B - 1e-9 && (g.c2+d) < g.L - 1e-9),
             b0: 2*(g.c1+d) + 2*(g.c2+d)
@@ -551,6 +626,15 @@
     // El punzonado no cambia: su perimetro tambien es simetrico.
     // -------------------------------------------------------------------
     function solicitaciones(p, g, sc, Vtot){
+        // Sin equilibrio no hay diagrama que integrar y por lo tanto no hay
+        // solicitacion. Sin esta guarda M_y se colaria en la envolvente: no
+        // se integra sobre el perfil, depende solo de V_u y queda finito aun
+        // con e >= B/2. Las otras cinco dan Infinity y ya quedaban filtradas.
+        // V_y tiene exactamente la misma forma que M_y y por lo tanto el mismo
+        // agujero: va en esta guarda por el mismo motivo (defecto 1).
+        if(p.tipo === 'vuelco')
+            return {Mder:null, Mizq:null, Vder:null, Vizq:null, Vpunz:null,
+                    My:null, Vy:null};
         var Mder = g.L * intQx(p, sc.xR, g.B, sc.xR);
         var Mizq = -g.L * intQx(p, 0, sc.xL, sc.xL);
         var Vder = sc.aplicaVder ? g.L * intQ(p, sc.xVder, g.B) : null;
@@ -564,9 +648,22 @@
         // Flexion en la direccion de L. La presion no varia en y.
         var My = (Vtot/g.L) * Math.pow(Math.max(0,g.L - g.c2),2) / 8;
     
-        var o = {Mder:Mder, Mizq:Mizq, Vder:Vder, Vizq:Vizq, Vpunz:Vpunz, My:My};
-        if(p.espejo){ // intercambio de lados
-            o = {Mder:Mizq, Mizq:Mder, Vder:Vizq, Vizq:Vder, Vpunz:Vpunz, My:My};
+        // Corte unidireccional en la direccion de L (art. 15.5.2 con 11.1.3.1).
+        // La seccion critica es un plano perpendicular a y, a distancia d de la
+        // cara, y toma todo el ancho B. Integrando la franja:
+        //     V_u,y = [(L - c2)/2 - d] . integral de q(x) dx sobre [0, B]
+        // y esa integral vale V_u/L EXACTAMENTE por equilibrio, cualquiera sea
+        // la forma del diagrama, porque la resultante de la presion es V_u por
+        // definicion. Es exacta con despegue: mismo argumento que M_y.
+        // Una sola fila y no dos: la presion no varia en y, de modo que las dos
+        // secciones criticas de esa direccion dan el mismo valor.
+        var Vy = sc.aplicaVy ? (Vtot/g.L) * sc.yVy : null;
+    
+        var o = {Mder:Mder, Mizq:Mizq, Vder:Vder, Vizq:Vizq, Vpunz:Vpunz,
+                 My:My, Vy:Vy};
+        if(p.espejo){ // intercambio de lados; My y Vy no se intercambian
+            o = {Mder:Mizq, Mizq:Mder, Vder:Vizq, Vizq:Vder, Vpunz:Vpunz,
+                 My:My, Vy:Vy};
         }
         return o;
     }
@@ -724,7 +821,7 @@
         });
     
         // --- ENVOLVENTE POR SOLICITACION (no por max de q_max) ---
-        var claves = ['Mder','Mizq','My','Vder','Vizq','Vpunz'];
+        var claves = ['Mder','Mizq','My','Vder','Vizq','Vy','Vpunz'];
         var env = {};
         claves.forEach(function(k){
             var mejor = null;
@@ -740,6 +837,7 @@
             Mu:   Math.max(env.Mder?env.Mder.valor:0, env.Mizq?env.Mizq.valor:0),
             Muy:  env.My ? env.My.valor : 0,
             Vu1D: Math.max(env.Vder?env.Vder.valor:0, env.Vizq?env.Vizq.valor:0),
+            Vuy:  env.Vy ? env.Vy.valor : null,
             Vup:  env.Vpunz ? env.Vpunz.valor : null
         };
         var gobiernan = {};
@@ -752,6 +850,149 @@
                 ULT:ULT, env:env, dis:dis,
                 gobiernan:Object.keys(gobiernan),
                 noGobierna:noGobierna.filter(function(v,i,ar){return ar.indexOf(v)===i;})};
+    }
+    
+    // -------------------------------------------------------------------
+    // 11. HECHOS DE LA ENVOLVENTE
+    // Funcion pura. Devuelve SOLO numeros y booleanos, ni una palabra.
+    // La redaccion se arma despues a partir de esto, de modo que ninguna
+    // oracion pueda afirmar algo que no este medido aca.
+    //
+    // El dato central es el costo del criterio max(q_u,max): cuanto se
+    // habria subestimado cada solicitacion si se hubiera dimensionado con
+    // la combinacion de mayor presion de pico en lugar de la envolvente.
+    // Es un numero, no una anecdota: vale igual cuando el pico gobierna
+    // (error 0 %) y cuando no.
+    // -------------------------------------------------------------------
+    var CLAVES_SOL = ['Mder','Mizq','My','Vder','Vizq','Vy','Vpunz'];
+    var BANDERA_SOL = {Mder:'aplicaMder', Mizq:'aplicaMizq', My:'aplicaMy',
+                       Vder:'aplicaVder', Vizq:'aplicaVizq', Vy:'aplicaVy',
+                       Vpunz:'aplicaPunz'};
+    
+    function hechos(r, B){
+        var act = r.ULT.filter(function(u){ return u.tipo !== 'vuelco'; });
+        var nVuelco = r.ULT.length - act.length;
+        if(act.length === 0)
+            return {sinDiagrama:true, nUlt:r.ULT.length, nVuelco:nVuelco};
+    
+        var pico  = act.reduce(function(a,b){ return b.smax > a.smax ? b : a; }, act[0]);
+        var largo = act.reduce(function(a,b){ return b.a    > a.a    ? b : a; }, act[0]);
+        var corto = act.reduce(function(a,b){ return b.a    < a.a    ? b : a; }, act[0]);
+        var as = act.map(function(u){ return u.a; });
+        var dispersionA = (Math.max.apply(null,as) - Math.min.apply(null,as)) > 1e-6;
+        var nCompleto = act.filter(function(u){ return u.a >= B - 1e-9; }).length;
+    
+        var gob = {};
+        r.gobiernan.forEach(function(n){ gob[n] = true; });
+    
+        var costo = [], nAplica = 0, nSub = 0, peor = -1, peorClave = null;
+        CLAVES_SOL.forEach(function(k){
+            var en = r.env[k], vp = pico.sol[k];
+            if(!r.sc[BANDERA_SOL[k]] || !en || vp === null || !isFinite(vp)){
+                costo.push({clave:k, aplica:false}); return;
+            }
+            nAplica++;
+            // en.valor es el maximo sobre todas las combinaciones, de modo
+            // que en.valor >= vp siempre y el error nunca es negativo.
+            var err = 100*(en.valor - vp)/Math.max(1e-9, en.valor);
+            if(err > 0.05) nSub++;
+            if(err > peor){ peor = err; peorClave = k; }
+            costo.push({clave:k, aplica:true, conPico:vp, env:en.valor, rige:en.comb, err:err});
+        });
+    
+        return {
+            sinDiagrama:false, nUlt:r.ULT.length, nVuelco:nVuelco, hayVuelco:nVuelco > 0,
+            pico:pico, largo:largo, corto:corto,
+            nAct:act.length, nCompleto:nCompleto, nParcial:act.length - nCompleto,
+            contactoParcial:(pico.a < B - 1e-9), ratioContacto:(B > 0 ? pico.a/B : 0),
+            picoGobierna:!!gob[pico.nom],
+            nGob:r.gobiernan.length, gobiernan:r.gobiernan, noGobierna:r.noGobierna,
+            dispersionA:dispersionA,
+            costo:costo, nAplica:nAplica, nSub:nSub,
+            peor:(peor < 0 ? 0 : peor), peorClave:peorClave
+        };
+    }
+    
+    // -------------------------------------------------------------------
+    // 12. REDACCION A PARTIR DE LOS HECHOS
+    // Devuelve un arreglo de oraciones en texto plano. Cada oracion esta
+    // condicionada a un hecho de H y ninguna afirma nada que no este medido
+    // alli. El enfasis se marca con **...** y los subindices se escriben
+    // q_u,max / M_u / V_u: la capa de interfaz los convierte a HTML. Asi el
+    // texto se puede testear con Node sin arrastrar etiquetas.
+    // -------------------------------------------------------------------
+    var NOMBRE_SOL = {Mder:'M_u en la cara derecha', Mizq:'M_u en la cara izquierda',
+                      My:'M_u en la direcci\u00f3n de L', Vder:'V_u de corte 1D derecho',
+                      Vizq:'V_u de corte 1D izquierdo',
+                      Vy:'V_u de corte 1D en la direcci\u00f3n de L',
+                      Vpunz:'V_u de punzonado'};
+
+    function redactar(H, B){
+        var n0 = function(x){ return Number(x).toFixed(0); };
+        var n1 = function(x){ return Number(x).toFixed(1); };
+        var n2 = function(x){ return Number(x).toFixed(2); };
+        var rot = function(u){ return u.nom + (u.sentido < 0 ? ' (-W)' : ''); };
+        var s = [];
+
+        if(H.sinDiagrama){
+            s.push('Las **' + H.nUlt + '** combinaciones est\u00e1n en vuelco: en todas la ' +
+                   'excentricidad mayorada alcanza o supera B/2 y la resultante se sale de la base.');
+            s.push('Sin equilibrio no hay diagrama de presiones que integrar, de modo que **no hay ' +
+                   'envolvente ni solicitaciones que calcular**. No es que la zapata est\u00e9 poco ' +
+                   'armada: no est\u00e1 en equilibrio. Hay que aumentar B, reducir el momento o ' +
+                   'revisar las acciones antes de mirar cualquier otra cosa.');
+            return s;
+        }
+
+        // 1. El pico. Solo dato, sin conclusion.
+        s.push('La combinaci\u00f3n de mayor presi\u00f3n de pico es **' + rot(H.pico) + '**, con ' +
+               'q_u,m\u00e1x = **' + n1(H.pico.smax) + ' kPa**. Su diagrama es ' + H.pico.tipo +
+               ' y apoya sobre **' + n2(H.pico.a) + ' m**, el ' + n0(100*H.ratioContacto) + ' % de B.');
+
+        // 2. El brazo de palanca corto solo si el contacto es realmente parcial.
+        if(H.contactoParcial)
+            s.push('Esa presi\u00f3n alta act\u00faa sobre un contacto reducido, o sea sobre un brazo ' +
+                   'de palanca corto respecto de las secciones cr\u00edticas, as\u00ed que no se puede ' +
+                   'anticipar que gobierne el dimensionamiento.');
+        else
+            s.push('El contacto es completo: ac\u00e1 el pico no viene acompa\u00f1ado de p\u00e9rdida ' +
+                   'de apoyo y el diagrama cubre toda la base.');
+
+        // 3. El costo del criterio max(q_max). Es el nucleo y va siempre.
+        if(H.nSub === 0)
+            s.push('Con estos valores, dimensionar con esa combinaci\u00f3n habr\u00eda acertado en las **' +
+                   H.nAplica + '** solicitaciones, con error nulo. Es la excepci\u00f3n y no la regla: ' +
+                   'ocurre cuando una misma combinaci\u00f3n domina a la vez en axial y en momento.');
+        else
+            s.push('Si se hubiera dimensionado con esa combinaci\u00f3n, por ser la de mayor presi\u00f3n, ' +
+                   'se habr\u00edan **subestimado ' + H.nSub + ' de ' + H.nAplica + '** solicitaciones. ' +
+                   'La peor es ' + (NOMBRE_SOL[H.peorClave] || H.peorClave) + ', **' + n1(H.peor) +
+                   ' % por debajo** del valor de envolvente.');
+
+        // 4. Cuantas gobiernan.
+        if(H.nGob === 1)
+            s.push('Una sola combinaci\u00f3n, **' + H.gobiernan[0] + '**, gobierna las ' + H.nAplica +
+                   ' solicitaciones.');
+        else
+            s.push('Gobiernan **' + H.nGob + '** combinaciones distintas (' + H.gobiernan.slice().sort().join(', ') +
+                   '), y ' + (H.noGobierna.length === 1 ? 'una' : H.noGobierna.length) +
+                   ' no gobierna' + (H.noGobierna.length === 1 ? '' : 'n') + ' ninguna solicitaci\u00f3n (' +
+                   H.noGobierna.slice().sort().join(', ') + ').');
+
+        // 5. El reparto de contactos solo tiene sentido si hay dispersion. Nombrar
+        //    "la de mayor contacto" no sirve cuando varias empatan en a = B.
+        if(H.dispersionA)
+            s.push('De las ' + H.nAct + ' combinaciones con equilibrio, **' + H.nCompleto +
+                   '** apoyan sobre toda la base y **' + H.nParcial + '** despegan una parte. ' +
+                   'La de menor contacto es ' + rot(H.corto) + ', con a = ' + n2(H.corto.a) + ' m.');
+
+        // 6. Vuelcos parciales.
+        if(H.hayVuelco)
+            s.push('Otras **' + H.nVuelco + '** quedan fuera de la envolvente por vuelco (e >= B/2): ' +
+                   'sin equilibrio no hay diagrama que integrar y sus seis solicitaciones son ' +
+                   'indefinidas, no cero.');
+
+        return s;
     }
     /*CALC-END*/
     
@@ -770,6 +1011,56 @@
     var V7  = {C1:'U1', C2:'U2', C4:'U3', C6:'U4'};
     function clave(u){return u.nom+(u.sentido<0?'-':'+');}
     function rotulo(u){return u.nom+(u.sentido<0?' (-W)':'');}
+
+    // Filas de la tabla de envolvente. La referencia normativa viaja con la fila:
+    // el codigo tiene que poder auditarse en el aula sin ir a buscarla afuera.
+    // clave, rotulo, unidad, articulo, bandera de aplicabilidad, motivo si no aplica
+    var FILAS_SOL=[
+        ['Mder', 'M<sub>u</sub> flexión, cara derecha',   'kN·m', '15.4.2 a',
+         'aplicaMder', 'sin voladizo'],
+        ['Mizq', 'M<sub>u</sub> flexión, cara izquierda', 'kN·m', '15.4.2 a',
+         'aplicaMizq', 'sin voladizo'],
+        ['My',   'M<sub>u</sub> flexión, dirección L',    'kN·m', '15.4.2 a',
+         'aplicaMy',   'sin voladizo'],
+        ['Vder', 'V<sub>u</sub> corte 1D, lado derecho',  'kN',   '15.5.2 + 11.1.3.1',
+         'aplicaVder', 'sección fuera de la zapata'],
+        ['Vizq', 'V<sub>u</sub> corte 1D, lado izquierdo','kN',   '15.5.2 + 11.1.3.1',
+         'aplicaVizq', 'sección fuera de la zapata'],
+        ['Vy',   'V<sub>u</sub> corte 1D, dirección L',   'kN',   '15.5.2 + 11.1.3.1',
+         'aplicaVy',   'sección fuera del voladizo en L'],
+        ['Vpunz','V<sub>u</sub> punzonado',               'kN',   '11.12.1.2',
+         'aplicaPunz', 'perímetro fuera de la zapata']
+    ];
+
+    // Convierte el texto plano de redactar() a HTML: enfasis y subindices.
+    // El orden importa, q_u,max antes que M_u y V_u.
+    var TOKENS=[['q_u,máx','q<sub>u,máx</sub>'],['M_u','M<sub>u</sub>'],['V_u','V<sub>u</sub>']];
+    function aHTML(s){
+        s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+        TOKENS.forEach(function(t){ s=s.split(t[0]).join(t[1]); });
+        return s;
+    }
+
+    // Tabla del costo del criterio max(q_u,max). Es el dato que sostiene el
+    // parrafo: no depende de que se cumpla ninguna anecdota en particular.
+    function tablaCosto(H){
+        if(H.sinDiagrama) return '';
+        var ETIQ={Mder:'M<sub>u</sub> cara derecha', Mizq:'M<sub>u</sub> cara izquierda',
+                  My:'M<sub>u</sub> dirección L', Vder:'V<sub>u</sub> corte 1D derecho',
+                  Vizq:'V<sub>u</sub> corte 1D izquierdo',
+                  Vy:'V<sub>u</sub> corte 1D dirección L', Vpunz:'V<sub>u</sub> punzonado'};
+        return '<table class="costo"><tr><th>Solicitación</th>'+
+            '<th>Con '+rotulo(H.pico)+', la de mayor q<sub>u,máx</sub></th>'+
+            '<th>Envolvente</th><th>Rige</th><th>Subestima</th></tr>'+
+            H.costo.map(function(c){
+                if(!c.aplica) return '<tr><td>'+ETIQ[c.clave]+'</td><td colspan="4" '+
+                    'style="text-align:center"><span class="nap">no aplica</span></td></tr>';
+                return '<tr><td>'+ETIQ[c.clave]+'</td><td>'+fx(c.conPico,1)+'</td><td>'+
+                    fx(c.env,1)+'</td><td style="color:'+COL[c.rige.nom]+';font-weight:700">'+
+                    rotulo(c.rige)+'</td><td class="'+(c.err<=0.05?'err-0':'err-alto')+'">'+
+                    fx(c.err,1)+' %</td></tr>';
+            }).join('')+'</table>';
+    }
 
     function recSel(){
         var s=_v('iRecSel'), inp=_e('iRec');
@@ -922,6 +1213,1143 @@
         _e(id).innerHTML=g;
     }
 
+
+    // -------------------------------------------------------------------
+    // SVG 4: SECCIONES CRITICAS SOBRE EL CORTE  (modulo 3, grafico 1)
+    // Cada solicitacion ocupa una fila propia. Asi ninguna etiqueta puede
+    // pisar a otra, cualquiera sea la geometria: no hay que resolver
+    // colisiones entre pares que en la practica siempre colisionan, porque
+    // x_L y x_R estan separados solo por c1.
+    // La etiqueta se centra sobre el tramo que se integra; si el tramo cae
+    // contra un borde, la etiqueta se recorta al lienzo y sale una guia
+    // horizontal hasta la linea de seccion.
+    // El alto del lienzo se calcula a partir de la cantidad de filas, de
+    // modo que nunca hay recorte por mas extrema que sea la geometria.
+    // -------------------------------------------------------------------
+    var COL_SEC = {flex:'#15803d', corte:'#a21caf', punz:'#b45309'};
+
+    // Ancho aproximado de un texto, para poder recortar la etiqueta al
+    // lienzo sin depender de medir en el DOM.
+    function anchoTxt(t, fs){ return String(t).length * 0.54 * fs; }
+
+    function svgSecciones(id, nota, r, I, sel){
+        var sc=r.sc, B=I.B, h=I.h, c1=I.c1;
+        var W=820, mr=92, mt=58;
+        var hq=250, hFila=42, hCota=30;
+
+        // --- que diagramas se dibujan ---
+        var series = sel ? [sel] : r.ULT.filter(function(u){return u.tipo!=='vuelco';});
+        var qmax=0;
+        series.forEach(function(u){
+            if(u.perf && isFinite(u.perf.smax) && u.perf.smax>qmax) qmax=u.perf.smax;
+        });
+        // Dos motivos distintos para no tener diagrama, y hay que decir cual es.
+        var todoVuelco = series.length>0 && series.every(function(u){return u.tipo==='vuelco';});
+        var sinDiag = !(qmax>0);
+        if(sinDiag) qmax=1;
+        // Decimales del eje segun el orden de magnitud, para no rotular "0 0 1 1 1".
+        var decQ = qmax>=100 ? 0 : (qmax>=10 ? 1 : 2);
+        var fmtQ = function(q){ return q.toFixed(decQ); };
+        // El margen izquierdo se calcula con el rotulo mas ancho, de modo que
+        // los numeros no pisen el titulo del eje por grande que sea q_u.
+        var wEtq = anchoTxt(fmtQ(qmax), 10.5);
+        var ml = Math.max(92, 75 + wEtq);
+        var pw = W-ml-mr;
+        var s=pw/B, X=function(x){return ml+x*s;};
+        var yTop=mt, hpx=Math.round(Math.max(20,Math.min(58,(h/B)*pw))), yBase=yTop+hpx;
+        var sq=hq/(qmax*1.08), Y=function(q){return yBase+q*sq;};
+
+        // --- valor y combinacion de cada solicitacion ---
+        // Con una combinacion elegida se muestra SU valor; si ademas no es la
+        // que rige, debajo y en gris aparece el de envolvente. Con "todas"
+        // queda solo el de envolvente con la combinacion que lo produce.
+        function dato(k){
+            var en=r.env[k];
+            if(sel){
+                var v=sel.sol[k];
+                if(v===null||!isFinite(v)) return null;
+                return {v:v, comb:sel, env:en, difiere: !!(en && Math.abs(en.valor-v)>0.05)};
+            }
+            if(!en) return null;
+            return {v:en.valor, comb:en.comb, env:en, difiere:false};
+        }
+
+        // clave, rotulo, unidad, tipo, tramo integrado [a,b], lineas, aplica
+        var DEF=[
+            ['Mizq','M','u,izq','kN\u00b7m','flex', 0,        sc.xL,     [sc.xL],           sc.aplicaMizq],
+            ['Mder','M','u,der','kN\u00b7m','flex', sc.xR,    B,         [sc.xR],           sc.aplicaMder],
+            ['Vizq','V','u,izq','kN',       'corte',0,        sc.xVizq,  [sc.xVizq],        sc.aplicaVizq],
+            ['Vder','V','u,der','kN',       'corte',sc.xVder, B,         [sc.xVder],        sc.aplicaVder],
+            ['Vpunz','V','u,punz','kN',     'punz', sc.xPa,   sc.xPb,    [sc.xPa,sc.xPb],   sc.aplicaPunz]
+        ];
+        var filas=[];
+        DEF.forEach(function(d){
+            if(!d[8]) return;
+            var v=dato(d[0]); if(!v) return;
+            filas.push({def:d, dat:v});
+        });
+
+        var hayCotaD = sc.aplicaVizq || sc.aplicaVder;
+        var nCotas = (hayCotaD?1:0) + (sc.aplicaPunz?1:0);
+        var yF0 = yBase + hq + 16;
+        var yFin = yF0 + filas.length*hFila;
+        var H = Math.round(yFin + nCotas*hCota + 16);
+
+        var g='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">';
+
+        // ---- cota de B, en la banda superior reservada ----
+        g+='<line x1="'+X(0)+'" y1="'+(mt-30)+'" x2="'+X(B)+'" y2="'+(mt-30)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<line x1="'+X(0)+'" y1="'+(mt-35)+'" x2="'+X(0)+'" y2="'+(mt-25)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<line x1="'+X(B)+'" y1="'+(mt-35)+'" x2="'+X(B)+'" y2="'+(mt-25)+'" stroke="#333" stroke-width="1.5"/>';
+        g+='<text x="'+X(B/2)+'" y="'+(mt-38)+'" text-anchor="middle" font-size="13" font-weight="bold">B = '+B.toFixed(2)+' m</text>';
+
+        // ---- eje de presiones ----
+        var xa=ml-38;
+        g+='<line x1="'+xa+'" y1="'+yBase+'" x2="'+xa+'" y2="'+(yBase+hq)+'" stroke="#334155" stroke-width="1.5"/>';
+        for(var i=0;i<=4;i++){
+            var q=qmax*i/4, yy=Y(q);
+            g+='<line x1="'+(xa-5)+'" y1="'+yy+'" x2="'+xa+'" y2="'+yy+'" stroke="#334155" stroke-width="1.2"/>';
+            g+='<text x="'+(xa-9)+'" y="'+(yy+4)+'" text-anchor="end" font-size="10.5" fill="#475569">'+fmtQ(q)+'</text>';
+        }
+        g+='<text x="15" y="'+(yBase+hq/2)+'" text-anchor="middle" font-size="11.5" fill="#475569" font-weight="bold" transform="rotate(-90 15 '+
+           (yBase+hq/2)+')">q<tspan dy="4" font-size="9.5">u</tspan><tspan dy="-4"> [kPa]</tspan></text>';
+
+        // ---- franja interior del perimetro de punzonado, detras de todo ----
+        if(sc.aplicaPunz)
+            g+='<rect x="'+X(sc.xPa)+'" y="'+yBase+'" width="'+((sc.xPb-sc.xPa)*s)+'" height="'+hq+
+               '" fill="'+COL_SEC.punz+'" fill-opacity="0.06"/>';
+
+        // ---- zapata, columna, plano de asiento ----
+        // La columna se recorta al ancho de la zapata: con c1 >= B se saldria
+        // del lienzo y ademas no seria una zapata.
+        var cxa=Math.max(0, B/2-c1/2), cxb=Math.min(B, B/2+c1/2);
+        g+='<rect x="'+X(cxa)+'" y="'+(yTop-26)+'" width="'+((cxb-cxa)*s)+'" height="26" fill="#94a3b8" stroke="#334155" stroke-width="2"/>';
+        g+='<rect x="'+X(0)+'" y="'+yTop+'" width="'+(B*s)+'" height="'+hpx+'" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>';
+        g+='<line x1="'+X(0)+'" y1="'+yBase+'" x2="'+X(B)+'" y2="'+yBase+'" stroke="#334155" stroke-width="2"/>';
+
+        // ---- diagramas de presion ----
+        if(sinDiag){
+            g+='<text x="'+X(B/2)+'" y="'+(yBase+hq/2)+'" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">'+
+               (todoVuelco ? 'Sin equilibrio (e &#8805; B/2): no hay diagrama que integrar'
+                           : 'Todas las acciones son nulas: no hay presi\u00f3n que dibujar') + '</text>';
+        } else {
+            series.forEach(function(u){
+                var pf=u.perf; if(!pf || !isFinite(pf.smax)) return;
+                var ia=pf.espejo?0:pf.x0, ib=pf.espejo?(B-pf.x0):B, qa, qb;
+                if(pf.tipo==='triangular'){ qa=pf.espejo?pf.smax:0; qb=pf.espejo?0:pf.smax; }
+                else { qa=pf.espejo?pf.smax:pf.qs; qb=pf.espejo?pf.qs:pf.smax; }
+                g+='<polygon points="'+X(ia)+','+yBase+' '+X(ia)+','+Y(qa)+' '+X(ib)+','+Y(qb)+' '+X(ib)+','+yBase+
+                   '" fill="'+COL[u.nom]+'" fill-opacity="'+(sel?0.20:0.05)+'" stroke="'+COL[u.nom]+
+                   '" stroke-width="'+(sel?3:1.8)+'"'+(u.sentido<0?' stroke-dasharray="8 4"':'')+'/>';
+                if(!sel)
+                    g+='<text x="'+(X(B)+7)+'" y="'+(Y(qb)+4)+'" font-size="10.5" font-weight="bold" fill="'+COL[u.nom]+'">'+u.nom+'</text>';
+            });
+        }
+
+        // ---- lineas verticales de seccion critica, hasta el pie de las filas ----
+        var dibujadas={};
+        DEF.forEach(function(d){
+            if(!d[8]) return;
+            d[7].forEach(function(xx){
+                var kx=d[4]+':'+xx.toFixed(6); if(dibujadas[kx]) return; dibujadas[kx]=true;
+                g+='<line x1="'+X(xx)+'" y1="'+(yTop-4)+'" x2="'+X(xx)+'" y2="'+yFin+
+                   '" stroke="'+COL_SEC[d[4]]+'" stroke-width="2" stroke-dasharray="7 4" opacity="0.9"/>';
+            });
+        });
+
+        // ---- una fila por solicitacion ----
+        filas.forEach(function(f, idx){
+            var d=f.def, v=f.dat, col=COL_SEC[d[4]], yr=yF0+idx*hFila;
+            var esPunz=(d[0]==='Vpunz');
+            var yb=yr+18;                                  // eje del tramo
+            var xa2=X(Math.max(0,Math.min(d[5],d[6]))), xb2=X(Math.min(B,Math.max(d[5],d[6])));
+            // Tramo que se integra. En punzonado el corchete va punteado porque
+            // marca lo que se RESTA del total, no lo que se suma.
+            var dash = esPunz ? ' stroke-dasharray="6 4"' : '';
+            g+='<line x1="'+xa2+'" y1="'+yb+'" x2="'+xb2+'" y2="'+yb+'" stroke="'+col+'" stroke-width="2.5"'+dash+'/>';
+            g+='<line x1="'+xa2+'" y1="'+(yb-6)+'" x2="'+xa2+'" y2="'+(yb+6)+'" stroke="'+col+'" stroke-width="2.5"/>';
+            g+='<line x1="'+xb2+'" y1="'+(yb-6)+'" x2="'+xb2+'" y2="'+(yb+6)+'" stroke="'+col+'" stroke-width="2.5"/>';
+
+            var pl1 = d[1], pl2 = d[2], pl3 = ' = '+fx(v.v,1)+' '+d[3];
+            var t1  = pl1+pl2+pl3;                          // solo para medir
+            var t2 = (sel?'':'rige ')+rotulo(v.comb)+' '+EQ[v.comb.nom];
+            var t3 = v.difiere ? ('envolvente '+fx(v.env.valor,1)+' '+d[3]+', rige '+rotulo(v.env.comb)) : '';
+            var fs=13.5;
+            var anchoT = Math.max(anchoTxt(t1, fs), anchoTxt(t2, 11.5), anchoTxt(t3, 10.5));
+            var w = anchoT+20, hh = t3 ? 56 : 40;
+            var cxi = (xa2+xb2)/2;
+            var cx  = Math.max(4+w/2, Math.min(W-4-w/2, cxi));
+            var yc  = yb - hh/2;
+            if(Math.abs(cx-cxi)>1)
+                g+='<line x1="'+cx+'" y1="'+yb+'" x2="'+cxi+'" y2="'+yb+'" stroke="'+col+'" stroke-width="1" stroke-dasharray="3 3"/>';
+            g+='<rect x="'+(cx-w/2)+'" y="'+yc+'" width="'+w+'" height="'+hh+'" rx="5" fill="#fff" fill-opacity="0.97" stroke="'+col+'" stroke-width="1.6"/>';
+            g+='<text x="'+cx+'" y="'+(yc+17)+'" text-anchor="middle" font-size="'+fs+'" font-weight="bold" fill="'+col+'">'+
+               pl1+'<tspan dy="4" font-size="9.5">'+pl2+'</tspan><tspan dy="-4">'+pl3+'</tspan></text>';
+            g+='<text x="'+cx+'" y="'+(yc+32)+'" text-anchor="middle" font-size="11.5" font-weight="bold" fill="'+COL[v.comb.nom]+'">'+t2+'</text>';
+            if(t3)
+                g+='<text x="'+cx+'" y="'+(yc+47)+'" text-anchor="middle" font-size="10.5" fill="#64748b">'+t3+'</text>';
+        });
+
+        // ---- cotas de d y de d/2 respecto de la cara de columna ----
+        function cota(y, xi, xf, txt, col){
+            if(Math.abs(xf-xi) < 1e-9) return '';
+            var a=X(Math.min(xi,xf)), b=X(Math.max(xi,xf)), o='';
+            o+='<line x1="'+a+'" y1="'+y+'" x2="'+b+'" y2="'+y+'" stroke="'+col+'" stroke-width="1.5"/>';
+            o+='<line x1="'+a+'" y1="'+(y-5)+'" x2="'+a+'" y2="'+(y+5)+'" stroke="'+col+'" stroke-width="1.5"/>';
+            o+='<line x1="'+b+'" y1="'+(y-5)+'" x2="'+b+'" y2="'+(y+5)+'" stroke="'+col+'" stroke-width="1.5"/>';
+            var cxx=Math.max(26, Math.min(W-26, (a+b)/2));
+            o+='<text x="'+cxx+'" y="'+(y-8)+'" text-anchor="middle" font-size="11" font-weight="bold" fill="'+col+'">'+txt+'</text>';
+            return o;
+        }
+        var yC1=yFin+hCota-6, yC2=yFin+(hayCotaD?2:1)*hCota-6;
+        if(sc.aplicaVizq) g+=cota(yC1, sc.xVizq, sc.xL, 'd = '+fx(sc.d,3), COL_SEC.corte);
+        if(sc.aplicaVder) g+=cota(yC1, sc.xR, sc.xVder, 'd = '+fx(sc.d,3), COL_SEC.corte);
+        if(sc.aplicaPunz){
+            g+=cota(yC2, sc.xPa, sc.xL, 'd/2 = '+fx(sc.d/2,3), COL_SEC.punz);
+            g+=cota(yC2, sc.xR, sc.xPb, 'd/2 = '+fx(sc.d/2,3), COL_SEC.punz);
+        }
+        g+='</svg>';
+        _e(id).innerHTML=g;
+
+        // ---- nota al pie, con lo que el dibujo no puede mostrar ----
+        var av=[];
+        if(!sc.aplicaMizq || !sc.aplicaMder) av.push('<span class="warn-badge warn-r">La columna '+
+            'alcanza o supera el borde de la zapata (c<sub>1</sub> = '+fx(c1,2)+' m contra B = '+fx(B,2)+
+            ' m): no hay voladizo y no existe sección de flexión</span>');
+        if(!sc.aplicaMy) av.push('<span class="warn-badge warn-r">c<sub>2</sub> alcanza o supera L: '+
+            'no hay voladizo en la dirección de L</span>');
+        if(!sc.aplicaVizq||!sc.aplicaVder) av.push('<span class="warn-badge warn-y">La sección de corte 1D de '+
+            (!sc.aplicaVizq&&!sc.aplicaVder?'los dos lados cae':'un lado cae')+' fuera de la zapata: ese lado no requiere verificación</span>');
+        if(!sc.aplicaPunz) av.push('<span class="warn-badge warn-y">El rectángulo crítico de punzonado excede la zapata: no aplica</span>');
+        var enMy=sc.aplicaMy ? r.env.My : null;
+        _e(nota).innerHTML=
+            '<span style="color:'+COL_SEC.flex+';font-weight:700">Verde</span>: flexión en la cara de la '+
+            'columna (art. 15.4.2 a). '+
+            '<span style="color:'+COL_SEC.corte+';font-weight:700">Violeta</span>: corte unidireccional a '+
+            'distancia d de la cara (art. 15.5.2 con 11.1.3.1). '+
+            '<span style="color:'+COL_SEC.punz+';font-weight:700">Ámbar</span>: perímetro de punzonado a '+
+            'd/2 de las caras (art. 11.12.1.2); la franja sombreada es lo que queda <em>dentro</em> del '+
+            'perímetro y se resta, V<sub>u,punz</sub> = V<sub>u</sub> - ∫q dentro.'+
+            (enMy?' Las solicitaciones de la dirección de L, M<sub>u,y</sub> = '+fx(r.dis.Muy,1)+' kN·m (rige '+
+             rotulo(enMy.comb)+')'+
+             (sc.aplicaVy && r.env.Vy ? ' y V<sub>u,y</sub> = '+fx(r.dis.Vuy,1)+' kN (rige '+
+              rotulo(r.env.Vy.comb)+')' : '')+
+             ', no tienen línea en este corte: sus secciones críticas son perpendiculares al plano '+
+             'del dibujo. Están en las plantas de más abajo.':'')+
+            (av.length?'<div style="margin-top:8px">'+av.join(' ')+'</div>':'');
+    }
+
+    // -------------------------------------------------------------------
+    // SVG 5: PLANTA DEL PERIMETRO DE PUNZONADO  (modulo 3, grafico 2)
+    // Perimetro critico a d/2 de las caras de la columna (art. 11.12.1.2).
+    // El area sombreada es la EXTERIOR al perimetro: es la que aporta a
+    // V_u,punz = V_u - integral de q dentro del perimetro critico.
+    // La escala se calcula sobre max(B, c1+d) y max(L, c2+d), de modo que
+    // cuando el rectangulo critico excede la zapata entra igual en el
+    // lienzo y se ve POR QUE no aplica, en lugar de salirse del dibujo.
+    // Sigue la combinacion elegida en el grafico 1: con "todas" se muestra
+    // el valor de envolvente y la combinacion que lo produce.
+    // La linea de contacto x = a se dibuja tal cual sale del perfil, sin
+    // sacar ninguna conclusion: que se informa cuando el despegue alcanza
+    // el perimetro critico es decision abierta de la etapa 4.
+    // -------------------------------------------------------------------
+    function svgPunzonado(id, nota, r, I, sel){
+        var sc=r.sc, B=I.B, L=I.L, c1=I.c1, c2=I.c2, d=sc.d;
+        var b1=c1+d, b2=c2+d;                       // lados del perimetro critico
+        var Bd=Math.max(B,b1), Ld=Math.max(L,b2);   // el lienzo cubre al mayor
+        var W=820, ml=78, mr=78, mt=58, phMax=380;
+        var pw=W-ml-mr;
+        var s=Math.min(pw/Math.max(1e-9,Bd), phMax/Math.max(1e-9,Ld));
+        var bw=B*s, bh=L*s, kw=b1*s, kh=b2*s;
+        var cx=ml+pw/2, cy=mt+Ld*s/2;
+        var fx0=cx-bw/2, fy0=cy-bh/2;
+        var X=function(x){ return fx0+x*s; };
+        var col=COL_SEC.punz;
+
+        // subindice con dy, no con baseline-shift (soporte irregular fuera de Chrome)
+        var sub=function(a,b,c){
+            return a+'<tspan dy="4" font-size="9.5">'+b+'</tspan><tspan dy="-4">'+(c||'')+'</tspan>';
+        };
+
+        // --- que combinacion se muestra y cuanto vale ---
+        var en  = sc.aplicaPunz ? r.env.Vpunz : null;
+        var u   = sel || (en ? en.comb : null);
+        var val = (u && sc.aplicaPunz) ? u.sol.Vpunz : null;
+        if(val===undefined || (val!==null && !isFinite(val))) val=null;
+        var difiere = !!(sel && en && val!==null && Math.abs(en.valor-val)>0.05);
+
+        // --- contacto del perfil de esa combinacion ---
+        var pf=u?u.perf:null;
+        var hayPerf=!!(pf && u.tipo!=='vuelco' && isFinite(pf.smax) && pf.smax>0);
+        var ia=hayPerf?(pf.espejo?0:pf.x0):0;
+        var ib=hayPerf?(pf.espejo?(B-pf.x0):B):B;
+        var parcial=hayPerf && (ib-ia) < B-1e-9;
+
+        // --- motivos de no aplicabilidad, uno por direccion ---
+        var excB=!(sc.xPa>1e-9 && sc.xPb<B-1e-9);
+        var excL=!(b2 < L-1e-9);
+
+        // --- alturas: cotas, cartel de valor y linea de datos ---
+        var yPlan=mt+Ld*s, yC1=yPlan+30, yC2=yPlan+60, yBox=yC2+18;
+        var hBox=difiere?58:44;
+        var yInfo=yBox+hBox+18;
+        var H=Math.round(yInfo+14);
+
+        var g='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">';
+
+        // ---- banda superior: estado ----
+        var l1='', l2='', cEst='#059669';
+        if(!sc.aplicaPunz){
+            cEst='#dc2626';
+            l1='El rectángulo crítico excede la zapata: el punzonado no aplica';
+            var det=[];
+            if(excB) det.push(sub('c','1',' + d = '+fx(b1,3)+' m contra B = '+fx(B,2)+' m'));
+            if(excL) det.push(sub('c','2',' + d = '+fx(b2,3)+' m contra L = '+fx(L,2)+' m'));
+            l2=det.join('  y  ')+'.';
+        } else if(val===null){
+            cEst='#dc2626';
+            l1=sel?'La combinación elegida está en vuelco: no hay diagrama que integrar'
+                  :'Ninguna combinación tiene equilibrio: no hay diagrama que integrar';
+            l2='El perímetro existe como geometría, pero '+sub('V','u,punz',' no está definido.');
+        } else {
+            l1='El perímetro cierra por los cuatro lados dentro de la zapata';
+            l2='Perímetro a d/2 = '+fx(d/2,3)+' m de cada cara de la columna (art. 11.12.1.2).';
+        }
+        g+='<text x="'+(W/2)+'" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="'+cEst+'">'+l1+'</text>';
+        g+='<text x="'+(W/2)+'" y="40" text-anchor="middle" font-size="11" fill="#475569">'+l2+'</text>';
+
+        // ---- zapata: el area exterior al perimetro es la que aporta ----
+        g+='<rect x="'+fx0+'" y="'+fy0+'" width="'+bw+'" height="'+bh+'" fill="'+col+
+           '" fill-opacity="0.14"/>';
+
+        // ---- zona sin contacto, tal cual sale del perfil ----
+        if(parcial){
+            var zi=[[0,ia],[ib,B]];
+            zi.forEach(function(z){
+                var wz=(z[1]-z[0])*s; if(wz<=0.5) return;
+                g+='<rect x="'+X(z[0])+'" y="'+fy0+'" width="'+wz+'" height="'+bh+
+                   '" fill="#94a3b8" fill-opacity="0.42"/>';
+                // La franja libre arriba y abajo del rectangulo critico mide (bh-kh)/2,
+                // porque los dos estan centrados. El rotulo va ahi, no en el medio,
+                // que es justo donde cae el rectangulo.
+                var ySc=fy0+(bh-kh)/4+5;
+                if(wz>96 && (bh-kh)/2>30 && ySc>fy0+30)
+                    g+='<text x="'+(X(z[0])+wz/2)+'" y="'+ySc+'" text-anchor="middle" '+
+                       'font-size="11" font-weight="bold" fill="#475569">sin contacto</text>';
+            });
+            var xa=X(pf.espejo?ib:ia);
+            g+='<line x1="'+xa+'" y1="'+(fy0-10)+'" x2="'+xa+'" y2="'+(fy0+bh+10)+
+               '" stroke="#334155" stroke-width="2" stroke-dasharray="7 4"/>';
+            // El rotulo de a va contra la linea y del lado que apoya, dentro de la
+            // planta: arriba se pisaba con la segunda linea del encabezado.
+            var ta='a = '+fx(pf.a,3)+' m', wa=anchoTxt(ta,11)+10;
+            var derecha=!pf.espejo;
+            var xt=derecha?(xa+7):(xa-7-wa);
+            g+='<rect x="'+xt+'" y="'+(fy0+5)+'" width="'+wa+'" height="17" fill="#fff" fill-opacity="0.85"/>';
+            g+='<text x="'+(xt+wa/2)+'" y="'+(fy0+18)+'" text-anchor="middle" font-size="11" '+
+               'font-weight="bold" fill="#334155">'+ta+'</text>';
+        }
+
+        // ---- rectangulo critico y columna ----
+        g+='<rect x="'+X(sc.xPa)+'" y="'+(cy-kh/2)+'" width="'+kw+'" height="'+kh+
+           '" fill="#ffffff" fill-opacity="0.92" stroke="'+col+'" stroke-width="2.5" stroke-dasharray="8 5"/>';
+        g+='<rect x="'+fx0+'" y="'+fy0+'" width="'+bw+'" height="'+bh+
+           '" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>';
+        g+='<rect x="'+(cx-c1*s/2)+'" y="'+(cy-c2*s/2)+'" width="'+(c1*s)+'" height="'+(c2*s)+
+           '" fill="#94a3b8" stroke="#334155" stroke-width="2"/>';
+        // A_0 adentro si entra; si no, justo encima del rectangulo, nunca recortada
+        if(sc.aplicaPunz && kw>64){
+            var cabe=(kw>132 && kh>34);
+            var yA0=Math.max(mt+12, cabe?(cy-kh/2+15):(cy-kh/2-7));
+            g+='<text x="'+cx+'" y="'+yA0+'" text-anchor="middle" font-size="10.5" fill="'+col+
+               '" font-weight="bold">'+sub('A','0',' se resta')+'</text>';
+        }
+        // Que el area sombreada es la que aporta se dice sobre el dibujo. Con
+        // despegue no, porque esa franja ya esta rotulada como sin contacto.
+        if(sc.aplicaPunz && !parcial && (bh-kh)/2>24 && bw>260)
+            g+='<text x="'+cx+'" y="'+(fy0+bh-11)+'" text-anchor="middle" font-size="10.5" '+
+               'fill="'+col+'">área exterior al perímetro: es la que aporta</text>';
+
+        // ---- cota de d/2 entre la cara de la columna y el perimetro ----
+        if(d*s/2 > 26 && sc.aplicaPunz){
+            var yq=cy+c2*s/2+13, xq1=X(sc.xPa), xq2=cx-c1*s/2;
+            g+='<line x1="'+xq1+'" y1="'+yq+'" x2="'+xq2+'" y2="'+yq+'" stroke="'+col+'" stroke-width="1.5"/>';
+            g+='<line x1="'+xq1+'" y1="'+(yq-4)+'" x2="'+xq1+'" y2="'+(yq+4)+'" stroke="'+col+'" stroke-width="1.5"/>';
+            g+='<line x1="'+xq2+'" y1="'+(yq-4)+'" x2="'+xq2+'" y2="'+(yq+4)+'" stroke="'+col+'" stroke-width="1.5"/>';
+            g+='<text x="'+((xq1+xq2)/2)+'" y="'+(yq-7)+'" text-anchor="middle" font-size="10" '+
+               'font-weight="bold" fill="'+col+'">d/2</text>';
+        }
+
+        // ---- cota vertical: c2 + d, a la derecha de todo lo dibujado ----
+        var xR=cx+Math.max(bw,kw)/2+22;
+        g+='<line x1="'+xR+'" y1="'+(cy-kh/2)+'" x2="'+xR+'" y2="'+(cy+kh/2)+'" stroke="'+col+'" stroke-width="1.5"/>';
+        g+='<line x1="'+(xR-5)+'" y1="'+(cy-kh/2)+'" x2="'+(xR+5)+'" y2="'+(cy-kh/2)+'" stroke="'+col+'" stroke-width="1.5"/>';
+        g+='<line x1="'+(xR-5)+'" y1="'+(cy+kh/2)+'" x2="'+(xR+5)+'" y2="'+(cy+kh/2)+'" stroke="'+col+'" stroke-width="1.5"/>';
+        g+='<text x="'+(xR+13)+'" y="'+cy+'" text-anchor="middle" font-size="11" font-weight="bold" fill="'+col+
+           '" transform="rotate(-90 '+(xR+13)+' '+cy+')">'+sub('c','2',' + d = '+fx(b2,3)+' m')+'</text>';
+
+        // ---- cota vertical: L, a la izquierda ----
+        var xL2=cx-Math.max(bw,kw)/2-22;
+        g+='<line x1="'+xL2+'" y1="'+fy0+'" x2="'+xL2+'" y2="'+(fy0+bh)+'" stroke="#334155" stroke-width="1.5"/>';
+        g+='<line x1="'+(xL2-5)+'" y1="'+fy0+'" x2="'+(xL2+5)+'" y2="'+fy0+'" stroke="#334155" stroke-width="1.5"/>';
+        g+='<line x1="'+(xL2-5)+'" y1="'+(fy0+bh)+'" x2="'+(xL2+5)+'" y2="'+(fy0+bh)+'" stroke="#334155" stroke-width="1.5"/>';
+        g+='<text x="'+(xL2-13)+'" y="'+cy+'" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#334155'+
+           '" transform="rotate(-90 '+(xL2-13)+' '+cy+')">L = '+fx(L,2)+' m</text>';
+
+        // ---- cotas horizontales: c1 + d y B ----
+        var cotaH=function(y, xa2, xb2, txt, c, fs){
+            var a=Math.min(xa2,xb2), b=Math.max(xa2,xb2), o='';
+            o+='<line x1="'+a+'" y1="'+y+'" x2="'+b+'" y2="'+y+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<line x1="'+a+'" y1="'+(y-5)+'" x2="'+a+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<line x1="'+b+'" y1="'+(y-5)+'" x2="'+b+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<text x="'+Math.max(60,Math.min(W-60,(a+b)/2))+'" y="'+(y-8)+'" text-anchor="middle" font-size="'+
+               fs+'" font-weight="bold" fill="'+c+'">'+txt+'</text>';
+            return o;
+        };
+        g+=cotaH(yC1, X(sc.xPa), X(sc.xPb), sub('c','1',' + d = '+fx(b1,3)+' m'), col, 11);
+        g+=cotaH(yC2, X(0), X(B), 'B = '+fx(B,2)+' m', '#334155', 12.5);
+
+        // ---- cartel con V_u,punz, con la misma convencion del grafico 1 ----
+        var t1=val===null ? 'V'+sub('','u,punz',' no está definido')
+                          : 'V'+sub('','u,punz',' = '+fx(val,1)+' kN');
+        var t2=u ? ((sel?'':'rige ')+rotulo(u)+' '+EQ[u.nom]) : '';
+        var t3=difiere ? ('envolvente '+fx(en.valor,1)+' kN, rige '+rotulo(en.comb)) : '';
+        var anc=Math.max(anchoTxt(val===null?'Vu,punz no está definido':('Vu,punz = '+fx(val,1)+' kN'),13.5),
+                         anchoTxt(t2,11.5), anchoTxt(t3,10.5))+22;
+        var xb=Math.max(4+anc/2, Math.min(W-4-anc/2, cx));
+        g+='<rect x="'+(xb-anc/2)+'" y="'+yBox+'" width="'+anc+'" height="'+hBox+'" rx="5" fill="#fff" stroke="'+
+           (val===null?'#dc2626':col)+'" stroke-width="1.6"/>';
+        g+='<text x="'+xb+'" y="'+(yBox+18)+'" text-anchor="middle" font-size="13.5" font-weight="bold" fill="'+
+           (val===null?'#dc2626':col)+'">'+t1+'</text>';
+        if(t2) g+='<text x="'+xb+'" y="'+(yBox+33)+'" text-anchor="middle" font-size="11.5" font-weight="bold" fill="'+
+           COL[u.nom]+'">'+t2+'</text>';
+        if(t3) g+='<text x="'+xb+'" y="'+(yBox+48)+'" text-anchor="middle" font-size="10.5" fill="#64748b">'+t3+'</text>';
+
+        // ---- linea de datos del perimetro ----
+        var inf;
+        if(!sc.aplicaPunz){
+            // Sin perimetro cerrado no existen b_0 ni A_0: informarlos igual seria
+            // dar por buena una superficie que no se cierra.
+            inf='Sin perímetro cerrado a d/2 no hay '+sub('b','0',' ni ')+sub('A','0',
+                ' que calcular: la verificación de punzonado no corresponde en esta geometría.');
+        } else {
+            inf=sub('b','0',' = 2(c')+sub('','1',' + d) + 2(c')+sub('','2',' + d) = '+fx(sc.b0,3)+' m')+
+                ' | '+sub('A','0',' = '+fx(b1,3)+' x '+fx(b2,3)+' = '+fx(b1*b2,3)+' m²');
+            if(val!==null && u) inf+=' | &#8747;q dentro = '+sub('V','u',' - ')+
+                sub('V','u,punz',' = '+fx(u.V-val,1)+' kN');
+        }
+        g+='<text x="'+(W/2)+'" y="'+yInfo+'" text-anchor="middle" font-size="11" fill="#475569">'+inf+'</text>';
+
+        g+='</svg>';
+        _e(id).innerHTML=g;
+
+        // ---- nota al pie ----
+        var av=[];
+        if(!sc.aplicaPunz){
+            var q=[];
+            if(excB) q.push('en la dirección de B (c<sub>1</sub> + d = '+fx(b1,3)+' m contra B = '+fx(B,2)+' m)');
+            if(excL) q.push('en la dirección de L (c<sub>2</sub> + d = '+fx(b2,3)+' m contra L = '+fx(L,2)+' m)');
+            av.push('<span class="warn-badge warn-r">El rectángulo crítico excede la zapata '+q.join(' y ')+
+                    ': no aplica</span>');
+        }
+        if(parcial)
+            av.push('<span class="warn-badge warn-y">El diagrama de '+rotulo(u)+' apoya sobre a = '+
+                    fx(pf.a,3)+' m de B = '+fx(B,2)+' m: la zona gris no tiene contacto con el suelo</span>');
+        _e(nota).innerHTML=
+            'Vista en planta. Sigue el <strong>mismo selector de combinación</strong> del gráfico anterior: '+
+            'el perímetro es geométrico y no cambia con la combinación, pero V<sub>u,punz</sub> sí. '+
+            'El <span style="color:'+col+';font-weight:700">rectángulo de trazos</span> es el perímetro '+
+            'crítico a d/2 de las caras (art. 11.12.1.2). Lo sombreado en ámbar es el área <em>exterior</em>, '+
+            'la que aporta: V<sub>u,punz</sub> = V<sub>u</sub> - ∫q dentro del perímetro. La zona blanca '+
+            'interior es A<sub>0</sub>, que se resta.'+
+            (av.length?'<div style="margin-top:8px">'+av.join(' ')+'</div>':'');
+    }
+
+    // -------------------------------------------------------------------
+    // SVG 6: BARRAS DE ENVOLVENTE  (modulo 3, grafico 3)
+    // Agrupadas POR SOLICITACION, no por combinacion: dentro de cada grupo
+    // las barras son candidatas al mismo puesto y la que llega al 100 % es
+    // la que rige, que es la pregunta que la herramienta contesta.
+    // Cada grupo se normaliza a SU valor de envolvente: en un mismo eje no
+    // se pueden mezclar kN.m con kN.
+    // Sin color por combinacion: nueve series pedirian nueve colores, uno
+    // mas de los que tolera una paleta legible. Gris neutro y solo la que
+    // rige destacada; la identificacion fina esta en la tabla.
+    // Los grupos que no aplican no se ocultan: se colapsan a su motivo, de
+    // modo que el grafico conserva siempre la misma cantidad de grupos.
+    // AVISO PARA LA ETAPA 4: con V_u,y ya son siete grupos. Cuando se
+    // implemente la fila de tension de pico de punzonado (ESTADO.md 10.7 a)
+    // pasan a ocho, y wg y wb se recalculan solos. Este arreglo es el unico
+    // lugar donde hay que tocar. Ojo con las unidades: la fila de pico es la
+    // unica en kPa, pero el grafico no se entera porque normaliza a
+    // porcentaje de la envolvente de cada grupo.
+    // -------------------------------------------------------------------
+    // clave, simbolo, subindice, unidad, bandera, motivo si no aplica
+    var GRUPOS_BARRA=[
+        ['Mder', 'M','u,der', 'kN\u00b7m','aplicaMder','sin voladizo'],
+        ['Mizq', 'M','u,izq', 'kN\u00b7m','aplicaMizq','sin voladizo'],
+        ['My',   'M','u,y',   'kN\u00b7m','aplicaMy',  'sin voladizo'],
+        ['Vder', 'V','u,der', 'kN',       'aplicaVder','sección fuera'],
+        ['Vizq', 'V','u,izq', 'kN',       'aplicaVizq','sección fuera'],
+        ['Vy',   'V','u,y',   'kN',       'aplicaVy',  'sección fuera'],
+        ['Vpunz','V','u,punz','kN',       'aplicaPunz','perímetro fuera']
+    ];
+
+    function svgBarras(id, nota, r, I, sel, HE){
+        var W=820, ml=60, mr=26, mt=52, hq=250;
+        var pw=W-ml-mr, y0=mt+hq;
+        var act=r.ULT, n=act.length;
+        var wg=pw/GRUPOS_BARRA.length;
+        var sep=2;
+        var wb=Math.max(7, Math.min(30, (wg-20-(n-1)*sep)/n));
+        var rotMax=0;
+        act.forEach(function(u){ rotMax=Math.max(rotMax, anchoTxt(rotulo(u),9.5)); });
+        var hRot=Math.min(56, rotMax+8), hTit=44;
+        var H=Math.round(y0+10+hRot+hTit+8);
+        var sub=function(a,b,c){
+            return a+'<tspan dy="4" font-size="9.5">'+b+'</tspan><tspan dy="-4">'+(c||'')+'</tspan>';
+        };
+        var vert=function(x,y,t,fs,col,peso,anc){
+            return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anc||'end')+'" font-size="'+fs+'" fill="'+col+
+                   '"'+(peso?' font-weight="bold"':'')+' transform="rotate(-90 '+x+' '+y+')">'+t+'</text>';
+        };
+
+        var g='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">';
+
+        // ---- eje de porcentaje y grilla ----
+        for(var i=0;i<=4;i++){
+            var p=25*i, yy=y0-hq*p/100;
+            g+='<line x1="'+ml+'" y1="'+yy+'" x2="'+(W-mr)+'" y2="'+yy+'" stroke="'+
+               (p===100?'#334155':'#e2e8f0')+'" stroke-width="'+(p===100?1.6:1)+'"'+
+               (p===100?' stroke-dasharray="8 5"':'')+'/>';
+            g+='<text x="'+(ml-8)+'" y="'+(yy+4)+'" text-anchor="end" font-size="10.5" fill="#475569">'+p+'</text>';
+        }
+        g+='<text x="15" y="'+(mt+hq/2)+'" text-anchor="middle" font-size="11.5" fill="#475569" '+
+           'font-weight="bold" transform="rotate(-90 15 '+(mt+hq/2)+')">% del valor de envolvente</text>';
+        g+='<line x1="'+ml+'" y1="'+y0+'" x2="'+(W-mr)+'" y2="'+y0+'" stroke="#334155" stroke-width="2"/>';
+
+        // ---- sin equilibrio en ninguna combinacion ----
+        // OJO: los hechos entran como HE. La H de esta funcion es el alto del
+        // lienzo, como en los otros SVG, y pisaba al parametro.
+        if(HE.sinDiagrama){
+            g+='<text x="'+(ml+pw/2)+'" y="'+(mt+hq/2)+'" text-anchor="middle" font-size="14" '+
+               'font-weight="bold" fill="#dc2626">Sin equilibrio en ninguna combinación: no hay envolvente que graficar</text>';
+            g+='</svg>'; _e(id).innerHTML=g;
+            _e(nota).innerHTML='Con todas las combinaciones en vuelco no hay solicitaciones que comparar.';
+            return;
+        }
+
+        // ---- un grupo por solicitacion ----
+        var hayNeg=false;
+        GRUPOS_BARRA.forEach(function(gr, ig){
+            var xg=ml+ig*wg, cxg=xg+wg/2;
+            var aplica=!!r.sc[gr[4]], en=aplica?r.env[gr[0]]:null;
+            if(ig>0) g+='<line x1="'+xg+'" y1="'+mt+'" x2="'+xg+'" y2="'+(y0+8)+'" stroke="#e2e8f0" stroke-width="1"/>';
+
+            // rotulo del grupo, debajo del eje. El valor y la combinacion que
+            // rige van en DOS lineas: con siete grupos wg baja a 105 px y en una
+            // sola linea "1830.8 kN.m - rige C4 (-W)" pide 133 y se montaba
+            // sobre el rotulo del grupo de al lado. Ademas la fuente se achica
+            // si aun asi no entra, en lugar de desbordar en silencio.
+            var yT=y0+hRot+16;
+            g+='<text x="'+cxg+'" y="'+yT+'" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#334155">'+
+               sub(gr[1],gr[2],'')+'</text>';
+            var lin1, lin2='';
+            if(aplica && en){ lin1=fx(en.valor,1)+' '+gr[3]; lin2='rige '+rotulo(en.comb); }
+            else            { lin1=(aplica?'todas en vuelco':gr[5]); }
+            var fsT=Math.min(9.5, 9.5*(wg-6)/Math.max(1e-9, anchoTxt(lin1.length>lin2.length?lin1:lin2, 9.5)));
+            fsT=Math.max(7, fsT);
+            g+='<text x="'+cxg+'" y="'+(yT+13)+'" text-anchor="middle" font-size="'+fsT+'" fill="#64748b">'+
+               lin1+'</text>';
+            if(lin2)
+                g+='<text x="'+cxg+'" y="'+(yT+24)+'" text-anchor="middle" font-size="'+fsT+'" fill="#64748b">'+
+                   lin2+'</text>';
+
+            if(!aplica || !en){
+                g+='<rect x="'+(xg+6)+'" y="'+mt+'" width="'+(wg-12)+'" height="'+hq+
+                   '" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="5 4"/>';
+                // La seccion puede existir y no haber envolvente: el motivo es el
+                // vuelco, no la geometria. Decir "sin voladizo" ahi seria falso.
+                g+=vert(cxg+4, mt+hq/2, aplica?'sin envolvente: todas en vuelco':('no aplica: '+gr[5]),
+                        10.5, '#94a3b8', false, 'middle');
+                return;
+            }
+            if(Math.abs(en.valor)<=1e-9){
+                g+=vert(cxg+4, mt+hq/2, 'todas nulas', 10.5, '#94a3b8', false, 'middle');
+                return;
+            }
+            if(en.valor<0){
+                // Ni una combinacion deja compresion en esa seccion: normalizar
+                // contra un maximo negativo invertiria el signo de todas las barras.
+                g+=vert(cxg+4, mt+hq/2, 'todas negativas: tracción', 10.5, '#94a3b8', false, 'middle');
+                return;
+            }
+
+            var inner=n*wb+(n-1)*sep, x1=cxg-inner/2;
+            act.forEach(function(u, iu){
+                var xb=x1+iu*(wb+sep);
+                var elegida=(sel===u);
+                // rotulo de la combinacion, vertical, debajo del eje
+                g+=vert(xb+wb/2+3.5, y0+8, rotulo(u), 9.5,
+                        elegida?COL[u.nom]:'#64748b', elegida);
+                var v=u.sol[gr[0]];
+                if(u.tipo==='vuelco' || v===null || !isFinite(v)){
+                    // Marca vertical por combinacion. Con barras contiguas, una
+                    // marca horizontal se leia como una sola linea corrida.
+                    g+='<line x1="'+(xb+wb/2)+'" y1="'+y0+'" x2="'+(xb+wb/2)+'" y2="'+(y0-8)+
+                       '" stroke="#dc2626" stroke-width="2.2"/>';
+                    return;
+                }
+                var pct=100*v/en.valor;
+                if(pct<=0){
+                    g+='<line x1="'+xb+'" y1="'+y0+'" x2="'+(xb+wb)+'" y2="'+y0+
+                       '" stroke="#94a3b8" stroke-width="2.5"/>';
+                    if(wb>=15)
+                        g+='<text x="'+(xb+wb/2)+'" y="'+(y0-5)+'" text-anchor="middle" font-size="8.5" '+
+                           'fill="#94a3b8">'+pct.toFixed(0)+'</text>';
+                    // Cero no es negativo: la oracion sobre cambio de signo solo
+                    // se habilita con un valor estrictamente menor que cero.
+                    if(pct<-0.05) hayNeg=true;
+                    return;
+                }
+                var hb=Math.max(1, hq*pct/100), yb=y0-hb;
+                var rige=(en.comb===u);
+                g+='<rect x="'+xb+'" y="'+yb+'" width="'+wb+'" height="'+hb+'" fill="'+
+                   (rige?'#334155':'#cbd5e1')+'" stroke="'+(elegida?COL[u.nom]:(rige?'#334155':'#94a3b8'))+
+                   '" stroke-width="'+(elegida?2.2:1)+'"/>';
+                if(wb>=15)
+                    g+='<text x="'+(xb+wb/2)+'" y="'+(yb-4)+'" text-anchor="middle" font-size="8.5" '+
+                       'font-weight="'+(rige?'bold':'normal')+'" fill="'+(rige?'#334155':'#94a3b8')+'">'+
+                       pct.toFixed(0)+'</text>';
+            });
+        });
+
+        g+='</svg>';
+        _e(id).innerHTML=g;
+
+        // ---- nota: como se lee, sin adelantar ningun resultado ----
+        var hayVuelco=act.some(function(u){return u.tipo==='vuelco';});
+        _e(nota).innerHTML=
+            'Cada grupo es una solicitación y está normalizado a <strong>su propio</strong> valor de '+
+            'envolvente: la barra que llega a 100 % es la que rige esa fila. En un mismo eje no se '+
+            'pueden mezclar kN·m con kN, por eso no hay valores absolutos acá: están en la tabla y '+
+            'debajo de cada grupo. Las barras van en gris salvo la que rige, en oscuro; con una '+
+            'combinación elegida en el selector, su barra queda contorneada en su color.'+
+            (hayVuelco?' La marca roja sobre el eje es una combinación en vuelco: no tiene barra porque '+
+             'su solicitación no es cero, es inexistente.':'')+
+            (hayNeg?' Un porcentaje negativo, marcado en gris sobre el eje, es una combinación en la que '+
+             'esa solicitación cambia de signo: la resultante mayorada resulta de tracción. La envolvente '+
+             'toma el máximo, de modo que nunca la elige.':'')+
+            ' Comparar entre grupos no tiene sentido: cada uno tiene su propia escala.';
+    }
+
+    // -------------------------------------------------------------------
+    // SVG 7: PLANTAS DE AREAS TRIBUTARIAS EN LA DIRECCION DE B
+    // (modulo 3, graficos 4a y 4b, etapa 3 bis)
+    // Una sola funcion con dos modos, 'M' y 'V', porque los dos dibujos
+    // comparten escala, contacto, cotas y carteles: duplicarla seria
+    // duplicar tambien cada correccion futura.
+    // El grafico 1 muestra DONDE se calcula cada cosa, pero en corte: no
+    // puede mostrar el ancho, y el ancho es lo que convierte una presion
+    // en una solicitacion. Aca se ve el area.
+    // Art. 15.4.1: el momento en una seccion es el de las fuerzas que
+    // actuan a UN LADO del plano vertical. Eso es, textualmente, el area
+    // que tributa. El plano va en la cara de la columna (15.4.2 a) y el
+    // de corte a distancia d de la cara (15.5.2 con 11.1.3.1).
+    // El modo 'V' conserva la franja de ancho d dibujada en hueco: el area
+    // de corte es la de flexion menos esa franja, y separar los graficos
+    // no puede costar esa relacion.
+    // Con "Todas" no se dibuja contacto: las dos solicitaciones del dibujo
+    // pueden venir de dos combinaciones distintas y superponer el perfil
+    // de una sola armaria un estado que no existe.
+    // -------------------------------------------------------------------
+    function svgTribB(id, nota, r, I, sel, modo){
+        var esM=(modo!=='V');
+        var sc=r.sc, B=I.B, L=I.L, c1=I.c1, d=sc.d;
+        // Lienzo de 560: estos dos van apareados a media columna. Con 820 el
+        // texto de 13 px se mostraba a 8 y dejaba de leerse en el aula.
+        var W=560, ml=52, mr=52, mt=68, phMax=270;
+        var pw=W-ml-mr;
+        // El lienzo cubre a la columna: con c1 > B la columna es mas ancha
+        // que la zapata y se salia (defecto 22).
+        var Bd=Math.max(B,c1), Ld=Math.max(L,I.c2);
+        var s=Math.min(pw/Math.max(1e-9,Bd), phMax/Math.max(1e-9,Ld));
+        var bw=B*s, bh=L*s;
+        var cx=ml+pw/2, cy=mt+Ld*s/2;
+        var fx0=cx-bw/2, fy0=cy-bh/2;
+        var X=function(x){ return fx0+x*s; };
+        var col=esM?COL_SEC.flex:COL_SEC.corte, otro=esM?COL_SEC.corte:COL_SEC.flex;
+        var sub=function(a,b,c){
+            return a+'<tspan dy="4" font-size="9.5">'+b+'</tspan><tspan dy="-4">'+(c||'')+'</tspan>';
+        };
+
+        var dato=function(k, bandera){
+            var ap=!!sc[bandera];
+            var en=ap?r.env[k]:null;
+            var u=sel||(en?en.comb:null);
+            var v=(u&&ap)?u.sol[k]:null;
+            if(v===undefined || (v!==null && !isFinite(v))) v=null;
+            return {ap:ap, en:en, u:u, v:v,
+                    dif:!!(sel&&en&&v!==null&&Math.abs(en.valor-v)>0.05)};
+        };
+        var dIz=esM?dato('Mizq','aplicaMizq'):dato('Vizq','aplicaVizq');
+        var dDe=esM?dato('Mder','aplicaMder'):dato('Vder','aplicaVder');
+        // La franja de d y el plano de la cara solo tienen sentido si hay voladizo
+        var hayVolIz=!!sc.aplicaMizq, hayVolDe=!!sc.aplicaMder;
+
+        // --- intervalos que se pintan, por lado ---
+        var izA=0, izB2=esM?sc.xL:Math.max(0,sc.xVizq);
+        var deA=esM?sc.xR:Math.min(B,sc.xVder), deB2=B;
+
+        // --- contacto: solo con una combinacion elegida ---
+        var pf=sel?sel.perf:null;
+        var hayPerf=!!(pf && sel.tipo!=='vuelco' && isFinite(pf.smax) && pf.smax>0);
+        var ia=hayPerf?(pf.espejo?0:pf.x0):0;
+        var ib=hayPerf?(pf.espejo?(B-pf.x0):B):B;
+        var parcial=hayPerf && (ib-ia)<B-1e-9;
+
+        // --- carteles ---
+        var alt=function(fs){ return fs>=13?19:(fs>=12?17:(fs>=11?15:13)); };
+        var lineas=function(dt, simb, sfx, uni, colr, motivo){
+            var A=[];
+            if(!dt.ap){
+                A.push({t:sub(simb,sfx,': '+motivo), m:simb+sfx+': '+motivo, fs:12, c:'#94a3b8', b:true});
+                return A;
+            }
+            var cuerpo=dt.v===null?' no está definido':(' = '+fx(dt.v,1)+' '+uni);
+            A.push({t:sub(simb,sfx,cuerpo), m:simb+sfx+cuerpo, fs:13,
+                    c:dt.v===null?'#dc2626':colr, b:true});
+            if(dt.u){
+                var t2=(sel?'':'rige ')+rotulo(dt.u)+' '+EQ[dt.u.nom];
+                A.push({t:t2, m:t2, fs:11, c:COL[dt.u.nom], b:true});
+            }
+            if(dt.dif){
+                var t3='envolvente '+fx(dt.en.valor,1)+' '+uni+', rige '+rotulo(dt.en.comb);
+                A.push({t:t3, m:t3, fs:10, c:'#64748b', b:false});
+            }
+            return A;
+        };
+        var cartel=function(xc, y, ls){
+            var anc=0, alto=10;
+            ls.forEach(function(l){ anc=Math.max(anc, anchoTxt(l.m,l.fs)); alto+=alt(l.fs); });
+            anc+=22;
+            var x=Math.max(4+anc/2, Math.min(W-4-anc/2, xc));
+            var o='<rect x="'+(x-anc/2)+'" y="'+y+'" width="'+anc+'" height="'+alto+
+                  '" rx="5" fill="#fff" stroke="#cbd5e1" stroke-width="1.4"/>';
+            var yy=y+7;
+            ls.forEach(function(l){
+                yy+=alt(l.fs);
+                o+='<text x="'+x+'" y="'+(yy-4)+'" text-anchor="middle" font-size="'+l.fs+
+                   '" fill="'+l.c+'"'+(l.b?' font-weight="bold"':'')+'>'+l.t+'</text>';
+            });
+            return {svg:o, alto:alto};
+        };
+        var lIz=esM?lineas(dIz,'M','u,izq','kN·m',col,'sin voladizo')
+                   :lineas(dIz,'V','u,izq','kN',col,'sección fuera de la zapata');
+        var lDe=esM?lineas(dDe,'M','u,der','kN·m',col,'sin voladizo')
+                   :lineas(dDe,'V','u,der','kN',col,'sección fuera de la zapata');
+
+        var hayCota=(dIz.ap||dDe.ap);
+        var yPlan=mt+Ld*s, yC1=yPlan+28, yC2=yPlan+(hayCota?58:28), yBox=yC2+18;
+        var cI=cartel(ml+pw*0.26, yBox, lIz), cD=cartel(ml+pw*0.74, yBox, lDe);
+        var H=Math.round(yBox+Math.max(cI.alto,cD.alto)+14);
+
+        var g='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">';
+
+        // ---- banda superior ----
+        var lVer, lNum='', cVer='#059669';
+        if(!hayVolIz || !hayVolDe){
+            cVer='#dc2626';
+            lVer='La columna ocupa todo el ancho: no hay voladizo en la dirección de B';
+            lNum=sub('c','1',' = '+fx(c1,2)+' m contra B = '+fx(B,2)+' m');
+        } else if(!dIz.ap || !dDe.ap){
+            cVer='#dc2626';
+            lVer=(!dIz.ap&&!dDe.ap)?'Las dos secciones de corte caen fuera de la zapata'
+                 :('La sección de corte '+(dIz.ap?'derecha':'izquierda')+' cae fuera de la zapata');
+            var nn=[];
+            if(!dIz.ap) nn.push(sub('x','L',' - d = '+fx(sc.xVizq,3)+' m'));
+            if(!dDe.ap) nn.push(sub('x','R',' + d = '+fx(sc.xVder,3)+' m contra B = '+fx(B,2)+' m'));
+            lNum=nn.join('   |   ');
+        } else {
+            lVer=esM?'Las dos secciones de flexión caen en la cara de la columna (art. 15.4.2 a)'
+                    :'Las dos secciones de corte caen dentro de la zapata, a d de la cara';
+        }
+        g+='<text x="'+(W/2)+'" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="'+
+           cVer+'">'+lVer+'</text>';
+        if(lNum) g+='<text x="'+(W/2)+'" y="41" text-anchor="middle" font-size="11" fill="#475569">'+lNum+'</text>';
+        var lSel=sel?('Diagrama de '+rotulo(sel)+(parcial?', que apoya sobre a = '+fx(pf.a,3)+' m de B = '+fx(B,2)+' m'
+                                                        :', que apoya sobre toda la base'))
+                  :'Con Todas las áreas son geométricas. Elegí una combinación arriba para ver dónde apoya el diagrama.';
+        g+='<text x="'+(W/2)+'" y="'+(lNum?58:42)+'" text-anchor="middle" font-size="11" fill="#475569">'+lSel+'</text>';
+
+        // ---- zapata ----
+        g+='<rect x="'+fx0+'" y="'+fy0+'" width="'+bw+'" height="'+bh+'" fill="#f8fafc"/>';
+        if(parcial){
+            [[0,ia],[ib,B]].forEach(function(z){
+                var wz=(z[1]-z[0])*s; if(wz<=0.5) return;
+                g+='<rect x="'+X(z[0])+'" y="'+fy0+'" width="'+wz+'" height="'+bh+
+                   '" fill="#94a3b8" fill-opacity="0.45"/>';
+            });
+        }
+
+        // ---- area que tributa. El relleno representa presion que tributa:
+        //      con una combinacion elegida se recorta al tramo con contacto,
+        //      si no, la zapata sale pintada y el cartel dice 0.0 (defecto 25).
+        var pinta=function(a, b, colr, op){
+            var pa=sel?Math.max(a,ia):a, pb=sel?Math.min(b,ib):b;
+            if(pb-pa<=1e-9) return '';
+            return '<rect x="'+X(pa)+'" y="'+fy0+'" width="'+((pb-pa)*s)+'" height="'+bh+
+                   '" fill="'+colr+'" fill-opacity="'+op+'"/>';
+        };
+        var area=function(a, b){
+            if(b-a<=1e-9) return '';
+            return pinta(a,b,col,esM?0.22:0.26)+
+                   '<rect x="'+X(a)+'" y="'+fy0+'" width="'+((b-a)*s)+'" height="'+bh+
+                   '" fill="none" stroke="'+col+'" stroke-width="2.6"'+(esM?' stroke-dasharray="8 5"':'')+'/>';
+        };
+        if(dIz.ap) g+=area(izA, izB2);
+        if(dDe.ap) g+=area(deA, deB2);
+
+        // ---- en el modo corte, la franja de d en hueco y el plano de la cara ----
+        // conCota: la franja mide d solo si la seccion de corte cae adentro. Si
+        // quedo recortada contra el borde, acotarla como d seria afirmar un
+        // valor que el dibujo no tiene.
+        var franja=function(a, b, conCota){
+            if(b-a<=1e-9 || (b-a)*s<3) return '';
+            var o='<rect x="'+X(a)+'" y="'+fy0+'" width="'+((b-a)*s)+'" height="'+bh+
+                  '" fill="#ffffff" fill-opacity="0.92" stroke="'+col+
+                  '" stroke-width="1.6" stroke-dasharray="5 4"/>';
+            if(conCota && (b-a)*s>=34){
+                var y=fy0+18, td='d = '+fx(d,3), wd=anchoTxt(td,10.5)+8;
+                o+='<line x1="'+X(a)+'" y1="'+y+'" x2="'+X(b)+'" y2="'+y+'" stroke="'+col+'" stroke-width="1.5"/>';
+                o+='<line x1="'+X(a)+'" y1="'+(y-5)+'" x2="'+X(a)+'" y2="'+(y+5)+'" stroke="'+col+'" stroke-width="1.5"/>';
+                o+='<line x1="'+X(b)+'" y1="'+(y-5)+'" x2="'+X(b)+'" y2="'+(y+5)+'" stroke="'+col+'" stroke-width="1.5"/>';
+                o+='<rect x="'+((X(a)+X(b))/2-wd/2)+'" y="'+(y-19)+'" width="'+wd+
+                   '" height="15" fill="#fff" fill-opacity="0.85"/>';
+                o+='<text x="'+((X(a)+X(b))/2)+'" y="'+(y-8)+'" text-anchor="middle" font-size="10.5" '+
+                   'font-weight="bold" fill="'+col+'">'+td+'</text>';
+            }
+            return o;
+        };
+        if(!esM){
+            if(hayVolIz) g+=franja(Math.max(0,sc.xVizq), sc.xL, dIz.ap);
+            if(hayVolDe) g+=franja(sc.xR, Math.min(B,sc.xVder), dDe.ap);
+        }
+
+        // ---- contorno de la zapata y columna al frente ----
+        g+='<rect x="'+fx0+'" y="'+fy0+'" width="'+bw+'" height="'+bh+
+           '" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>';
+        g+='<rect x="'+(cx-c1*s/2)+'" y="'+(cy-I.c2*s/2)+'" width="'+(c1*s)+'" height="'+(I.c2*s)+
+           '" fill="#94a3b8" stroke="#334155" stroke-width="2"/>';
+        if(parcial){
+            var xa=X(pf.espejo?ib:ia);
+            g+='<line x1="'+xa+'" y1="'+(fy0-8)+'" x2="'+xa+'" y2="'+(fy0+bh+8)+
+               '" stroke="#334155" stroke-width="2" stroke-dasharray="7 4"/>';
+        }
+
+        // ---- cotas ----
+        var cotaH=function(y, xa2, xb2, txt, c, fs){
+            var a=Math.min(xa2,xb2), b=Math.max(xa2,xb2), o='';
+            o+='<line x1="'+a+'" y1="'+y+'" x2="'+b+'" y2="'+y+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<line x1="'+a+'" y1="'+(y-5)+'" x2="'+a+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<line x1="'+b+'" y1="'+(y-5)+'" x2="'+b+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<text x="'+Math.max(60,Math.min(W-60,(a+b)/2))+'" y="'+(y-8)+'" text-anchor="middle" font-size="'+
+               fs+'" font-weight="bold" fill="'+c+'">'+txt+'</text>';
+            return o;
+        };
+        if(dIz.ap) g+=cotaH(yC1, X(izA), X(izB2),
+            sub(esM?'M':'V','u,izq',' sobre '+fx(izB2-izA,3)+' m'), col, 11);
+        if(dDe.ap) g+=cotaH(yC1, X(deA), X(deB2),
+            sub(esM?'M':'V','u,der',' sobre '+fx(deB2-deA,3)+' m'), col, 11);
+        g+=cotaH(yC2, X(0), X(B), 'B = '+fx(B,2)+' m', '#334155', 12.5);
+
+        g+=cI.svg+cD.svg;
+        g+='</svg>';
+        _e(id).innerHTML=g;
+
+        // ---- nota ----
+        var av=[];
+        if(parcial)
+            av.push('<span class="warn-badge warn-y">La zona gris no tiene contacto con el suelo. '+
+                    'El relleno de color <strong>llega hasta ahí y no sigue</strong>: esa parte del área '+
+                    'tributa cero por sí sola, porque la integral se hace sobre el perfil real. Acá no '+
+                    'hace falta ninguna guarda, a diferencia del punzonado</span>');
+        _e(nota).innerHTML= (esM
+            ? 'Vista en planta, dirección de B. El art. 15.4.1 define el momento como el de las fuerzas '+
+              'que actúan <strong>a un lado</strong> del plano vertical: eso es, textualmente, el área que '+
+              'tributa. El plano va en la cara de la columna (art. 15.4.2 a). '+
+              'M<sub>u</sub> no es la resultante de esa presión sino <strong>la resultante por su brazo '+
+              'hasta la cara</strong>: por eso la forma del diagrama, y no solo su área, cambia el momento. '+
+              'El área de corte, más chica, está en el gráfico siguiente.'
+            : 'Vista en planta, dirección de B. La sección crítica de corte va a distancia d de la cara '+
+              '(art. 15.5.2 con 11.1.3.1), así que el área que tributa es la de flexión '+
+              '<strong>menos la franja de ancho d</strong>, que queda en blanco igual que el interior '+
+              'del perímetro de punzonado: lleno lo que aporta, blanco lo que se descuenta. V<sub>u</sub> es '+
+              'directamente la resultante de la presión sobre el área llena. El área de flexión, más '+
+              'grande, está en el gráfico anterior.')+
+            (av.length?'<div style="margin-top:8px">'+av.join(' ')+'</div>':'');
+    }
+
+    // -------------------------------------------------------------------
+    // SVG 8: PLANTAS DE AREAS TRIBUTARIAS EN LA DIRECCION DE L
+    // (modulo 3, graficos 5a y 5b; el 5a es de la etapa 3 bis punto 2 y el
+    // 5b se agrego con V_u,y)
+    // Una sola funcion con modo 'M' y modo 'V', por el mismo motivo que
+    // svgTribB: los dos comparten escala, contacto, cotas y carteles, y
+    // duplicarla seria duplicar tambien cada correccion futura.
+    // Flexion: seccion critica en la cara de la columna, art. 15.4.2 a),
+    // franja de B x (L - c2)/2.
+    // Corte:   seccion critica a distancia d de la cara, art. 15.5.2 con
+    // 11.1.3.1, franja de B x [(L - c2)/2 - d]. La franja de ancho d queda
+    // en hueco, igual que en la direccion de B.
+    // LO QUE ESTOS GRAFICOS EXISTEN PARA MOSTRAR: en la direccion de L la
+    // presion no varia, porque el momento actua solo en la direccion de B.
+    // Por eso las dos franjas dan el MISMO valor, mientras que en la
+    // direccion de B los dos lados dan valores distintos.
+    // Las formulas del nucleo son M_u,y = (V_u/L)*(L - c2)^2/8 y
+    // V_u,y = (V_u/L)*[(L - c2)/2 - d]. NINGUNA de las dos es una
+    // aproximacion: integrando la franja sale el brazo por integral(q dx),
+    // y esa integral vale V_u/L exactamente por equilibrio, sea cual sea la
+    // forma del diagrama. Verificado contra el perfil real, incluso con
+    // despegue fuerte: coincide hasta el ultimo digito.
+    // De ahi que el relleno SI se recorte al contacto, igual que en el
+    // grafico 4: la solicitacion toma la presion donde existe, y donde el
+    // suelo se despego no hay presion que integrar.
+    // -------------------------------------------------------------------
+    function svgTribL(id, nota, r, I, sel, modo){
+        var esM=(modo!=='V');
+        var sc=r.sc, B=I.B, L=I.L, c1=I.c1, c2=I.c2, d=sc.d;
+        var W=560, ml=64, mr=48, mt=68, phMax=270;
+        var pw=W-ml-mr;
+        var Bd=Math.max(B,c1), Ld=Math.max(L,c2);
+        var s=Math.min(pw/Math.max(1e-9,Bd), phMax/Math.max(1e-9,Ld));
+        var bw=B*s, bh=L*s;
+        var cx=ml+pw/2, cy=mt+Ld*s/2;
+        var fx0=cx-bw/2, fy0=cy-bh/2;
+        var X=function(x){ return fx0+x*s; };
+        var Y=function(y){ return fy0+y*s; };      // y medido desde el borde superior
+        var col=esM?COL_SEC.flex:COL_SEC.corte;
+        var sub=function(a,b,c){
+            return a+'<tspan dy="4" font-size="9.5">'+b+'</tspan><tspan dy="-4">'+(c||'')+'</tspan>';
+        };
+
+        var clave=esM?'My':'Vy';
+        var ap=esM ? !!sc.aplicaMy : !!sc.aplicaVy;
+        var en=ap?r.env[clave]:null;
+        var u=sel||(en?en.comb:null);
+        var v=(u&&ap)?u.sol[clave]:null;
+        if(v===undefined || (v!==null && !isFinite(v))) v=null;
+        var dif=!!(sel&&en&&v!==null&&Math.abs(en.valor-v)>0.05);
+        var ay=Math.max(0,(L-c2)/2);               // voladizo en la direccion de L
+        // Franja que tributa al corte: el voladizo menos la franja de ancho d.
+        // Se recorta a 0 para que, cuando la seccion cae fuera, la franja de d
+        // se dibuje ocupando el voladizo entero y NO se acote como d: mediria
+        // ay, no d, y la cota estaria afirmando un valor que el dibujo no
+        // tiene (misma familia que los defectos 12, 25 y 28).
+        var ayV=Math.max(0, ay-d);
+        var hayVol=!!sc.aplicaMy;
+
+        var pf=sel?sel.perf:null;
+        var hayPerf=!!(pf && sel.tipo!=='vuelco' && isFinite(pf.smax) && pf.smax>0);
+        var ia=hayPerf?(pf.espejo?0:pf.x0):0;
+        var ib=hayPerf?(pf.espejo?(B-pf.x0):B):B;
+        var parcial=hayPerf && (ib-ia)<B-1e-9;
+
+        var alt=function(fs){ return fs>=13?19:(fs>=12?17:(fs>=11?15:13)); };
+        var simb=esM?'M':'V', uni=esM?'kN·m':'kN';
+        // Dos motivos distintos y hay que decir cual: que no haya voladizo no
+        // es lo mismo que un voladizo mas corto que d.
+        var motivo=!hayVol ? ': sin voladizo en la dirección de L'
+                           : ': la sección a d cae fuera del voladizo';
+        var ls=[];
+        if(!ap) ls.push({t:sub(simb,'u,y',motivo),
+                         m:simb+'u,y'+motivo, fs:12, c:'#94a3b8', b:true});
+        else {
+            var cuerpo=v===null?' no está definido':(' = '+fx(v,1)+' '+uni);
+            ls.push({t:sub(simb,'u,y',cuerpo), m:simb+'u,y'+cuerpo, fs:13, c:v===null?'#dc2626':col, b:true});
+            if(u){ var t2=(sel?'':'rige ')+rotulo(u)+' '+EQ[u.nom];
+                   ls.push({t:t2, m:t2, fs:11, c:COL[u.nom], b:true}); }
+            if(dif){ var t3='envolvente '+fx(en.valor,1)+' '+uni+', rige '+rotulo(en.comb);
+                     ls.push({t:t3, m:t3, fs:10, c:'#64748b', b:false}); }
+        }
+        var anc=0, hBox=10;
+        ls.forEach(function(l){ anc=Math.max(anc, anchoTxt(l.m,l.fs)); hBox+=alt(l.fs); });
+        anc+=22;
+
+        var yPlan=mt+Ld*s, yC1=yPlan+30, yBox=yC1+18;
+        var H=Math.round(yBox+hBox+14);
+
+        var g='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" xmlns="http://www.w3.org/2000/svg">';
+
+        // ---- banda superior ----
+        var lVer, cVer='#059669', lNum='';
+        if(!hayVol){
+            cVer='#dc2626';
+            lVer='La columna ocupa todo el largo: no hay voladizo en la dirección de L';
+            lNum=sub('c','2',' = '+fx(c2,2)+' m contra L = '+fx(L,2)+' m');
+        } else if(!ap){
+            cVer='#dc2626';
+            lVer='La sección de corte cae fuera del voladizo: no requiere verificación';
+            lNum='(L - '+sub('c','2',')/2 = '+fx(ay,3)+' m contra d = '+fx(d,3)+' m');
+        } else {
+            lVer=esM?'La sección crítica cae en la cara de la columna (art. 15.4.2 a)'
+                    :'La sección crítica cae a d de la cara (art. 15.5.2 con 11.1.3.1)';
+        }
+        g+='<text x="'+(W/2)+'" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="'+
+           cVer+'">'+lVer+'</text>';
+        if(lNum) g+='<text x="'+(W/2)+'" y="41" text-anchor="middle" font-size="11" fill="#475569">'+lNum+'</text>';
+        // Lienzo de 560: la linea no puede pasar de unos 95 caracteres. El
+        // porque completo queda en la nota, que no tiene ese limite.
+        // Solo sale si hay un valor: decir que "las dos franjas dan el mismo
+        // valor" sin valor es afirmar algo que el cartel de al lado desmiente,
+        // que es la familia de los defectos 12, 25 y 28.
+        var lSel=(ap && v!==null)
+            ? 'La presión no varía a lo largo de L: las dos franjas dan el '+
+              '<tspan font-weight="bold">mismo</tspan> valor.'
+            : '';
+        if(lSel) g+='<text x="'+(W/2)+'" y="'+(lNum?58:42)+'" text-anchor="middle" font-size="11" fill="#475569">'+lSel+'</text>';
+
+        // ---- zapata y despegue ----
+        g+='<rect x="'+fx0+'" y="'+fy0+'" width="'+bw+'" height="'+bh+'" fill="#f8fafc"/>';
+        if(parcial){
+            [[0,ia],[ib,B]].forEach(function(z){
+                var wz=(z[1]-z[0])*s; if(wz<=0.5) return;
+                g+='<rect x="'+X(z[0])+'" y="'+fy0+'" width="'+wz+'" height="'+bh+
+                   '" fill="#94a3b8" fill-opacity="0.45"/>';
+            });
+        }
+
+        // ---- las dos franjas. El relleno se recorta al tramo con contacto:
+        //      donde el suelo se despego no hay presion que integrar.
+        var franja=function(y0v, y1v){
+            if(y1v-y0v<=1e-9) return '';
+            var o='';
+            var pa=sel?Math.max(0,ia):0, pb=sel?Math.min(B,ib):B;
+            if(pb-pa>1e-9)
+                o+='<rect x="'+X(pa)+'" y="'+Y(y0v)+'" width="'+((pb-pa)*s)+'" height="'+((y1v-y0v)*s)+
+                   '" fill="'+col+'" fill-opacity="0.22"/>';
+            o+='<rect x="'+fx0+'" y="'+Y(y0v)+'" width="'+bw+'" height="'+((y1v-y0v)*s)+
+               '" fill="none" stroke="'+col+'" stroke-width="2.6" stroke-dasharray="8 5"/>';
+            return o;
+        };
+        var aT=esM?ay:ayV;                          // media franja que tributa
+        if(ap){ g+=franja(0, aT); g+=franja(L-aT, L); }
+
+        // ---- en el modo corte, la franja de ancho d en hueco ----
+        // Misma logica que el punzonado y que la direccion de B: lleno lo que
+        // aporta, blanco lo que se descuenta. La cota de d sale solo si la
+        // franja mide d de verdad, o sea si la seccion cae dentro.
+        var franjaD=function(y0v, y1v){
+            if(y1v-y0v<=1e-9 || (y1v-y0v)*s<3) return '';
+            var o='<rect x="'+fx0+'" y="'+Y(y0v)+'" width="'+bw+'" height="'+((y1v-y0v)*s)+
+                  '" fill="#ffffff" fill-opacity="0.92" stroke="'+col+
+                  '" stroke-width="1.6" stroke-dasharray="5 4"/>';
+            if(ap && (y1v-y0v)*s>=30){
+                // La cota NO va en el eje: ahi esta la columna, y las dos cotas
+                // (la de arriba y la de abajo) se leian como una sola linea que
+                // la atravesaba. Va corrida a un cuarto del ancho, y si la
+                // columna es tan ancha que no queda lugar, contra el borde.
+                var x=fx0+Math.max(18, Math.min(bw*0.26, bw/2-c1*s/2-16));
+                var td='d = '+fx(d,3), wd=anchoTxt(td,10.5)+8;
+                var ya=Y(y0v), yb2=Y(y1v);
+                o+='<line x1="'+x+'" y1="'+ya+'" x2="'+x+'" y2="'+yb2+'" stroke="'+col+'" stroke-width="1.5"/>';
+                o+='<line x1="'+(x-5)+'" y1="'+ya+'" x2="'+(x+5)+'" y2="'+ya+'" stroke="'+col+'" stroke-width="1.5"/>';
+                o+='<line x1="'+(x-5)+'" y1="'+yb2+'" x2="'+(x+5)+'" y2="'+yb2+'" stroke="'+col+'" stroke-width="1.5"/>';
+                o+='<rect x="'+(x+6)+'" y="'+((ya+yb2)/2-8)+'" width="'+wd+
+                   '" height="15" fill="#fff" fill-opacity="0.85"/>';
+                o+='<text x="'+(x+6+wd/2)+'" y="'+((ya+yb2)/2+3)+'" text-anchor="middle" font-size="10.5" '+
+                   'font-weight="bold" fill="'+col+'">'+td+'</text>';
+            }
+            return o;
+        };
+        if(!esM && hayVol){ g+=franjaD(ayV, ay); g+=franjaD(L-ay, L-ayV); }
+
+        g+='<rect x="'+fx0+'" y="'+fy0+'" width="'+bw+'" height="'+bh+
+           '" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>';
+        g+='<rect x="'+(cx-c1*s/2)+'" y="'+(cy-c2*s/2)+'" width="'+(c1*s)+'" height="'+(c2*s)+
+           '" fill="#94a3b8" stroke="#334155" stroke-width="2"/>';
+        if(parcial){
+            var xa=X(pf.espejo?ib:ia);
+            g+='<line x1="'+xa+'" y1="'+(fy0-8)+'" x2="'+xa+'" y2="'+(fy0+bh+8)+
+               '" stroke="#334155" stroke-width="2" stroke-dasharray="7 4"/>';
+        }
+
+        // ---- cotas verticales de las dos franjas, a la izquierda ----
+        var cotaV=function(x, y0v, y1v, txt){
+            var a=Y(y0v), b=Y(y1v), o='';
+            o+='<line x1="'+x+'" y1="'+a+'" x2="'+x+'" y2="'+b+'" stroke="'+col+'" stroke-width="1.5"/>';
+            o+='<line x1="'+(x-5)+'" y1="'+a+'" x2="'+(x+5)+'" y2="'+a+'" stroke="'+col+'" stroke-width="1.5"/>';
+            o+='<line x1="'+(x-5)+'" y1="'+b+'" x2="'+(x+5)+'" y2="'+b+'" stroke="'+col+'" stroke-width="1.5"/>';
+            o+='<text x="'+(x-11)+'" y="'+((a+b)/2)+'" text-anchor="middle" font-size="10.5" '+
+               'font-weight="bold" fill="'+col+'" transform="rotate(-90 '+(x-11)+' '+((a+b)/2)+')">'+txt+'</text>';
+            return o;
+        };
+        if(ap && aT*s>26){
+            var xc2=fx0-20;
+            var tc=esM
+                ? '(L - c'+'<tspan dy="4" font-size="9">2</tspan><tspan dy="-4">)/2 = '+fx(ay,3)+' m</tspan>'
+                : '(L - c'+'<tspan dy="4" font-size="9">2</tspan><tspan dy="-4">)/2 - d = '+fx(ayV,3)+' m</tspan>';
+            g+=cotaV(xc2, 0, aT, tc);
+            g+=cotaV(xc2, L-aT, L, tc);
+        }
+        // ---- cota de B ----
+        var cotaH=function(y, xa2, xb2, txt, c, fs){
+            var a=Math.min(xa2,xb2), b=Math.max(xa2,xb2), o='';
+            o+='<line x1="'+a+'" y1="'+y+'" x2="'+b+'" y2="'+y+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<line x1="'+a+'" y1="'+(y-5)+'" x2="'+a+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<line x1="'+b+'" y1="'+(y-5)+'" x2="'+b+'" y2="'+(y+5)+'" stroke="'+c+'" stroke-width="1.5"/>';
+            o+='<text x="'+((a+b)/2)+'" y="'+(y-8)+'" text-anchor="middle" font-size="'+fs+
+               '" font-weight="bold" fill="'+c+'">'+txt+'</text>';
+            return o;
+        };
+        g+=cotaH(yC1, X(0), X(B), 'B = '+fx(B,2)+' m, el ancho entero entra en las dos franjas', '#334155', 11.5);
+
+        // ---- cartel ----
+        var xb=Math.max(4+anc/2, Math.min(W-4-anc/2, W/2));
+        g+='<rect x="'+(xb-anc/2)+'" y="'+yBox+'" width="'+anc+'" height="'+hBox+
+           '" rx="5" fill="#fff" stroke="#cbd5e1" stroke-width="1.4"/>';
+        var yy=yBox+7;
+        ls.forEach(function(l){
+            yy+=alt(l.fs);
+            g+='<text x="'+xb+'" y="'+(yy-4)+'" text-anchor="middle" font-size="'+l.fs+
+               '" fill="'+l.c+'"'+(l.b?' font-weight="bold"':'')+'>'+l.t+'</text>';
+        });
+
+        g+='</svg>';
+        _e(id).innerHTML=g;
+
+        // ---- nota ----
+        var av=[];
+        if(parcial)
+            av.push('<span class="warn-badge warn-y">Con esta combinación el suelo apoya sobre a = '+
+                    fx(pf.a,3)+' m de B = '+fx(B,2)+' m. El relleno se corta ahí: donde el suelo se '+
+                    'despegó no hay presión que integrar. El valor total no cambia por eso, porque la '+
+                    'resultante sigue siendo V<sub>u</sub>; lo que cambia es <strong>dónde</strong> se '+
+                    'apoya, y eso importa al distribuir la armadura</span>');
+        var comun='<strong>La presión no varía a lo largo de L</strong>, porque el momento actúa solo en la '+
+            'dirección de B. Por eso las dos franjas dan el <strong>mismo</strong> valor, mientras que en la '+
+            'dirección de B los dos lados dan valores distintos. ';
+        _e(nota).innerHTML= (esM
+            ? 'Vista en planta, dirección de L. Sección crítica en la cara de la columna, art. 15.4.2 a), '+
+              'igual que en la dirección de B, y el área es la franja de '+
+              '<strong>B x (L - c<sub>2</sub>)/2</strong>: el ancho entero de la zapata entra en las dos. '+
+              comun+
+              'M<sub>u,y</sub> = (V<sub>u</sub>/L)·(L - c<sub>2</sub>)²/8 <strong>no es una aproximación</strong>: '+
+              'integrando la franja sale (a<sub>y</sub>²/2)·∫q dx, y esa integral vale V<sub>u</sub>/L exactamente '+
+              'por equilibrio, cualquiera sea la forma del diagrama. '+
+              'El área de corte, más chica, está en el gráfico siguiente.'
+            : 'Vista en planta, dirección de L. La sección crítica de corte va a distancia d de la cara '+
+              '(art. 15.5.2 con 11.1.3.1), así que el área que tributa es la de flexión '+
+              '<strong>menos la franja de ancho d</strong>, que queda en blanco igual que en la dirección '+
+              'de B: lleno lo que aporta, blanco lo que se descuenta. '+
+              comun+
+              'V<sub>u,y</sub> = (V<sub>u</sub>/L)·[(L - c<sub>2</sub>)/2 - d] <strong>tampoco es una '+
+              'aproximación</strong>: es el brazo por ∫q dx, y esa integral vale V<sub>u</sub>/L exactamente '+
+              'por equilibrio. Es exacta también con despegue. '+
+              'El área de flexión, más grande, está en el gráfico anterior.')+
+            (av.length?'<div style="margin-top:8px">'+av.join(' ')+'</div>':'');
+    }
+
     // -------------------------------------------------------------------
     window.T=function(t,el){
         document.querySelectorAll('.tab-content').forEach(function(x){x.classList.remove('active');});
@@ -947,6 +2375,8 @@
     }
 
     var envVis = null;   // combinaciones visibles en el grafico de superposicion
+    var secSel = 'todas'; // combinacion elegida en el grafico de secciones criticas
+    window.togSec = function(el){ secSel = el.value; R(); };
 
     window.R=function(){
         var I=leerInp();
@@ -1080,24 +2510,129 @@
             }).join('')+'</table>'+
             '<div class="note">Presión neta: solo cargas de columna mayoradas (art. 15.2.1). '+
             'No se compara nunca con σ<sub>adm</sub>. La combinación que rige <strong>no</strong> se define '+
-            'por el mayor q<sub>u,máx</sub>: se define por solicitación, en el módulo 3.</div>';
+            'por el mayor q<sub>u,máx</sub>: se define por solicitación, en la tabla de abajo.</div>';
 
-        // texto interpretativo generado dinamicamente
-        var pico=act.reduce(function(a,b){return (b.smax>a.smax)?b:a;},act[0]);
-        var largo=act.reduce(function(a,b){return (b.a>a.a)?b:a;},act[0]);
-        _e('txtEnv').innerHTML='<p>Los diagramas <strong>no son escalados unos de otros</strong>. '+
-            'Cambian de valor, de longitud de contacto y hasta de tipo, porque cada combinación mayora '+
-            'V y M con factores distintos y por lo tanto <strong>la excentricidad mayorada no coincide '+
-            'con la de servicio</strong>.</p><table class="tbl-num"><tr><th>Comb.</th><th>q<sub>u,máx</sub> [kPa]</th>'+
-            '<th>Contacto a [m]</th><th>a/B</th><th>Tipo</th></tr>'+
-            act.map(function(u){return '<tr'+(u===pico?' class="rige"':'')+'><td>'+rotulo(u)+'</td><td>'+
-            fx(u.smax)+'</td><td>'+fx(u.a,3)+'</td><td>'+fx(u.a/I.B,3)+'</td><td>'+u.tipo+'</td></tr>';}).join('')+
-            '</table><p style="margin-top:10px">La combinación de mayor pico es <strong>'+rotulo(pico)+
-            '</strong>, con q<sub>u,máx</sub> = '+fx(pico.smax)+' kPa, pero su contacto se reduce a '+
-            fx(pico.a,2)+' m, es decir el '+fx(100*pico.a/I.B,0)+' % de B. Esa presión alta actúa sobre un '+
-            'brazo de palanca corto, así que <strong>no se puede anticipar que gobierne el '+
-            'dimensionamiento</strong>. La combinación de mayor contacto es '+rotulo(largo)+', con a = '+
-            fx(largo.a,2)+' m. Cuál gobierna cada sección se resuelve integrando, en el módulo 3.</p>';
+        // ---------- MODULO 3: envolvente por solicitacion ----------
+        var HH = hechos(r, I.B);
+        var anchaCls = (r.ULT.length > 6) ? ' ancha' : '';
+        var celdaRige = function(en){
+            if(!en) return '<span class="nap">no aplica</span>';
+            return '<strong style="color:'+COL[en.comb.nom]+'">'+rotulo(en.comb)+'</strong>'+
+                   '<span class="sub">'+EQ[en.comb.nom]+'</span>';
+        };
+        var num = function(v){
+            return (v===null||v===undefined||!isFinite(v)) ? '<span class="nap">no aplica</span>' : fx(v,1);
+        };
+
+        var avisoVuelco='<div class="warn-badge warn-r">Sin equilibrio: no hay envolvente</div>'+
+            '<div class="note">Las '+r.ULT.length+' combinaciones tienen e &ge; B/2 y la resultante se '+
+            'sale de la base. No hay diagrama de presiones que integrar, de modo que no existe ninguna '+
+            'solicitación que calcular: no son cero, son indefinidas. Hay que aumentar B, reducir el '+
+            'momento o revisar las acciones antes de mirar cualquier otra cosa.</div>';
+
+        var avisoCorto='<div class="warn-badge warn-r">Sin equilibrio: no hay envolvente</div>'+
+            '<div class="note">Sin envolvente no hay valores de diseño que pasarle al módulo 4.</div>';
+
+        var hSol='<table class="tbl-env'+anchaCls+'"><tr><th>Solicitación</th>';
+        r.ULT.forEach(function(u){
+            hSol+='<th class="'+(u.sentido<0?'rev':'')+'" style="color:'+COL[u.nom]+'">'+rotulo(u)+'</th>';
+        });
+        hSol+='<th>Rige</th></tr>';
+        FILAS_SOL.forEach(function(fi){
+            var ap=!!r.sc[fi[4]], en=ap ? r.env[fi[0]] : null;
+            hSol+='<tr><td>'+fi[1]+' ['+fi[2]+']<span class="sub">art. '+fi[3]+'</span></td>';
+            if(!ap){   // una sola celda en vez de repetir el motivo columna por columna
+                hSol+='<td colspan="'+(r.ULT.length+1)+'" style="text-align:center">'+
+                      '<span class="nap">'+fi[5]+'</span></td></tr>';
+                return;
+            }
+            r.ULT.forEach(function(u){
+                var esRige=(en && en.comb===u);
+                var txt = (u.tipo==='vuelco') ? '<span class="nap">vuelco</span>' : num(u.sol[fi[0]]);
+                hSol+='<td class="'+(esRige?'rige ':'')+(u.sentido<0?'rev':'')+'">'+txt+'</td>';
+            });
+            hSol+='<td>'+celdaRige(en)+'</td></tr>';
+        });
+        hSol+='</table>';
+        _e('tSol').innerHTML=(HH.sinDiagrama ? avisoVuelco : hSol+
+            '<div class="note">Cada fila se resuelve <strong>integrando el diagrama de cada '+
+            'combinación</strong> sobre su sección crítica, no comparando presiones de pico. Por eso la '+
+            'columna "Rige" cambia de una fila a otra: no hay una combinación pésima única. Presión neta, '+
+            'cargas mayoradas de columna (art. 15.2.1).'+
+            (r.ULT.length>6?' Las columnas en gris son el sentido contrario del viento; con M<sub>D</sub> '+
+             'y M<sub>L</sub> nulos son el espejo exacto de las otras, y dejan de serlo apenas alguno no lo sea.':'')+
+            '</div>');
+
+        // ---------- MODULO 3: envolvente de diseno ----------
+        var mejorDe=function(a,b){ return (a&&b) ? (a.valor>=b.valor?a:b) : (a||b); };
+        var ap=function(k,f){ return r.sc[f] ? r.env[k] : null; };
+        var rigeM=mejorDe(ap('Mder','aplicaMder'), ap('Mizq','aplicaMizq'));
+        var rigeMy=ap('My','aplicaMy');
+        var rigeV=mejorDe(ap('Vder','aplicaVder'), ap('Vizq','aplicaVizq'));
+        var rigeVy=ap('Vy','aplicaVy');
+        var sent =I.rev?' y sobre los dos sentidos de W':'';
+        var sentU=I.rev?'; máximo sobre los dos sentidos de W':'';
+        var FIL_DIS=[
+            ['M<sub>u</sub>','kN·m', rigeM?r.dis.Mu:null, rigeM,
+             'máximo sobre las dos caras de la columna'+sent],
+            ['M<sub>u,y</sub>','kN·m', rigeMy?r.dis.Muy:null, rigeMy,
+             'valor único, la presión no varía en y'+sentU],
+            ['V<sub>u,1D</sub>','kN', rigeV?r.dis.Vu1D:null, rigeV,
+             'máximo sobre los dos lados'+sent],
+            ['V<sub>u,y</sub>','kN', rigeVy?r.dis.Vuy:null, rigeVy,
+             'valor único, la presión no varía en y'+sentU],
+            ['V<sub>u,punz</sub>','kN', r.env.Vpunz?r.dis.Vup:null, r.env.Vpunz,
+             'valor único, el perímetro crítico es simétrico'+sentU]
+        ];
+        _e('tDis').innerHTML=(HH.sinDiagrama ? avisoCorto :
+            '<table class="tbl-env"><tr><th>Solicitación de diseño</th>'+
+            '<th>Valor</th><th>Rige</th><th class="izq">Cómo se obtiene</th></tr>'+
+            FIL_DIS.map(function(f){
+                return '<tr><td>'+f[0]+' ['+f[1]+']</td><td class="'+(f[3]?'rige':'')+'">'+num(f[2])+
+                       '</td><td>'+celdaRige(f[3])+'</td><td class="izq">'+
+                       (f[3]?f[4]:'<span class="nap">no existe esa sección con esta geometría</span>')+
+                       '</td></tr>';
+            }).join('')+'</table>'+
+            '<div class="note">Estos son los valores que alimentan el dimensionamiento del '+
+            'módulo 4. Los lados se funden en un solo valor porque la zapata se arma simétrica: la '+
+            'armadura no sabe de qué lado sopló el viento.</div>');
+
+        // ---------- MODULO 3: grafico de secciones criticas ----------
+        // El selector se reconstruye en cada pasada porque la lista de
+        // combinaciones cambia al tildar viento reversible. Si la elegida
+        // deja de existir se vuelve a "todas" en vez de quedar colgada.
+        var vivos={}; r.ULT.forEach(function(u){ vivos[clave(u)]=u; });
+        if(secSel!=='todas' && !vivos[secSel]) secSel='todas';
+        _e('selSecRow').innerHTML='<label>Diagrama superpuesto: '+
+            '<select id="selSec" onchange="togSec(this)">'+
+            '<option value="todas"'+(secSel==='todas'?' selected':'')+'>Todas, con el valor de envolvente</option>'+
+            r.ULT.map(function(u){
+                return '<option value="'+clave(u)+'"'+(secSel===clave(u)?' selected':'')+'>'+
+                       rotulo(u)+' '+EQ[u.nom]+(u.tipo==='vuelco'?' - en vuelco':'')+'</option>';
+            }).join('')+'</select></label>';
+        svgSecciones('svgSec','nSecG', r, I, (secSel==='todas'?null:vivos[secSel]));
+        svgPunzonado('svgPunz','nPunzG', r, I, (secSel==='todas'?null:vivos[secSel]));
+        svgTribB('svgTribBM','nTribBM', r, I, (secSel==='todas'?null:vivos[secSel]), 'M');
+        svgTribB('svgTribBV','nTribBV', r, I, (secSel==='todas'?null:vivos[secSel]), 'V');
+        svgTribL('svgTribL','nTribL', r, I, (secSel==='todas'?null:vivos[secSel]), 'M');
+        svgTribL('svgTribLV','nTribLV', r, I, (secSel==='todas'?null:vivos[secSel]), 'V');
+        svgBarras('svgBar','nBarG', r, I, (secSel==='todas'?null:vivos[secSel]), HH);
+
+        // ---------- MODULO 3: lectura, generada desde hechos() ----------
+        var H=HH;
+        _e('txtEnv').innerHTML=
+            (H.sinDiagrama ? '' :
+             '<p>Los diagramas <strong>no son escalados unos de otros</strong>. Cambian de valor, de '+
+             'longitud de contacto y hasta de tipo, porque cada combinación mayora V y M con factores '+
+             'distintos y por lo tanto <strong>la excentricidad mayorada no coincide con la de '+
+             'servicio</strong>.</p>')+
+            redactar(H, I.B).map(function(o){return '<p>'+aHTML(o)+'</p>';}).join('')+
+            tablaCosto(H)+
+            (H.sinDiagrama ? '' :
+             '<div class="note">La combinación que rige se define <strong>por solicitación</strong>, no '+
+            'por el mayor q<sub>u,máx</sub>. Eso vale siempre, con estos valores y con cualquier otro: '+
+            'el criterio del pico no es conservador en general porque una presión alta sobre un contacto '+
+             'corto puede dar menos momento y menos corte que una presión moderada sobre toda la base.</div>');
 
         var sc=r.sc;
         _e('pSecc').innerHTML='<table class="tbl-num">'+
@@ -1106,12 +2641,19 @@
             '<tr><td>Cara derecha x<sub>R</sub></td><td>'+fx(sc.xR,3)+' m</td></tr>'+
             '<tr><td>Corte 1D derecha</td><td>'+(sc.aplicaVder?fx(sc.xVder,3)+' m':'no aplica')+'</td></tr>'+
             '<tr><td>Corte 1D izquierda</td><td>'+(sc.aplicaVizq?fx(sc.xVizq,3)+' m':'no aplica')+'</td></tr>'+
+            '<tr><td>Voladizo en L</td><td>'+(sc.aplicaMy?fx(sc.ay,3)+' m':'no aplica')+'</td></tr>'+
+            '<tr><td>Corte 1D en L</td><td>'+(sc.aplicaVy?fx(sc.yVy,3)+' m':'no aplica')+'</td></tr>'+
             '<tr><td>Punzonado, de x</td><td>'+(sc.aplicaPunz?fx(sc.xPa,4)+' a '+fx(sc.xPb,4)+' m':'no aplica')+'</td></tr>'+
             '<tr><td>b<sub>0</sub></td><td>'+fx(sc.b0,3)+' m</td></tr></table>'+
             '<div class="note">Flexión en la cara de la columna (art. 15.4.2 a). Corte unidireccional a '+
             'distancia d de la cara (art. 15.5.2 con 11.1.3.1). Punzonado en el perímetro a d/2 de las '+
-            'caras (art. 11.12.1.2).'+
+            'caras (art. 11.12.1.2). Las dos filas de la dirección de L se miden <strong>desde cada '+
+            'borde</strong>: el voladizo vale (L - c<sub>2</sub>)/2 y la sección de corte cae d más '+
+            'adentro, o sea a (L - c<sub>2</sub>)/2 - d.'+
             ((!sc.aplicaVder||!sc.aplicaVizq)?' <span class="warn-badge warn-y">Alguna sección de corte cae fuera de la zapata: ese lado no requiere verificación</span>':'')+
+            (!sc.aplicaVy?' <span class="warn-badge warn-y">La sección de corte en la dirección de L cae fuera del voladizo'+
+             (sc.aplicaMy?' ((L - c<sub>2</sub>)/2 = '+fx(sc.ay,3)+' m contra d = '+fx(sc.d,3)+' m)':'')+
+             ': no requiere verificación</span>':'')+
             (!sc.aplicaPunz?' <span class="warn-badge warn-y">El rectángulo crítico excede la zapata: el punzonado no aplica</span>':'')+'</div>';
     };
 
