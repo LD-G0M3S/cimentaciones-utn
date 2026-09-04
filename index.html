@@ -390,8 +390,26 @@
                                     </select></span>
                                 <span><label for="iRec">r [m], mínimo 0,05</label>
                                     <input type="number" id="iRec" value="0.075" step="0.005" min="0.05" max="0.20" style="width:100%" oninput="R()" disabled></span>
+                                <span><label for="iJcSel">J<sub>c</sub> - propiedad de la sección crítica</label>
+                                    <select id="iJcSel" style="width:100%" onchange="jcSel();R()">
+                                        <option value="calc" selected>Calculado (comentario R11.11.7.2 del ACI)</option>
+                                        <option value="edit">Otro valor (editable)</option>
+                                    </select></span>
+                                <span><label for="iJc">J<sub>c</sub> [m⁴]</label>
+                                    <input type="number" id="iJc" value="0" step="0.001" min="0.000001" style="width:100%" oninput="R()" disabled></span>
                             </div>
                             <div class="note" id="nRec"></div>
+                            <div class="note"><span class="warn-badge warn-y">SIN VERIFICAR</span>
+                            J<sub>c</sub> <strong>no figura en CIRSOC 201-2005</strong>. El art. 11.12.6.2
+                            prescribe que la tensión varía linealmente alrededor del baricentro de la
+                            sección crítica y fija el límite φ·v<sub>n</sub>, pero no da la expresión para
+                            calcularla: ésta viene del comentario R11.11.7.2 del ACI. Además sus dos
+                            primeros términos son ∫c²dA sobre la superficie crítica y el tercero,
+                            b<sub>1</sub>·d³/6, <strong>no sale de esa integral</strong>: proviene de la
+                            analogía con el momento polar, que el artículo no enuncia. Por eso queda
+                            editable. γ<sub>v</sub> (art. 11.12.6.1 con la (13-1) del art. 13.5.3.2) y
+                            c<sub>AB</sub> = b<sub>1</sub>/2 sí están respaldados y no se editan.
+                            <span id="nJc"></span></div>
                         </div>
                         <div class="card card-blue"><h4>Materiales</h4>
                             <div class="opt-row" style="margin-top:0;flex-direction:column;align-items:stretch;gap:8px">
@@ -444,7 +462,7 @@
     // Unidades: kN, kN.m, kPa, m, MPa, mm.
     // Referencias entre parentesis: CIRSOC 201-2005.
     // ===================================================================
-    
+
     // -------------------------------------------------------------------
     // 1. DISTRIBUCION LINEAL DE PRESIONES BAJO ZAPATA RIGIDA
     // Heredada de la v7 sin modificaciones. NO TOCAR.
@@ -466,7 +484,7 @@
         }
         return {e:e,tipo:'vuelco',smax:Infinity,smin:0,a:0};
     }
-    
+
     // -------------------------------------------------------------------
     // 1 bis. ESTADO DE CONTACTO
     // Envoltorio de distr(), que NO se toca (regla 1 de la seccion 9).
@@ -500,7 +518,7 @@
     function trasladar(acc, z){
         return {N: acc.N||0, M: (acc.M||0) + (acc.H||0)*z, H: acc.H||0};
     }
-    
+
     // -------------------------------------------------------------------
     // 3. PESO PROPIO GEOMETRICO (decision D3)
     //     P_z = hormigon de zapata + tapada + pedestal
@@ -517,7 +535,7 @@
         var Pp = g.c1*g.c2*t*g.gh;                         // pedestal
         return {t:t, Ph:Ph, Pt:Pt, Pp:Pp, Pz:Ph+Pt+Pp, alfaEq:(Ph+Pt+Pp)/Math.max(1e-9,g.Nd+g.Nl)};
     }
-    
+
     // -------------------------------------------------------------------
     // 4. MOTOR DE COMBINACIONES - art. 9.2.1
     // Recibe las acciones por tipo ya trasladadas y devuelve la lista de
@@ -536,11 +554,11 @@
         var Z = {N:0,M:0,H:0};
         var D=a.D||Z, F=a.F||Z, T=a.T||Z, L=a.L||Z, Hs=a.Hs||Z;
         var Lr=a.Lr||Z, S=a.S||Z, R=a.R||Z, W=a.W||Z;
-    
+
         // max(Lr, S, R) por componente: se toma la accion de cubierta dominante
         function techo(k){ return Math.max(Lr[k]||0, S[k]||0, R[k]||0); }
         var Tc = {N:techo('N'), M:techo('M'), H:techo('H')};
-    
+
         function lc(nom, eq, expr, term, usaW){
             var o={nom:nom, eq:eq, expr:expr, usaW:!!usaW, N:0, M:0, H:0};
             term.forEach(function(t){
@@ -548,7 +566,7 @@
             });
             return o;
         }
-    
+
         return [
             lc('C1','(9-1)','1,4 (D + F)',
                [[1.4,D],[1.4,F]]),
@@ -564,7 +582,7 @@
                [[0.9,D],[1.6,W],[1.6,Hs]], true)
         ];
     }
-    
+
     // -------------------------------------------------------------------
     // 5. PERFIL DE PRESIONES PARAMETRIZADO
     // La distribucion es siempre lineal a trozos. x medido desde el borde
@@ -586,7 +604,7 @@
         return {x0:x0, qs:qs, k:k, B:B, espejo:!!espejo, tipo:d.tipo, a:d.a,
                 smax:d.smax, smin:d.smin, e:d.e, existe:true};
     }
-    
+
     // Valor de la presion en x, ya considerando el espejo. Solo para graficos.
     function qEn(p, x){
         var xx = p.espejo ? (p.B - x) : x;
@@ -594,7 +612,7 @@
         if(xx > p.B)  return 0;
         return p.qs + p.k*(xx - p.x0);
     }
-    
+
     // -------------------------------------------------------------------
     // 6. INTEGRALES EN FORMA CERRADA sobre el perfil canonico
     // u = x - x0, limites recortados a [x0, B], c = x0 - xref.
@@ -616,13 +634,23 @@
         var Fu = function(u){ return p.qs*u*u/2 + p.qs*c*u + p.k*u*u*u/3 + p.k*c*u*u/2; };
         return Fu(hi - p.x0) - Fu(lo - p.x0);
     }
-    
+
     // Claves de solicitacion y su bandera de aplicabilidad. Viven aca y no
     // en la seccion 11 porque CALC() las necesita para armar 'gobiernan'.
+    // Fuente unica de las solicitaciones que GOBIERNAN. Alimenta tres cosas
+    // a la vez: la envolvente env, el conjunto gobiernan y la tabla de costo.
+    //
+    // 'vPico' NO esta y no es un olvido. La tension de pico se calcula, viaja
+    // en sol.vPico y en env.vPico, y se dibuja como fila de tabla y como grupo
+    // de barras, pero depende de J_c, que va con insignia SIN VERIFICAR.
+    // Meterla aca la haria contar en "gobiernan N combinaciones y M no
+    // gobiernan ninguna", que es el hallazgo central de la herramienta, y
+    // moveria los valores de regresion de ESTADO.md 5.2. Informativa y no
+    // gobernante: esa es la decision, y este es el lugar donde se aplica.
     var CLAVES_SOL = ['Mder','Mizq','My','Vder','Vizq','Vy','Vpunz'];
     var BANDERA_SOL = {Mder:'aplicaMder', Mizq:'aplicaMizq', My:'aplicaMy',
                        Vder:'aplicaVder', Vizq:'aplicaVizq', Vy:'aplicaVy',
-                       Vpunz:'aplicaPunz'};
+                       Vpunz:'aplicaPunz', vPico:'aplicaPunz'};
 
     // -------------------------------------------------------------------
     // 7. GEOMETRIA DE LAS SECCIONES CRITICAS
@@ -656,7 +684,7 @@
             b0: 2*(g.c1+d) + 2*(g.c2+d)
         };
     }
-    
+
     // -------------------------------------------------------------------
     // 8. SOLICITACIONES DE UNA COMBINACION
     // Se integra el perfil canonico. Si el perfil esta espejado, mirar el
@@ -681,7 +709,7 @@
         var Mizq = sc.aplicaMizq ? -g.L * intQx(p, 0, sc.xL, sc.xL) : null;
         var Vder = sc.aplicaVder ? g.L * intQ(p, sc.xVder, g.B) : null;
         var Vizq = sc.aplicaVizq ? g.L * intQ(p, 0, sc.xVizq) : null;
-    
+
         var Vpunz = null;
         if(sc.aplicaPunz){
             var Vdentro = (g.c2 + sc.d) * intQ(p, sc.xPa, sc.xPb);
@@ -689,7 +717,7 @@
         }
         // Flexion en la direccion de L. La presion no varia en y.
         var My = sc.aplicaMy ? (Vtot/g.L) * Math.pow(Math.max(0,g.L - g.c2),2) / 8 : null;
-    
+
         // Corte unidireccional en la direccion de L (art. 15.5.2 con 11.1.3.1).
         // La seccion critica es un plano perpendicular a y, a distancia d de la
         // cara, y toma todo el ancho B. Integrando la franja:
@@ -700,7 +728,7 @@
         // Una sola fila y no dos: la presion no varia en y, de modo que las dos
         // secciones criticas de esa direccion dan el mismo valor.
         var Vy = sc.aplicaVy ? (Vtot/g.L) * sc.yVy : null;
-    
+
         var o = {Mder:Mder, Mizq:Mizq, Vder:Vder, Vizq:Vizq, Vpunz:Vpunz,
                  My:My, Vy:Vy};
         if(p.espejo){ // intercambio de lados; My y Vy no se intercambian
@@ -709,7 +737,166 @@
         }
         return o;
     }
-    
+
+    // -------------------------------------------------------------------
+    // 8 bis. CONTACTO DEL PERIMETRO CRITICO DE PUNZONADO
+    // El art. 11.12.1 hace gobernar la MAS SEVERA de dos condiciones: el
+    // comportamiento como viga del art. 11.12.1.1 y el de dos direcciones
+    // del art. 11.12.1.2. Cuando el segundo degenera porque el suelo apoya
+    // de un solo lado, el que sostiene la carga es el primero, que esta
+    // herramienta ya calcula. Por eso aca NO hay guarda: se mide la
+    // degeneracion y se informa, no se deja de calcular. Ver ESTADO.md
+    // 10.7 c) y 10.9.
+    //
+    // V_u,punz no se toca y no lo necesita: como fuerza es el equilibrio
+    // vertical del bloque interior al perimetro y es exacta cualquiera sea
+    // la forma del diagrama, con despegue o sin el. Lo que degrada con el
+    // contacto parcial es repartirla sobre b_0.d, y ese paso vive en el
+    // modulo 4, no aca.
+    //
+    // Todas las magnitudes son invariantes al espejo: el rectangulo critico
+    // es simetrico respecto de x = B/2 porque la columna esta centrada. Por
+    // eso se calculan sobre el perfil canonico y sin intercambiar lados,
+    // igual que barrido_punz.js linea 87. Los lados izquierdo y derecho NO
+    // se exponen por separado: con perfil espejado habria que intercambiarlos
+    // y es la misma familia de trampa que el par b_1 / b_2.
+    // -------------------------------------------------------------------
+    function contactoPunz(p, g, sc, sol){
+        if(!sc.aplicaPunz) return null;
+        if(!p || p.existe === false) return null;
+        var Vp = sol.Vpunz;
+        if(Vp === null || !isFinite(Vp) || Vp <= 1e-9) return null;
+        var anc = sc.xPb - sc.xPa;
+        if(!(anc > 1e-12)) return null;
+
+        // solape: fraccion de la traza en x del rectangulo critico que tiene
+        // suelo debajo. EXACTA, sin ninguna convencion. Como q no varia en y
+        // y el rectangulo abarca todo (c2 + d) en esa direccion, la fraccion
+        // de longitud y la de area coinciden.
+        var solape = (Math.min(sc.xPb, g.B) - Math.max(sc.xPa, p.x0)) / anc;
+        solape = Math.max(0, Math.min(1, solape));
+
+        // rho1D: V_u,punz contra el corte unidireccional de la MISMA
+        // combinacion. EXACTA, sin convencion. Con rho1D = 1 el perimetro
+        // cerrado recoge lo mismo que un corte recto, o sea que no esta
+        // trabajando como perimetro cerrado. Es la firma numerica de 10.9.
+        // max() y no el lado cargado: es invariante al intercambio que hace
+        // solicitaciones() con perfil espejado.
+        var vd = sol.Vder, vi = sol.Vizq;
+        var V1D = (vd === null && vi === null)
+                  ? null : Math.max(vd === null ? 0 : vd, vi === null ? 0 : vi);
+        var rho1D = (V1D !== null && V1D > 1e-9) ? Vp / V1D : null;
+
+        // Reparto por direccion. Es una CONVENCION tributaria, no una
+        // prescripcion del reglamento: la carga de las esquinas queda
+        // asignada a las caras de la direccion de B. Reproduce la tabla de
+        // ESTADO.md 10.9. Se calcula y viaja en los hechos, pero NO se
+        // muestra en la interfaz: solape y rho1D son exactos y dicen lo
+        // mismo sin apoyarse en una convencion.
+        var dirL = Math.max(0, g.L - (g.c2 + sc.d)) * intQ(p, sc.xPa, sc.xPb);
+        var dirB = Vp - dirL;
+
+        // asimetria segun barrido_punz.js linea 89. NO es una asimetria
+        // normalizada: con contacto completo y presion uniforme vale la
+        // porcion geometrica de la banda, no cero. Se conserva para que los
+        // porcentajes del barrido sigan siendo comparables y por ese mismo
+        // motivo NO se muestra.
+        var asim = intQ(p, sc.xPb, g.B) * g.L / Vp;
+
+        return {solape:solape, rho1D:rho1D, V1D:V1D,
+                fB:dirB / Vp, fL:dirL / Vp, asim:asim,
+                degenera:(solape < 1 - 1e-9), sinSuelo:(solape < 1e-9)};
+    }
+
+    // -------------------------------------------------------------------
+    // 8 ter. TENSION DE PICO DE PUNZONADO CON CONCOMITANCIA
+    // El art. 11.12.6.2 prescribe que la tension de corte por transferencia
+    // de momento varia LINEALMENTE alrededor del baricentro de la seccion
+    // critica, y que el maximo debido a V_u y a M_u se compare con phi.v_n.
+    //
+    //     v_u = V_u,punz / (b_0.d)  +  gamma_v . M_cruza . c_AB / J_c
+    //
+    // SEPARADA de contactoPunz() a proposito: aquella devuelve magnitudes
+    // exactas sin ninguna convencion, esta depende de J_c, que NO esta en el
+    // cuerpo del reglamento. En un solo objeto habria que ponerle insignia a
+    // la mitad de los campos.
+    //
+    // QUE ESTA EN EL REGLAMENTO Y QUE NO:
+    //   gamma_f  (13-1) del art. 13.5.3.2         -> en el cuerpo
+    //   gamma_v  = 1 - gamma_f, art. 11.12.6.1    -> en el cuerpo
+    //   c_AB     = b_1/2, geometria verificable por simetria del perimetro
+    //   J_c      SIN VERIFICAR: sale del comentario R11.11.7.2 del ACI via
+    //            McCormac cap. 16 y NO figura en CIRSOC 201-2005. Buscado en
+    //            el PDF: 'J_c', 'c_AB', 'polar' y 'propiedad de la seccion
+    //            critica' tienen cero apariciones. Ademas los dos primeros
+    //            terminos son la integral de c^2 sobre la superficie critica
+    //            pero el tercero, b_1.d^3/6, NO sale de esa integral: viene
+    //            de la analogia polar del ACI, que el articulo no enuncia.
+    //            Medido en chk_jc.js. Por eso el campo queda editable.
+    //
+    // TRAMPA PERMANENTE: b_1 = c_1 + d es PERPENDICULAR al eje de flexion y
+    // entra en J_c AL CUBO; b_2 = c_2 + d es paralelo. Permutarlos da un
+    // numero plausible y no rompe nada visible. Con columna cuadrada la
+    // permutacion es INDETECTABLE, y el caso por defecto tiene c_1 = c_2:
+    // todo test sobre esto va con c_1 distinto de c_2 (test_pico.js).
+    //
+    // c_AB = b_1/2 y J_c valen para perimetro CERRADO Y SIMETRICO. Con base
+    // medianera, de esquina o columna descentrada el baricentro se corre y
+    // las expresiones cambian: ver la decision D4 en ESTADO.md.
+    // -------------------------------------------------------------------
+    function picoPunz(u, g, sc){
+        if(!sc.aplicaPunz) return null;
+        var Vp = u.sol.Vpunz;
+        if(Vp === null || !isFinite(Vp) || Vp <= 0) return null;
+        var p = u.perf;
+        if(!p || p.existe === false) return null;
+
+        var d  = sc.d;
+        var b1 = g.c1 + d;                 // perpendicular al eje de flexion
+        var b2 = g.c2 + d;                 // paralelo al eje de flexion
+        var gf = 1/(1 + (2/3)*Math.sqrt(b1/b2));    // (13-1), art. 13.5.3.2
+        var gv = 1 - gf;                            // art. 11.12.6.1
+        // J_c calculado con la expresion del comentario del ACI. Si el usuario
+        // carga uno propio, manda el suyo: la regla es que un dato normativo
+        // sin confirmar queda editable, no clavado. g.Jc llega null cuando el
+        // selector esta en "calculado", que es el estado por defecto.
+        var JcCalc = d*b1*b1*b1/6 + b1*d*d*d/6 + d*b2*b1*b1/2;   // SIN VERIFICAR
+        var Jc  = (g.Jc !== null && g.Jc !== undefined && isFinite(g.Jc) && g.Jc > 0)
+                  ? g.Jc : JcCalc;
+        var cAB = b1/2;
+
+        // M_cruza NO es M_col: es lo que del momento de columna efectivamente
+        // cruza el perimetro critico, o sea M_col menos el momento de la
+        // presion de suelo interior a A_0 respecto del eje de la columna.
+        // La figura del defecto 33 se dibujo con la magnitud equivocada.
+        // Se integra el perfil CANONICO sin intercambiar lados: el perimetro
+        // es simetrico respecto de x = B/2 y el resultado solo cambia de
+        // signo al espejar, de modo que la magnitud es la misma. Verificado
+        // por integracion numerica independiente sobre qEn() en 10.763
+        // combinaciones, error relativo maximo 2,1e-13 (barrido_signo.js).
+        var Mcol = Math.abs(u.M);
+        var Mint = (g.c2 + d) * intQx(p, sc.xPa, sc.xPb, g.B/2);
+        // Sin momento de columna no hay momento que cruce: es definicion, no
+        // umbral. Va aparte porque max(0, M_col - M_int) filtra solo la MITAD
+        // del ruido de redondeo: cuando M_int sale negativo la diferencia
+        // queda positiva y pasa entera. Medido: 552.778 de 5.381.784
+        // combinaciones (10,27 %) la atraviesan, con hasta 1,42e-12 kN.m, y
+        // eso rompia que f_pico valiera 1 EXACTO. No hay zona gris donde el
+        // corte pueda equivocarse: las 1.715.340 combinaciones con momento
+        // despreciable lo tienen exactamente en cero y el menor M_col no nulo
+        // de toda la grilla es 120,0 kN.m (chk_ruido.js).
+        var Mcru = (Mcol === 0) ? 0 : Math.max(0, Mcol - Mint);
+
+        var vMedia = Vp/(sc.b0*d);
+        var vPico  = vMedia + gv*Mcru*cAB/Jc;
+
+        return {b1:b1, b2:b2, gf:gf, gv:gv, Jc:Jc, JcCalc:JcCalc,
+                JcPropio:(Jc !== JcCalc), cAB:cAB,
+                Mcol:Mcol, Mint:Mint, Mcru:Mcru,
+                vMedia:vMedia, vPico:vPico,
+                fPico:(vMedia > 1e-9) ? vPico/vMedia : null};
+    }
+
     // -------------------------------------------------------------------
     // 9. PREDIMENSIONADO DEL PLANO DE ASIENTO (art. 15.2.2)
     // El area se determina con fuerzas y momentos NO mayorados.
@@ -717,7 +904,7 @@
     // excentricidad de servicio DEPENDE de B y la restriccion e <= B/6 ya
     // no tiene forma cerrada: se resuelve por biseccion igual que el area.
     // -------------------------------------------------------------------
-    
+
     // Estado de servicio para un par (B, L) dado. Devuelve el maximo
     // sigma_max y la maxima excentricidad sobre S0, S1 y S2, ambos sentidos.
     function estadoServicio(inp, B, L){
@@ -746,7 +933,7 @@
         });
         return {smax:sMax, emax:eMax, vuelco:vuelco, Pz:Pz};
     }
-    
+
     // Biseccion del menor B en [1, 12] que satisface un predicado monotono.
     // Tolerancia 0.005 m, maximo 60 iteraciones (pliego 5.1).
     function menorB(pred){
@@ -759,7 +946,7 @@
         }
         return hi;
     }
-    
+
     function predimensionar(inp, opt){
         var modulo = opt.modulo || 0.05;
         var kRes = (opt.restr === 'B/6') ? 6 : (opt.restr === 'B/4' ? 4 : 0);
@@ -768,7 +955,7 @@
             if(opt.forma === 'lambda') return opt.lambda * B;
             return B;                                        // cuadrada, L = B
         };
-    
+
         // Cotas inferiores informativas, cada una por separado
         var B_area = menorB(function(B){
             var g = {B:B, L:Lde(B), h:inp.h, c1:inp.c1, c2:inp.c2, Df:inp.Df,
@@ -779,7 +966,7 @@
         var B_exc = kRes ? menorB(function(B){
             return B >= kRes * estadoServicio(inp, B, Lde(B)).emax;
         }) : null;
-    
+
         // Condicion completa: tensiones en TODAS las combinaciones y restriccion de e
         var B_min = menorB(function(B){
             var L = Lde(B), e = estadoServicio(inp, B, L);
@@ -788,7 +975,7 @@
             if(kRes && B < kRes*e.emax) return false;
             return true;
         });
-    
+
         if(B_min === null){
             var piso = inp.h*inp.gh + Math.max(0,inp.Df-inp.h)*inp.gs;
             return {ok:false, literal:'> 12 m', pisoTension:piso,
@@ -815,22 +1002,23 @@
                 verifica: fin.smax <= inp.sa && !fin.vuelco,
                 pisoTension: inp.h*inp.gh + Math.max(0,inp.Df-inp.h)*inp.gs};
     }
-    
+
     // -------------------------------------------------------------------
     // 10. CALCULO COMPLETO
     // -------------------------------------------------------------------
     function CALC(inp){
         var g = {B:inp.B, L:inp.L, h:inp.h, c1:inp.c1, c2:inp.c2, r:inp.r,
-                 Df:inp.Df, gh:inp.gh, gs:inp.gs, Nd:inp.Nd, Nl:inp.Nl};
+                 Df:inp.Df, gh:inp.gh, gs:inp.gs, Nd:inp.Nd, Nl:inp.Nl,
+                 Jc:(inp.Jc === undefined ? null : inp.Jc)};
         var z = (inp.plano === 'cara') ? inp.h : inp.Df;
-    
+
         var D = trasladar({N:inp.Nd, M:inp.Md, H:inp.Hd}, z);
         var Lq= trasladar({N:inp.Nl, M:inp.Ml, H:inp.Hl}, z);
         var W = trasladar({N:inp.Nw, M:inp.Mw, H:inp.Hw}, z);
-    
+
         var pp = pesoPropio(g);
         var sc = seccionesCriticas(g);
-    
+
         // --- SERVICIO: presion BRUTA, cargas no mayoradas (art. 15.2.2) ---
         // Reversibilidad: el signo multiplica la ACCION de viento, nunca el
         // resultado de la combinacion. inp.wrev = 'accion' invierte N, M y H
@@ -856,7 +1044,7 @@
         });
         var sRige = SER.reduce(function(x,y){return (y.smax>x.smax)?y:x;}, SER[0]);
         var verif = sRige.smax <= inp.sa && isFinite(sRige.smax);
-    
+
         // --- ULTIMOS: presion NETA, solo cargas de columna (art. 15.2.1) ---
         // El sentido es el bucle exterior porque el signo entra en la accion.
         // Multiplicar c.M por s daria vuelta tambien a 1,2.M_D y a f1.M_L, que
@@ -871,15 +1059,24 @@
                 var d = estadoContacto(c.N, Math.abs(c.M), g.B, g.L);
                 var p = perfil(d, g.B, c.M < 0);
                 var sol = solicitaciones(p, g, sc, c.N);
-                ULT.push(Object.assign({}, d, {nom:c.nom, eq:c.eq, expr:c.expr,
-                         sentido:s, V:c.N, M:c.M, perf:p, sol:sol}));
+                var uu = Object.assign({}, d, {nom:c.nom, eq:c.eq, expr:c.expr,
+                         sentido:s, V:c.N, M:c.M, perf:p, sol:sol,
+                         punz:contactoPunz(p, g, sc, sol)});
+                // La tension de pico entra en sol para que la tabla y el
+                // grafico de barras la puedan dibujar como una fila mas, pero
+                // NO se agrega a CLAVES_SOL: es informativa y no gobernante,
+                // porque J_c va con insignia SIN VERIFICAR. Ver el comentario
+                // de CLAVES_SOL y ESTADO.md 10.7 a).
+                uu.pico = picoPunz(uu, g, sc);
+                sol.vPico = uu.pico ? uu.pico.vPico : null;
+                ULT.push(uu);
             });
         });
         // Cada combinacion seguida de su espejo, que es el orden documentado en
         // 5.2 y el que deja comparables las dos columnas. El sentido pasa a ser
         // el bucle exterior por el signo de la accion, asi que hay que reordenar.
         ULT.sort(function(a,b){ return (ORD[a.nom]-ORD[b.nom]) || (b.sentido-a.sentido); });
-    
+
         // --- ENVOLVENTE POR SOLICITACION (no por max de q_max) ---
         // Una sola fuente para las claves. Tener aca una lista literal aparte
         // permitia que CALC y hechos() divergieran sin que nada lo notara.
@@ -894,13 +1091,36 @@
             });
             env[k] = mejor;
         });
+        // La fila de pico se envuelve APARTE, fuera del bucle de claves: asi
+        // la tabla y el grafico la dibujan, y a la vez queda fuera de
+        // gobiernan y de la tabla de costo, que iteran sobre CLAVES_SOL.
+        var mejorP = null, mediaMax = null;
+        ULT.forEach(function(u){
+            if(!u.pico) return;
+            if(mejorP===null || u.pico.vPico > mejorP.valor)
+                mejorP = {valor:u.pico.vPico, comb:u};
+            if(mediaMax===null || u.pico.vMedia > mediaMax.valor)
+                mediaMax = {valor:u.pico.vMedia, comb:u};
+        });
+        env.vPico = mejorP;
+
         // Envolvente de diseno con viento reversible: maximo sobre lados
         var dis = {
             Mu:   Math.max(env.Mder?env.Mder.valor:0, env.Mizq?env.Mizq.valor:0),
             Muy:  env.My ? env.My.valor : 0,
             Vu1D: Math.max(env.Vder?env.Vder.valor:0, env.Vizq?env.Vizq.valor:0),
             Vuy:  env.Vy ? env.Vy.valor : null,
-            Vup:  env.Vpunz ? env.Vpunz.valor : null
+            Vup:  env.Vpunz ? env.Vpunz.valor : null,
+            // El pico viaja CON su combinacion. El modulo 4 no puede
+            // recomponerlo desde los maximos de la envolvente: v_u acopla
+            // V_u,punz con M_u y se evalua por combinacion. Combinar el maximo
+            // de V_u,punz con el maximo de M_cruza arma un estado que no
+            // existe y sobrestima un 7,7 % en promedio, hasta 80,1 % en el
+            // peor caso de la grilla (condicion 1 de ESTADO.md 10.7).
+            vPico:     mejorP  ? mejorP.valor  : null,
+            combPico:  mejorP  ? mejorP.comb   : null,
+            vMedia:    mediaMax? mediaMax.valor: null,
+            combMedia: mediaMax? mediaMax.comb : null
         };
         // Solo gobierna quien gobierna una fila que existe.
         var gobiernan = {};
@@ -909,14 +1129,14 @@
         });
         var noGobierna = ULT.filter(function(u){ return !gobiernan[u.nom]; })
                             .map(function(u){ return u.nom; });
-    
+
         return {pp:pp, sc:sc, z:z, D:D, L:Lq, W:W,
                 SER:SER, sRige:sRige, verif:verif,
                 ULT:ULT, env:env, dis:dis,
                 gobiernan:Object.keys(gobiernan),
                 noGobierna:noGobierna.filter(function(v,i,ar){return ar.indexOf(v)===i;})};
     }
-    
+
     // -------------------------------------------------------------------
     // 11. HECHOS DE LA ENVOLVENTE
     // Funcion pura. Devuelve SOLO numeros y booleanos, ni una palabra.
@@ -941,17 +1161,17 @@
             return {sinDiagrama:true, nUlt:r.ULT.length, nulo:false,
                     nVuelco:nVuelco, hayVuelco:nVuelco > 0,
                     nTracc:nTracc,   hayTracc:nTracc > 0};
-    
+
         var pico  = act.reduce(function(a,b){ return b.smax > a.smax ? b : a; }, act[0]);
         var largo = act.reduce(function(a,b){ return b.a    > a.a    ? b : a; }, act[0]);
         var corto = act.reduce(function(a,b){ return b.a    < a.a    ? b : a; }, act[0]);
         var as = act.map(function(u){ return u.a; });
         var dispersionA = (Math.max.apply(null,as) - Math.min.apply(null,as)) > 1e-6;
         var nCompleto = act.filter(function(u){ return u.a >= B - 1e-9; }).length;
-    
+
         var gob = {};
         r.gobiernan.forEach(function(n){ gob[n] = true; });
-    
+
         var costo = [], nAplica = 0, nSub = 0, peor = -1, peorClave = null;
         CLAVES_SOL.forEach(function(k){
             var en = r.env[k], vp = pico.sol[k];
@@ -966,11 +1186,60 @@
             if(err > peor){ peor = err; peorClave = k; }
             costo.push({clave:k, aplica:true, conPico:vp, env:en.valor, rige:en.comb, err:err});
         });
-    
+
+        // Contacto del perimetro critico de punzonado (10.9). Hechos, no
+        // conclusiones. La degeneracion NO cambia ningun valor de la
+        // envolvente: cambia que mecanismo esta activo, y eso hay que
+        // decirlo. Se agrega sobre TODAS las combinaciones, no sobre la que
+        // rige: con los valores por defecto la degenerada es C6 y la
+        // envolvente de V_u,punz la rige C2, de modo que mirar solo la que
+        // rige dejaria el aviso invisible justo en el caso del aula.
+        var conPunz = act.filter(function(u){ return !!u.punz; });
+        var deg = conPunz.filter(function(u){ return u.punz.degenera; });
+        var degPeor = null;
+        deg.forEach(function(u){
+            if(degPeor === null || u.punz.solape < degPeor.punz.solape) degPeor = u;
+        });
+        var enP = r.env.Vpunz;
+        var rigePunz = (enP && enP.comb && enP.comb.punz) ? enP.comb : null;
+        // firma de 10.9: la combinacion donde el perimetro cerrado recoge lo
+        // mismo que un corte recto. Se elige la de menor rho1D, o sea la mas
+        // degenerada por esta medida, no la primera de la lista.
+        var firma = null;
+        conPunz.forEach(function(u){
+            if(u.punz.rho1D === null || u.punz.rho1D > 1.01) return;
+            if(firma === null || u.punz.rho1D < firma.punz.rho1D) firma = u;
+        });
+
+        // Tension de pico (12.0 punto 2). Numeros y booleanos, nada mas.
+        // picoAporta es el disparador de la sexta fila de la envolvente de
+        // diseno: la fila aparece sola cuando el pico agrega algo, igual que
+        // la tabla pasa de 6 a 9 columnas con viento reversible.
+        // Se eligio este disparador y no otro con el barrido completo: sobre
+        // 953.034 escenarios utiles, CONTIENE sin una sola excepcion a los
+        // otros tres candidatos, o sea que si no dispara tampoco cambia la
+        // combinacion que rige (28,4 %), ni el veredicto de punzonado (9,3 %)
+        // ni quien gobierna la altura (17,6 %). Y no depende de f'c, asi que
+        // la envolvente de diseno sigue siendo de solicitaciones y no arrastra
+        // resistencias del modulo 4. Ver barrido_disparo.js.
+        var enVP = r.env.vPico;
+        var vMediaMax = r.dis.vMedia, vPicoMax = r.dis.vPico;
+        var picoAporta = (vMediaMax !== null && vPicoMax !== null &&
+                          vPicoMax > vMediaMax*(1 + 1e-9));
+        var combPico = r.dis.combPico, combMedia = r.dis.combMedia;
+        // Por que f_pico vale 1 cuando vale 1: en el 99,99 % de esos casos la
+        // combinacion que rige el pico no tiene momento. redactar() no puede
+        // afirmar que el criterio simple subestima sin este hecho.
+        var picoSinMomento = !!(combPico && combPico.pico && combPico.pico.Mcru === 0);
+
         return {
             sinDiagrama:false, nUlt:r.ULT.length, nulo:nulo,
             nVuelco:nVuelco, hayVuelco:nVuelco > 0,
             nTracc:nTracc,   hayTracc:nTracc > 0,
+            nPunz:conPunz.length, nDeg:deg.length,
+            nSol0:conPunz.filter(function(u){ return u.punz.sinSuelo; }).length,
+            degPeor:degPeor, rigePunz:rigePunz, firma:firma,
+            rigeDeg:!!(rigePunz && rigePunz.punz.degenera),
             pico:pico, largo:largo, corto:corto,
             nAct:act.length, nCompleto:nCompleto, nParcial:act.length - nCompleto,
             contactoParcial:(pico.a < B - 1e-9), ratioContacto:(B > 0 ? pico.a/B : 0),
@@ -978,10 +1247,20 @@
             nGob:r.gobiernan.length, gobiernan:r.gobiernan, noGobierna:r.noGobierna,
             dispersionA:dispersionA,
             costo:costo, nAplica:nAplica, nSub:nSub,
-            peor:(peor < 0 ? 0 : peor), peorClave:peorClave
+            peor:(peor < 0 ? 0 : peor), peorClave:peorClave,
+            nPico:conPunz.filter(function(u){ return !!u.pico; }).length,
+            vMediaMax:vMediaMax, vPicoMax:vPicoMax,
+            fPico:(vMediaMax > 1e-9 && vPicoMax !== null) ? vPicoMax/vMediaMax : null,
+            combPico:combPico, combMedia:combMedia,
+            picoAporta:picoAporta,
+            picoSinMomento:picoSinMomento,
+            picoOtraComb:!!(combPico && combMedia && combPico !== combMedia),
+            picoDeg:!!(combPico && combPico.punz && combPico.punz.degenera),
+            Jc:(enVP && enVP.comb.pico) ? enVP.comb.pico.Jc : null,
+            gv:(enVP && enVP.comb.pico) ? enVP.comb.pico.gv : null
         };
     }
-    
+
     // -------------------------------------------------------------------
     // 12. REDACCION A PARTIR DE LOS HECHOS
     // Devuelve un arreglo de oraciones en texto plano. Cada oracion esta
@@ -1074,6 +1353,67 @@
                    '** apoyan sobre toda la base y **' + H.nParcial + '** despegan una parte. ' +
                    'La de menor contacto es ' + rot(H.corto) + ', con a = ' + n2(H.corto.a) + ' m.');
 
+        // 5 bis. Contacto del perimetro critico de punzonado (10.9).
+        // El art. 11.12.1 hace gobernar la MAS SEVERA de las dos condiciones,
+        // el comportamiento como viga del art. 11.12.1.1 y el de dos
+        // direcciones del art. 11.12.1.2. Ninguna de estas cinco oraciones
+        // sale si no hay un hecho medido que la respalde, y los numeros son
+        // de ESTAS entradas: el caso por defecto no prueba nada.
+        if(H.nPunz > 0 && H.nDeg === 0)
+            s.push('El rect\u00e1ngulo cr\u00edtico de punzonado tiene suelo debajo en toda su traza en ' +
+                   'las **' + H.nPunz + '** combinaciones donde el punzonado aplica: el mecanismo de ' +
+                   'dos direcciones del art. 11.12.1.2 est\u00e1 \u00edntegro en todas.');
+        if(H.nDeg > 0)
+            s.push('En **' + H.nDeg + ' de ' + H.nPunz + '** combinaciones el rect\u00e1ngulo cr\u00edtico ' +
+                   'apoya solo en parte: la peor es ' + rot(H.degPeor) + ', con **' +
+                   n0(100*H.degPeor.punz.solape) + ' % de solape** entre el per\u00edmetro y el suelo. ' +
+                   'El art. 11.12.1 hace gobernar la **m\u00e1s severa** de las dos condiciones, el ' +
+                   'comportamiento como viga del art. 11.12.1.1 y el de dos direcciones del art. ' +
+                   '11.12.1.2: cuando el segundo se degrada, el que sostiene la carga es el ' +
+                   'unidireccional, que esta herramienta ya calcula.');
+        if(H.nSol0 > 0)
+            s.push('En **' + H.nSol0 + '** de ellas no hay **nada** de suelo debajo del cono y ' +
+                   'V_u,punz es la carga entera de columna, porque no se resta nada. Como fuerza ese ' +
+                   'n\u00famero sigue siendo exacto, ya que es el equilibrio vertical del bloque ' +
+                   'interior al per\u00edmetro, pero repartirlo uniformemente sobre b_0.d dejar\u00eda ' +
+                   'de tener sentido.');
+        if(H.rigeDeg)
+            s.push('La combinaci\u00f3n que rige V_u,punz, **' + rot(H.rigePunz) + '**, es una de esas: ' +
+                   'el valor que alimenta el dimensionamiento sale de un per\u00edmetro que apoya sobre ' +
+                   'el ' + n0(100*H.rigePunz.punz.solape) + ' % de su traza.');
+        if(H.firma)
+            s.push('En ' + rot(H.firma) + ' el per\u00edmetro cerrado recoge lo mismo que un corte ' +
+                   'recto: V_u,punz = **' + n1(H.firma.sol.Vpunz) + ' kN** contra V_u,1D = **' +
+                   n1(H.firma.punz.V1D) + ' kN** en la misma combinaci\u00f3n. Ah\u00ed el per\u00edmetro ' +
+                   'no est\u00e1 trabajando como per\u00edmetro cerrado.');
+
+        // 5 ter. Tension de pico (12.0 punto 2). Ninguna de estas cuatro
+        // oraciones sale sin un hecho medido detras, y los numeros son de
+        // ESTAS entradas. En particular, cuando f_pico vale 1 NO se afirma
+        // que el criterio simple subestime: se dice por que vale 1.
+        if(H.nPico > 0 && H.picoAporta)
+            s.push('Repartir V_u,punz uniformemente sobre b_0.d da v_u = **' + n0(H.vMediaMax) +
+                   ' kPa**, pero el art. 11.12.6.2 pide el m\u00e1ximo con el momento incluido: ' +
+                   '**' + n0(H.vPicoMax) + ' kPa**, un factor de **' + n2(H.fPico) + '**. ' +
+                   'La parte que agrega el momento es gamma_v.M_cruza.c_AB/J_c, y M_cruza no es ' +
+                   'M_u de columna: es lo que del momento cruza el per\u00edmetro, o sea M_u menos ' +
+                   'el momento de la presi\u00f3n de suelo que queda dentro del per\u00edmetro.');
+        if(H.nPico > 0 && !H.picoAporta && H.picoSinMomento)
+            s.push('Ac\u00e1 la tensi\u00f3n de pico coincide con la media, o sea que el factor vale ' +
+                   '**1,00 exacto**. No es que el momento no importe: es que la combinaci\u00f3n que ' +
+                   'rige el pico, ' + rot(H.combPico) + ', **no tiene momento**, de modo que no hay ' +
+                   'nada que cruce el per\u00edmetro. Con otras acciones el factor sube.');
+        if(H.picoAporta && H.picoOtraComb)
+            s.push('El pico lo rige **' + rot(H.combPico) + '** y la media la rige **' +
+                   rot(H.combMedia) + '**: son combinaciones distintas. Por eso la fila de pico no ' +
+                   'se deduce de la de V_u,punz, y hay que evaluarla combinaci\u00f3n por ' +
+                   'combinaci\u00f3n en lugar de combinar m\u00e1ximos de la envolvente.');
+        if(H.picoAporta && H.picoDeg)
+            s.push('Cuidado con este valor: la combinaci\u00f3n que rige el pico, ' + rot(H.combPico) +
+                   ', apoya sobre el ' + n0(100*H.combPico.punz.solape) + ' % de la traza del ' +
+                   'rect\u00e1ngulo cr\u00edtico. El art. 11.12.6.2 supone la secci\u00f3n cr\u00edtica ' +
+                   '\u00edntegramente movilizada, y ac\u00e1 no lo est\u00e1.');
+
         // 6 bis. Traccion: fuera del alcance, se declara y no se calcula.
         if(H.hayTracc)
             s.push('**' + H.nTracc + '** combinaci' + (H.nTracc === 1 ? '\u00f3n deja' : 'ones dejan') +
@@ -1124,12 +1464,32 @@
         ['Vy',   'V<sub>u</sub> corte 1D, dirección L',   'kN',   '15.5.2 + 11.1.3.1',
          'aplicaVy',   'sección fuera del voladizo en L'],
         ['Vpunz','V<sub>u</sub> punzonado',               'kN',   '11.12.1.2',
+         'aplicaPunz', 'perímetro fuera de la zapata'],
+        // Octava fila. Unica en kPa: es una TENSION, no una fuerza, y por eso
+        // el simbolo va en minuscula, que es la notacion del art. 11.12.6.2
+        // (la lista de simbolos del reglamento define v_n como tension de
+        // corte). No lleva marca que la vincule con la fila de arriba: la
+        // combinacion que rige una puede no ser la de la otra, y sugerir que
+        // se deduce es exactamente lo contrario de lo que la fila muestra.
+        ['vPico','v<sub>u,punz</sub> de pico',            'kPa',  '11.12.6.2',
          'aplicaPunz', 'perímetro fuera de la zapata']
     ];
 
     // Convierte el texto plano de redactar() a HTML: enfasis y subindices.
     // El orden importa, q_u,max antes que M_u y V_u.
-    var TOKENS=[['q_u,máx','q<sub>u,máx</sub>'],['M_u','M<sub>u</sub>'],['V_u','V<sub>u</sub>']];
+    // El orden importa: los tokens largos van ANTES que los cortos, si no
+    // 'V_u' se come el prefijo de 'V_u,punz' y deja ',punz' suelto.
+    // 'M_cruza' va ANTES que 'M_u' aunque no compartan prefijo: el orden de
+    // esta lista es el orden de reemplazo y conviene no depender de que no
+    // colisionen hoy. 'v_u' en minuscula no colisiona con 'V_u' porque split
+    // distingue mayusculas, pero se deja abajo por la misma razon.
+    var TOKENS=[['q_u,máx','q<sub>u,máx</sub>'],['M_cruza','M<sub>cruza</sub>'],
+                ['M_u','M<sub>u</sub>'],
+                ['V_u,punz','V<sub>u,punz</sub>'],['V_u,1D','V<sub>u,1D</sub>'],
+                ['b_0.d','b<sub>0</sub>·d'],['V_u','V<sub>u</sub>'],
+                ['gamma_v','γ<sub>v</sub>'],['gamma_f','γ<sub>f</sub>'],
+                ['c_AB','c<sub>AB</sub>'],['J_c','J<sub>c</sub>'],
+                ['v_u','v<sub>u</sub>']];
     function aHTML(s){
         s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
         TOKENS.forEach(function(t){ s=s.split(t[0]).join(t[1]); });
@@ -1156,6 +1516,16 @@
                     fx(c.err,1)+' %</td></tr>';
             }).join('')+'</table>';
     }
+
+    // Mismo patron que recSel(): el campo se habilita solo al elegir editable,
+    // y mientras esta en calculado muestra el valor vigente en lugar de un
+    // numero muerto. Sin esto, pasar a editable arrancaria desde un valor
+    // arbitrario en vez del que la herramienta venia usando.
+    function jcSel(){
+        var s=_v('iJcSel'), inp=_e('iJc');
+        inp.disabled = (s!=='edit');
+    }
+    window.jcSel = jcSel;
 
     function recSel(){
         var s=_v('iRecSel'), inp=_e('iRec');
@@ -1762,6 +2132,9 @@
                 ' | '+sub('A','0',' = '+fx(b1,3)+' x '+fx(b2,3)+' = '+fx(b1*b2,3)+' m²');
             if(val!==null && u) inf+=' | &#8747;q dentro = '+sub('V','u',' - ')+
                 sub('V','u,punz',' = '+fx(u.V-val,1)+' kN');
+            // Solape del rectangulo critico con el suelo. Es la hipotesis del
+            // art. 11.12.6.2: seccion critica integramente movilizada.
+            if(u && u.punz) inf+=' | solape '+fx(100*u.punz.solape,0)+' %';
         }
         g+='<text x="'+(W/2)+'" y="'+yInfo+'" text-anchor="middle" font-size="11" fill="#475569">'+inf+'</text>';
 
@@ -1780,6 +2153,27 @@
         if(parcial)
             av.push('<span class="warn-badge warn-y">El diagrama de '+rotulo(u)+' apoya sobre a = '+
                     fx(pf.a,3)+' m de B = '+fx(B,2)+' m: la zona gris no tiene contacto con el suelo</span>');
+        // ---- aviso de mecanismo de dos direcciones degradado (ESTADO.md 10.9) ----
+        // Habla de la combinacion MOSTRADA, que es la que dibuja el grafico. El
+        // agregado sobre todas vive en redactar(), no aca: mezclar dos
+        // combinaciones en un mismo dibujo arma un estado que no existe.
+        var cp = u ? u.punz : null;
+        if(cp && cp.degenera){
+            av.push('<span class="warn-badge warn-r">Mecanismo de dos direcciones degradado en '+
+                rotulo(u)+': el rectángulo crítico apoya sobre el <strong>'+fx(100*cp.solape,0)+
+                ' %</strong> de su traza'+
+                (cp.sinSuelo ? ', o sea que no hay <strong>nada</strong> de suelo debajo del cono' : '')+
+                '. El art. 11.12.1 hace gobernar la <strong>más severa</strong> de las dos condiciones, '+
+                'el comportamiento como viga (art. 11.12.1.1) y el de dos direcciones (art. 11.12.1.2): '+
+                'acá el que sostiene la carga es el unidireccional'+
+                (cp.rho1D!==null && cp.rho1D<=1.01
+                    ? ', y se ve en que V<sub>u,punz</sub> = '+fx(val,1)+' kN contra V<sub>u,1D</sub> = '+
+                      fx(cp.V1D,1)+' kN en la misma combinación'
+                    : '')+
+                '. V<sub>u,punz</sub> como fuerza sigue siendo exacto, porque es el equilibrio del bloque '+
+                'interior al perímetro; lo que deja de valer es repartirlo uniformemente sobre '+
+                'b<sub>0</sub>·d, que es la hipótesis del art. 11.12.6.2</span>');
+        }
         _e(nota).innerHTML=
             'Vista en planta. Sigue el <strong>mismo selector de combinación</strong> del gráfico anterior: '+
             'el perímetro es geométrico y no cambia con la combinación, pero V<sub>u,punz</sub> sí. '+
@@ -1817,7 +2211,8 @@
         ['Vder', 'V','u,der', 'kN',       'aplicaVder','sección fuera'],
         ['Vizq', 'V','u,izq', 'kN',       'aplicaVizq','sección fuera'],
         ['Vy',   'V','u,y',   'kN',       'aplicaVy',  'sección fuera'],
-        ['Vpunz','V','u,punz','kN',       'aplicaPunz','perímetro fuera']
+        ['Vpunz','V','u,punz','kN',       'aplicaPunz','perímetro fuera'],
+        ['vPico','v','u,punz','kPa',      'aplicaPunz','perímetro fuera']
     ];
 
     function svgBarras(id, nota, r, I, sel, HE){
@@ -2498,7 +2893,8 @@
             plano:_v('iPlano'),
             B:_g('sB'), L:_g('sL'), h:_g('sH'), Df:_g('sDf'),
             c1:_g('iC1'), c2:_g('iC2'), r:rec,
-            gh:_g('iGh'), gs:_g('iGs'), fc:_g('iFc'), fy:_g('iFy')
+            gh:_g('iGh'), gs:_g('iGs'), fc:_g('iFc'), fy:_g('iFy'),
+            Jc:(_v('iJcSel')==='edit' ? _g('iJc') : null)
         };
     }
 
@@ -2515,6 +2911,21 @@
         _e('avDf').innerHTML = (I.Df < I.h)
             ? '<span class="warn-badge warn-r">D<sub>f</sub> &lt; h</span> La cota de fundación no puede ser menor que la altura de la zapata. Se toma tapada nula.'
             : 'Tapada t = D<sub>f</sub> - h = '+(I.Df-I.h).toFixed(2)+' m';
+        // El campo de J_c refleja el valor vigente mientras esta en calculado,
+        // de modo que pasar a editable arranque desde ahi y no desde un cero.
+        var jcRef=null;
+        (function(){
+            var d0=I.h-I.r;
+            if(d0>0 && I.c1>0 && I.c2>0){
+                var a1=I.c1+d0, a2=I.c2+d0;
+                jcRef=d0*a1*a1*a1/6 + a1*d0*d0*d0/6 + d0*a2*a1*a1/2;
+            }
+        })();
+        if(_v('iJcSel')!=='edit' && jcRef!==null) _e('iJc').value=jcRef.toFixed(6);
+        _e('nJc').innerHTML = (_v('iJcSel')==='edit')
+            ? ' <strong>Estás usando un J<sub>c</sub> propio</strong>: '+fx(_g('iJc'),6)+
+              ' m⁴ contra '+(jcRef===null?'n/a':fx(jcRef,6))+' m⁴ de la expresión del comentario.'
+            : (jcRef===null ? '' : ' Valor vigente: '+fx(jcRef,6)+' m⁴.');
         _e('nRec').innerHTML='d = h - r = '+(I.h-I.r).toFixed(3)+' m. '+
             (I.h-I.r<=0?'<span class="warn-badge warn-r">d ≤ 0</span>':'')+
             ' Simplificación: estrictamente d se mide al baricentro de la armadura y las dos direcciones '+
@@ -2720,6 +3131,19 @@
             ['V<sub>u,punz</sub>','kN', r.env.Vpunz?r.dis.Vup:null, r.env.Vpunz,
              'valor único, el perímetro crítico es simétrico'+sentU]
         ];
+        // Sexta fila CONDICIONAL. Aparece sola, sin control que tildar, igual
+        // que la tabla de arriba pasa de 6 a 9 columnas con viento reversible.
+        // Sale cuando el pico agrega algo sobre la media (HH.picoAporta); si
+        // no agrega nada, mostrar un valor SIN VERIFICAR que repite el de la
+        // fila de arriba seria ruido. El disparador se eligio con el barrido
+        // completo: contiene sin excepcion a los otros tres candidatos y no
+        // depende de f'c, de modo que esta tabla sigue siendo de
+        // solicitaciones y no arrastra resistencias del modulo 4.
+        if(HH.picoAporta)
+            FIL_DIS.push(['v<sub>u,punz</sub> de pico','kPa', r.dis.vPico, r.env.vPico,
+                'máximo de V<sub>u,punz</sub>/(b<sub>0</sub>·d) + γ<sub>v</sub>·M<sub>cruza</sub>·'+
+                'c<sub>AB</sub>/J<sub>c</sub> <strong>por combinación</strong>, no combinando máximos'+
+                ' <span class="warn-badge warn-y">SIN VERIFICAR</span>']);
         _e('tDis').innerHTML=(HH.sinDiagrama ? avisoCorto :
             '<table class="tbl-env"><tr><th>Solicitación de diseño</th>'+
             '<th>Valor</th><th>Rige</th><th class="izq">Cómo se obtiene</th></tr>'+
@@ -2731,7 +3155,17 @@
             }).join('')+'</table>'+
             '<div class="note">Estos son los valores que alimentan el dimensionamiento del '+
             'módulo 4. Los lados se funden en un solo valor porque la zapata se arma simétrica: la '+
-            'armadura no sabe de qué lado sopló el viento.</div>');
+            'armadura no sabe de qué lado sopló el viento.'+
+            // Sin esta aclaracion la frase de arriba le daria a la fila de pico
+            // el mismo estatus que a las otras cinco, y no lo tiene: es
+            // informativa y no gobernante. Solo sale cuando la fila esta.
+            (HH.picoAporta
+             ? ' <strong>La última fila es la excepción</strong>: es informativa y no gobierna nada. '+
+               'γ<sub>v</sub> sale del art. 11.12.6.1 con la (13-1) del art. 13.5.3.2, y c<sub>AB</sub> '+
+               '= b<sub>1</sub>/2 es geometría del perímetro, pero <strong>J<sub>c</sub> no figura en '+
+               'CIRSOC 201-2005</strong>: viene del comentario R11.11.7.2 del ACI. Aparece porque acá '+
+               'el pico supera a la media, y no aparece cuando no la supera.'
+             : '')+'</div>');
 
         // ---------- MODULO 3: grafico de secciones criticas ----------
         // El selector se reconstruye en cada pasada porque la lista de
